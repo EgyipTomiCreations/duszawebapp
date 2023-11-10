@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Alkotók</title>
+    <link rel="icon" type="image/x-icon" href="/src/img/logo.svg">
+    <link rel="stylesheet" href="./sass/about.css">
+</head>
+<body>
+    <div id="content">
+        <h2 id="editableTitle" contenteditable="true">Szerkeszthető Cím</h2>
+        <p id="editableParagraph" contenteditable="true">Ez egy szerkeszthető bekezdés. Kattintson rá, és módosítsa a szöveget!</p>
+    </div>
+
+    <button onclick="saveChanges()">Változások mentése</button>
+    <br><br>
+    <button id="versenyGomb" disabled>Verseny indítása</button>
+
+    <script>
+        // Ellenőrzi, hogy van-e mentett tartalom a böngésző tárolójában
+        const storedTitle = localStorage.getItem('editedTitle');
+        const storedContent = localStorage.getItem('editedContent');
+
+        if (storedTitle) {
+            document.getElementById('editableTitle').innerHTML = storedTitle;
+        }
+
+        if (storedContent) {
+            document.getElementById('editableParagraph').innerHTML = storedContent;
+        }
+
+        // Menti a változtatásokat a böngésző tárolójába
+        function saveChanges() {
+            const editedTitle = document.getElementById('editableTitle').innerHTML;
+            const editedContent = document.getElementById('editableParagraph').innerHTML;
+
+            localStorage.setItem('editedTitle', editedTitle);
+            localStorage.setItem('editedContent', editedContent);
+
+            alert('Változtatások elmentve!');
+        }
+    
+        // script.js
+
+        // A gomb referencia
+        const versenyGomb = document.getElementById('versenyGomb');
+
+        // Gomb aktiválása, ha elérkezett a verseny ideje
+        const versenyIdeje = new Date('2023-11-10T18:48:00'); // Az aktuális dátumra és időpontra módosítsd
+        const most = new Date();
+
+        console.log('Most:', most);
+        console.log('Verseny ideje:', versenyIdeje);
+
+        if (most >= versenyIdeje) {
+            versenyGomb.removeAttribute('disabled');
+            console.log('A gomb most már aktív.');
+        } else {
+            console.log('A gomb még mindig nem aktív.');
+            versenyGomb.setAttribute('disabled', 'true');
+        }
+
+        // Csapatok megjelenítése
+        function megjelenitCsapatok() {
+            // Itt lehetne megvalósítani a csapatok megjelenítését
+            // Példa: Ajax hívás, adatbázisból lekérés stb.
+        }
+
+        // Gomb kattintás eseménykezelője
+        versenyGomb.addEventListener('click', () => {
+            // Átirányítás a Verseny oldalra
+            window.location.href = 'verseny.html'; // A Verseny oldal elérési útját módosítsd
+        });
+
+    </script>
+</body>
+</html>
