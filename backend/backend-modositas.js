@@ -1,6 +1,13 @@
 var config = require('./backend-config');
 var mysql = require('mysql');
 
+var id = "";
+var modositottnev = "";
+var modositottjelszo = "";
+var modositottszerepkor = "";
+var modositottevfolyam = "";
+var modositottosztalyjel = "";
+
 var con = mysql.createConnection({
   host: config.host,
   user: config.user,
@@ -20,10 +27,8 @@ con.query(`USE ${config.adatbazisnev}`, function (err) {
     if (err) throw err;
     });
 
-    con.query("SELECT * FROM felhasznalok;", function (err, result, fields) {
+    con.query(`UPDATE felhasznalok SET nev = ${modositottnev}, jelszo = ${modositottjelszo}, szerepkor = ${modositottszerepkor}, evfolyam = ${modositottevfolyam}, osztalyjel = ${modositottosztalyjel} WHERE id = ${id}`, function (err, result, fields) {
         if (err) throw err;
             console.log(result[0].id);
             
         });
-
-    

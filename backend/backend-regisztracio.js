@@ -1,3 +1,6 @@
+var config = require('./backend-config');
+var adatbazisnev = "test";
+
 var regisztraciosnev = "tesztecske";
 var regisztraciosjelszo = "asdf";
 var regisztraciosszerepkor = "Tanár";
@@ -8,10 +11,10 @@ var hibauzenet = "";
 var mysql = require('mysql');
 
 var con = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: ""
-});
+    host: config.host,
+    user: config.user,
+    password: config.password
+  });
 
 con.connect(function(err) {
   if (err) 
@@ -22,7 +25,7 @@ con.connect(function(err) {
   console.log("Sikeres adatbázis csatlakozás!");
 });
 
-con.query("USE test", function (err) {
+con.query(`USE ${config.adatbazisnev}`, function (err) {
     if (err) throw err;
 });
 

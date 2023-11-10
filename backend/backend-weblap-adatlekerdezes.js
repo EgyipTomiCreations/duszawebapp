@@ -1,6 +1,10 @@
 var config = require('./backend-config');
 var mysql = require('mysql');
 
+var nev = "";
+var leiras = "";
+var ikonbase64 = "";
+
 var con = mysql.createConnection({
   host: config.host,
   user: config.user,
@@ -20,10 +24,10 @@ con.query(`USE ${config.adatbazisnev}`, function (err) {
     if (err) throw err;
     });
 
-    con.query("SELECT * FROM felhasznalok;", function (err, result, fields) {
+    con.query("SELECT nev, leiras, ikonbase64 FROM weblapadatok;", function (err, result) {
         if (err) throw err;
-            console.log(result[0].id);
+            nev = result[0].nev;
+            leiras = result[0].leiras;
+            ikonbase64 = result[0].ikonbase64;
             
         });
-
-    
