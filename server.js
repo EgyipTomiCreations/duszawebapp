@@ -1,28 +1,22 @@
-const express = require('express');
+const express = require("express")
 const path = require('path');
-const fs = require('fs');
+const app = express()
+const PORT = 3000;
 
-const app = express();
-const port = 3000;
 
-// Statikus fájlok kiszolgálása a public könyvtárból
-app.use(express.static(path.join(__dirname, 'src', 'public')));
+let intialPath = path.join(__dirname, "public");
+
+app.use(express.static(intialPath));
+app.use('/scripts', express.static(path.join(__dirname, 'node_modules/bootstrap/dist/js')));
 
 app.get('/', (req, res) => {
-    // Olvasd be az HTML fájlt
-    fs.readFile(path.join(__dirname, 'src', 'public', 'webmester.html'), 'utf8', (err, data) => {
-        if (err) {
-            console.error('Hiba az HTML fájl olvasása közben:', err);
-            res.status(500).send('Internal Server Error');
-            return;
-        }
+    res.sendFile(path.join(intialPath, "webmester.html"));
+})
 
-        // Küldd vissza az HTML tartalmát a kliensnek
-        res.send(data);
-    });
-});
+app.get('/home', (req, res) => {
+    res.sendFile(path.join(intialPath, "about.html"));
+})
 
-// Indítsd el a webszervert a megadott porton
-app.listen(port, () => {
-    console.log(`A webszerver fut a http://localhost:${port} címen`);
-});
+app.listen(PORT, () =>{
+    console.log(`A szerver fur a http://localhost:${PORT}`);
+})
