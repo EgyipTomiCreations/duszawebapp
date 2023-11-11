@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zsűri</title>
+    <link rel="icon" type="image/x-icon" href="/src/img/logo.svg">
+    <link rel="stylesheet" href="/src/public/sass/about.css">
+    <style>
+        label {
+            display: block;
+            margin-bottom: 10px;
+            text-align: left; /* vagy bármilyen más elrendezés, amely megfelel az igényeidnek */
+        }
+        
+        h2 {
+            margin-left: 50%;
+            margin-right: 50%;
+            width: 50%;
+        }
+
+        form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        textarea {
+            height: 80px; /* Igény szerint módosítható */
+            width: 750px;
+        }
+
+        input {
+            height: 30px; /* Igény szerint módosítható */
+            width: 250px;
+        }
+
+        button {
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body style="height: 100vh;">
+    <nav class="navbar navbar-expand-lg" style="background-color: #ffddb0;">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">
+                <img src="/src/img/header-logo.svg" alt="" height="60" class="d-inline-block align-text-center">
+            </a>
+            <div class="collapse navbar-collapse" id="navbarNav">
+              <ul class="navbar-nav ms-auto">
+                  <li class="nav-item dropdown">
+                    <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57">
+                      Webmester
+                    </button>
+                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                      <li><a class="dropdown-item" href="#">Profil kezelése</a></li>
+                      <li><a class="dropdown-item" href="#">Kilépés</a></li>
+                    </ul>
+                  </li>            
+                </ul>  
+              </div>
+          </div>
+    </nav>
+    <div class="container" style="margin: 10px;">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="list-group" style="width: 300px; padding: 24px;">
+                    <a href="#" class="list-group-item list-group-item-action">Verseny létrehozás</a>
+                    <a href="#" class="list-group-item list-group-item-action">Statisztikák</a>
+                </div>
+            </div>
+            <div class="col-md-8">
+                <h2>Verseny létrehozása</h2>
+                <form id="versenyForm">
+                    <label for="nev">Verseny neve:</label>
+                    <input type="text" id="nev" name="nev" required>
+            
+                    <label for="leiras">Rövid leírás:</label>
+                    <textarea id="leiras" name="leiras" required></textarea>
+            
+                    <label for="evfolyam">Évfolyam:</label>
+                    <select id="evfolyam" name="evfolyam" style="width: 250px" required>
+                        <option value="9">5. évfolyam</option>
+                        <option value="10">6. évfolyam</option>
+                        <option value="11">7. évfolyam</option>
+                        <option value="12">8. évfolyam</option>
+                    </select>
+            
+                    <label for="kezdetiIdo">Kezdeti időpont:</label>
+                    <input type="datetime-local" id="kezdetiIdo" name="kezdetiIdo" required>
+            
+                    <label for="vegiIdo">Végi időpont:</label>
+                    <input type="datetime-local" id="vegiIdo" name="vegiIdo" required>
+            
+                    <label for="feladatok">Megoldandó feladatok:</label>
+                    <!-- Itt lehetne egy checkbox csoport vagy legördülő lista a feladatokhoz -->
+            
+                    <label for="csapatok">Csapatok hozzáadása:</label>
+                    <select id="csapatok" name="csapatok" style="height: 100px; width: 250px" multiple required>
+                        <option value="csapat1">Csapat 1</option>
+                        <option value="csapat2">Csapat 2</option>
+                        <option value="csapat3">Csapat 3</option>
+                        <!-- További csapatok hozzáadása -->
+                    </select>
+            
+                    <!-- További mezők és paraméterek hozzáadása -->
+                    <br>
+                    <button type="submit">Létrehozása</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const versenyForm = document.getElementById('versenyForm');
+
+            versenyForm.addEventListener('submit', function (event) {
+                event.preventDefault();
+
+                // Az űrlap adatainak gyűjtése
+                const nev = document.getElementById('nev').value;
+                const leiras = document.getElementById('leiras').value;
+
+                // További adatok gyűjtése a formból
+
+                // Elküldés a szerverre (itt a szerver URL-jét kell beállítani)
+                sendDataToServer(nev, leiras);
+
+                // További mezők törlése vagy egyéb műveletek végrehajtása
+
+                alert('Verseny sikeresen létrehozva!');
+            });
+
+            function sendData(nev, leiras) {
+                // Itt implementáld a szerverrel való kommunikációt (pl. fetch API használata)
+                // Példa: fetch('/szerver-endpoint', { method: 'POST', body: JSON.stringify({ nev, leiras }), headers: { 'Content-Type': 'application/json' } })
+            }
+        });
+    </script>
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/src/public/js/webmester-tagok.js"></script>
+</body>
+</html>
