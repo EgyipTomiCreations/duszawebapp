@@ -1,3 +1,12 @@
+if(localStorage.getItem('Privilage') != "Webmester"){
+    location.href = '/'
+}
+
+document.getElementById('loguotBtn').addEventListener("click", (e)=>{
+    localStorage.removeItem('Privilage')
+    location.reload(); 
+})
+
 const studentAdderForm = document.getElementById("studentAdderForm");
 const newStudentAdderBtn = document.getElementById("newStudentAdderBtn");
 let studentCounter = 0
