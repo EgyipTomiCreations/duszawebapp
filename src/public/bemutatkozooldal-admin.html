@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bemutatkozó oldal - Webmester</title>
+    <link rel="icon" type="image/x-icon" href="/src/img/logo.svg">
+    <link rel="stylesheet" href="/src/public/sass/about.css">
+</head>
+<body style="height: 100vh;">
+    <nav class="navbar navbar-expand-lg" style="background-color: #ffddb0;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+              <img src="/src/img/header-logo.svg" alt="" height="60" class="d-inline-block align-text-center">
+          </a>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                  <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57">
+                    Webmester
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#">Profil kezelése</a></li>
+                    <li><a class="dropdown-item" href="#">Kilépés</a></li>
+                  </ul>
+                </li>            
+              </ul>  
+            </div>
+        </div>
+      </nav>
+      <div class="container" style="margin: 10px;">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="list-group" style="width: 300px; padding: 24px;">
+                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true" style="align-items: center;">
+                        <img src="/src/img/icons/people.svg" height="20px" alt="">
+                        Tagok
+                    </a>
+                    <a href="#" class="list-group-item list-group-item-action">Bemutatkozó oldal</a>
+                    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+                    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+                </div>
+            </div>
+            
+            <div class="col-md-8">
+                <div id="content" class="mt-4">
+                    <h2 id="editableTitle" contenteditable="true" class="mb-4" style="margin-left: 50%;">Szerkeszthető Cím</h2>
+                    <p id="editableParagraph" contenteditable="true">Ez egy szerkeszthető bekezdés. Kattintson rá, és módosítsa a szöveget!</p>
+                </div>
+                <div style="margin-top: 20px;">
+                    <input type="file" id="imageInput" accept="image/*">
+                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" onclick="uploadImage()">Fotó feltöltése</button>
+                </div>                            
+                <div style="margin-top: 20px;">
+                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3", onclick="saveChanges()">Mentés</button>   
+                    
+                </div>            
+                <div class="operation-box" style="margin-top: 20px;">
+                </div>
+            </div>
+        </div>
+    </div>
+        <script>
+            // Ellenőrzi, hogy van-e mentett tartalom a böngésző tárolójában
+            const storedTitle = localStorage.getItem('editedTitle');
+            const storedContent = localStorage.getItem('editedContent');
+    
+            if (storedTitle) {
+                document.getElementById('editableTitle').innerHTML = storedTitle;
+            }
+    
+            if (storedContent) {
+                document.getElementById('editableParagraph').innerHTML = storedContent;
+            }
+    
+            // Menti a változtatásokat a böngésző tárolójába
+            function saveChanges() {
+                const editedTitle = document.getElementById('editableTitle').innerHTML;
+                const editedContent = document.getElementById('editableParagraph').innerHTML;
+    
+                localStorage.setItem('editedTitle', editedTitle);
+                localStorage.setItem('editedContent', editedContent);
+    
+                sendData(editedTitle, editedContent);
+    
+                alert('Változtatások elmentve!');
+            }
+            //
+            function uploadImage() {
+                const imageInput = document.getElementById('imageInput');
+                const selectedImage = imageInput.files[0];
+
+                if (selectedImage) {
+                    // Elvileg itt kell feltölteni szerverre
+                    console.log('Kiválasztott kép:', selectedImage);
+                } else {
+                    console.log('Nincs kiválasztott kép.');
+                }
+            }
+            
+            function sendData(nev, leiras) {
+            const kommunikaciosAdat = {};
+            kommunikaciosAdat.kategoria = "weblap";
+            kommunikaciosAdat.tipus = "lekerdezes";
+            kommunikaciosAdat.nev = nev;
+            kommunikaciosAdat.leiras = leiras;
+    
+            const dataString = JSON.stringify({ data: kommunikaciosAdat });
+            const contentLength = dataString.length;
+    
+            fetch('/adatKuldes', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Content-Length': contentLength.toString(),
+            },
+            body: dataString,
+        })
+        .then(response => response.json())
+        .then(uzenet => {
+            console.log(uzenet);
+        })
+        .catch(error => {
+            console.error(error);
+        });
+    }
+        </script>  
+        </div>
+      </div>
+      <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="/src/public/js/webmester-tagok.js"></script>
+</body>
+</html>
