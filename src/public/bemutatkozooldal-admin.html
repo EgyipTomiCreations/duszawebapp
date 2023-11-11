@@ -46,7 +46,11 @@
                 <div id="content" class="mt-4">
                     <h2 id="editableTitle" contenteditable="true" class="mb-4" style="margin-left: 50%;">Szerkeszthető Cím</h2>
                     <p id="editableParagraph" contenteditable="true">Ez egy szerkeszthető bekezdés. Kattintson rá, és módosítsa a szöveget!</p>
-                </div>            
+                </div>
+                <div style="margin-top: 20px;">
+                    <input type="file" id="imageInput" accept="image/*">
+                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" onclick="uploadImage()">Fotó feltöltése</button>
+                </div>                            
                 <div style="margin-top: 20px;">
                     <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3", onclick="saveChanges()">Mentés</button>   
                     
@@ -80,6 +84,18 @@
                 sendData(editedTitle, editedContent);
     
                 alert('Változtatások elmentve!');
+            }
+            //
+            function uploadImage() {
+                const imageInput = document.getElementById('imageInput');
+                const selectedImage = imageInput.files[0];
+
+                if (selectedImage) {
+                    // Elvileg itt kell feltölteni szerverre
+                    console.log('Kiválasztott kép:', selectedImage);
+                } else {
+                    console.log('Nincs kiválasztott kép.');
+                }
             }
             
             function sendData(nev, leiras) {
