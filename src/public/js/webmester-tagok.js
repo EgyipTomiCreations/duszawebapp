@@ -32,7 +32,13 @@ newStudentAdderBtn.addEventListener('click', () => {
 function sendData() {
     const kommunikaciosAdat = {};
     kommunikaciosAdat.kategoria = "felhasznalo";
-    kommunikaciosAdat.tipus = "lekerdezes";
+    kommunikaciosAdat.tipus = "modositas";
+    kommunikaciosAdat.id = 10;
+    kommunikaciosAdat.nev = "Solymosi Tamás";
+    kommunikaciosAdat.jelszo = "asd124";
+    kommunikaciosAdat.szerepkor = "Webmester";
+    kommunikaciosAdat.evfolyam = 11;
+    kommunikaciosAdat.osztalyjel = "C";
 
     const dataString = JSON.stringify({ data: kommunikaciosAdat });
     const contentLength = dataString.length;
@@ -41,7 +47,7 @@ function sendData() {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Content-Length': contentLength.toString(), // Hozzáadott sor
+            'Content-Length': contentLength.toString(),
         },
         body: dataString,
     })

@@ -12,7 +12,7 @@ function weblapadatlekerdezes(callback) {
   var con = mysql.createConnection({
     host: config.host,
     user: config.user,
-    password: ""
+    password: config.password
   });
 
   con.connect(function (err) {

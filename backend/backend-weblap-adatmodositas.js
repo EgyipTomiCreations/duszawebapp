@@ -3,14 +3,14 @@ var mysql = require('mysql');
 const fs = require("fs");
 const { callbackify } = require('util');
 
-function weblapadatmodositas(modositottnev, modositottleiras, modositottikonutvonal){
+function weblapadatmodositas(modositottnev, modositottleiras, modositottikonutvonal, callback){
 
 kepbuffer = Buffer.from(fs.readFileSync(modositottikonutvonal), "base64").toString();
 
 var con = mysql.createConnection({
   host: config.host,
   user: config.user,
-  password: ""
+  password: config.password
 });
 
 con.connect(function (err) {

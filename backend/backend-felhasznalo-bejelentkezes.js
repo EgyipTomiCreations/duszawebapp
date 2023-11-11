@@ -1,7 +1,8 @@
 var config = require('./backend-config');
+var mysql = require('mysql');
 
 
-function felhasznalobejelentkezes(bejelentkezesinev, bejelentkezesijelszo){
+function felhasznalobejelentkezes(bejelentkezesinev, bejelentkezesijelszo, callback){
 
   var con = mysql.createConnection({
     host: config.host,
@@ -25,7 +26,7 @@ con.connect(function (err) {
     
   });
 
-  con.query(`SELECT nev FROM felhasznalok WHERE nev = "${bejelentkezesinev}";`, function (err, result, fields) {
+  con.query(`SELECT nev FROM felhasznalok WHERE nev = "${bejelentkezesinev}";`, function (err, result) {
     if (err)
     {
       con.end();
@@ -60,10 +61,12 @@ con.connect(function (err) {
             }            
         });
     }
-    else
-        con.end();
-        callback("Nem létezik felhasználó ilyen névvel!");
-    });
+    else{
+      con.end();
+      callback("Nem létezik felhasználó ilyen névvel!");
+    }
+        
+});
 
 
 }

@@ -6,6 +6,8 @@ const fs = require('fs');
 const app = express();
 const port = 3000;
 
+var kommunikaciosAdat;
+
 app.use("/", express.static(__dirname, + '/'));
 
 app.get('/', (req, res) => {
@@ -25,35 +27,30 @@ app.listen(port, () => {
 
 app.use(bodyParser.json());
 app.post('/adatKuldes', async (req, res) => {
-    const kommunikaciosAdat = req.body.data;
-    console.log(req.body.data);
+    kommunikaciosAdat = req.body.data;
     console.log('Kapott adat a frontendtől:', kommunikaciosAdat);
 
     if (kommunikaciosAdat.kategoria == "weblap") {
         
         if  (kommunikaciosAdat.tipus == "lekerdezes")
-        {
-            const weblaplekerdezes = require('./backend/backend-weblap-adatlekerdezes');
-            weblaplekerdezes((err, result) => {
-                if (err) {
-                    console.error(err);
-                    res.json({ siker: false, uzenet: err });
-                } else {
-                    res.json({ siker: true, uzenet: result });
-                }
-                });
+        {           
+            try {
+                const result = await weblaplekerdezesAsync();
+                res.json({ siker: true, uzenet: result });
+            } catch (err) {
+                console.error(err);
+                res.json(err);
+            }
         }
         if  (kommunikaciosAdat.tipus == "adatmodositas")
-        {
-            const weblapadatmodositas = require('./backend/backend-weblap-adatmodositas');
-            weblapadatmodositas((err, result) => {
-                if (err) {
-                    console.error(err);
-                    res.json({ siker: false, uzenet: err });
-                } else {
-                    res.json({ siker: true, uzenet: result });
-                }
-                })
+        {           
+            try {
+                const result = await weblapadatmodositasAsync();
+                res.json(result);
+            } catch (err) {
+                console.error(err);
+                res.json({ siker: false, uzenet: err });
+            }
         }
 
     }
@@ -71,63 +68,95 @@ app.post('/adatKuldes', async (req, res) => {
             }
         }
         if  (kommunikaciosAdat.tipus == "bejelentkezes")
-        {
-            const felhasznalobejelentkezes = require('./backend/backend-felhasznalo-bejelentkezes');
-            felhasznalobejelentkezes(kommunikaciosAdat.nev, kommunikaciosAdat.jelszo, (err, result) => {
-                if (err) {
-                    console.error(err);
-                    res.json({ siker: false, uzenet: err });
-                } else {
-                    res.json({ siker: true, uzenet: result });
-                }
-                });
+        {           
+            try {
+                const result = await felhasznalobejelentkezesAsync(kommunikaciosAdat);
+                res.json(result);
+            } catch (err) {
+                console.error(err);
+                res.json({ siker: false, uzenet: err });
+            }
         }
         if  (kommunikaciosAdat.tipus == "regisztracio")
         {
-            const felhasznaloregisztracio = require('./backend/backend-felhasznalo-regisztracio');
-            felhasznaloregisztracio(kommunikaciosAdat.nev, kommunikaciosAdat.jelszo, kommunikaciosAdat.szerpkor, kommunikaciosAdat.evfolyam,  (err, result) => {
-                if (err) {
-                    console.error(err);
-                    res.json({ siker: false, uzenet: err });
-                } else {
-                    res.json({ siker: true, uzenet: result });
-                }
-            });
-            
-        }
-        if  (kommunikaciosAdat.tipus == "modositas")
-        {
-            const felhasznalomodositas = require('./backend/backend-felhasznalo-modositas');
-            felhasznalomodositas(kommunikaciosAdat.bejelentkezesinev, kommunikaciosAdat.bejelentkezesijelszo, (err, result) => {
-            if (err) {
+            try {
+                const result = await felhasznaloregisztracioAsync(kommunikaciosAdat);
+                res.json(result);
+            } catch (err) {
                 console.error(err);
                 res.json({ siker: false, uzenet: err });
-            } else {
-                res.json({ siker: true, uzenet: result });
             }
-            });
+        }
+        if  (kommunikaciosAdat.tipus == "modositas")
+        {            
+            try {
+                const result = await felhasznalomodositasAsync(kommunikaciosAdat);
+                res.json(result);
+            } catch (err) {
+                console.error(err);
+                res.json({ siker: false, uzenet: err });
+            }
         }
         if  (kommunikaciosAdat.tipus == "torles")
         {
-            const felhasznalotorles = require('./backend/backend-felhasznalo-torles');
-            felhasznalotorles(kommunikaciosAdat.nev, (err, result) => {
-            if (err) {
+            try {
+                const result = await felhasznalotorlesAsync(kommunikaciosAdat);
+                res.json(result);
+            } catch (err) {
                 console.error(err);
                 res.json({ siker: false, uzenet: err });
-            } else {
-                res.json({ siker: true, uzenet: result });
             }
-            });
         }
         
     }
 
-    res.json({ siker: false, uzenet: 'Belső kommunikációs hiba a frontend - backend között!' });
+    //res.json({ siker: false, uzenet: 'Belső kommunikációs hiba a frontend - backend között!' });
 });
 
 
 
 //async muveletek felvetele
+const weblaplekerdezes = require('./backend/backend-weblap-adatlekerdezes');
+const weblaplekerdezesAsync = async () => {
+    try {
+        return new Promise((resolve, reject) => {
+            weblaplekerdezes((err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+    } catch (err) {
+        console.error(err);
+        throw { siker: false, uzenet: err };
+    }
+};
+
+const weblapadatmodositas = require('./backend/backend-weblap-adatmodositas');
+const weblapadatmodositasAsync = async () => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            weblapadatmodositas((err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+
+        return { siker: true, uzenet: result };
+    } catch (err) {
+        console.error(err);
+        return { siker: false, uzenet: err };
+    }
+};
+
+
+
+
 const felhasznalolekerdezes = require('./backend/backend-felhasznalo-lekerdezes');
 const felhasznalolekerdezesAsync = () => {
     return new Promise((resolve, reject) => {
@@ -139,4 +168,108 @@ const felhasznalolekerdezesAsync = () => {
             }
         });
     });
+};
+
+
+const felhasznaloregisztracio = require('./backend/backend-felhasznalo-regisztracio');
+const felhasznaloregisztracioAsync = async (kommunikaciosAdat) => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            console.log(kommunikaciosAdat);
+            felhasznaloregisztracio(
+                kommunikaciosAdat.nev,
+                kommunikaciosAdat.jelszo,
+                kommunikaciosAdat.szerepkor,
+                kommunikaciosAdat.evfolyam,
+                kommunikaciosAdat.osztalyjel,
+                (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+        });
+
+        return { siker: true, uzenet: result };
+    } catch (err) {
+        console.error(err);
+        return { siker: false, uzenet: err };
+    }
+};
+
+
+const felhasznalomodositas = require('./backend/backend-felhasznalo-modositas');
+const felhasznalomodositasAsync = async (kommunikaciosAdat) => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            felhasznalomodositas(
+                kommunikaciosAdat.id,
+                kommunikaciosAdat.nev,
+                kommunikaciosAdat.jelszo,
+                kommunikaciosAdat.szerepkor,
+                kommunikaciosAdat.evfolyam,
+                kommunikaciosAdat.osztalyjel,
+                (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+        });
+
+        return { siker: true, uzenet: result };
+    } catch (err) {
+        console.error(err);
+        return { siker: false, uzenet: err };
+    }
+};
+
+
+const felhasznalotorles = require('./backend/backend-felhasznalo-torles');
+const felhasznalotorlesAsync = async () => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            felhasznalotorles(kommunikaciosAdat.nev, (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+
+        return { siker: true, uzenet: result };
+    } catch (err) {
+        console.error(err);
+        return { siker: false, uzenet: err };
+    }
+};
+
+
+const felhasznalobejelentkezes = require('./backend/backend-felhasznalo-bejelentkezes');
+const felhasznalobejelentkezesAsync = async () => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            felhasznalobejelentkezes(
+                kommunikaciosAdat.nev,
+                kommunikaciosAdat.jelszo,
+                (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+        });
+
+        return { siker: true, uzenet: result };
+    } catch (err) {
+        console.error(err);
+        return { siker: false, uzenet: err };
+    }
 };
