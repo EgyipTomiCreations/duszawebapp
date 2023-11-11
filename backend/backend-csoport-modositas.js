@@ -1,7 +1,7 @@
 var config = require('./backend-config');
 var mysql = require('mysql');
 
-function felhasznalomodositas(id, modositottnev, modositotttag1id, modositotttag2id, modositotttag3id, modositottleiras, callback){
+function csoportmodositas(id, modositottnev, modositotttag1id, modositotttag2id, modositotttag3id, modositottleiras, callback){
   var con = mysql.createConnection({
     host: config.host,
     user: config.user,
@@ -24,15 +24,15 @@ con.connect(function (err) {
     
   });
 
-  con.query(`UPDATE felhasznalok SET nev = "${modositottnev}", jelszo = "${modositottjelszo}", szerepkor = "${modositottszerepkor}", evfolyam = "${modositottevfolyam}", osztalyjel = "${modositottosztalyjel}" WHERE id = ${id}`, function (err, result) {
+  con.query(`UPDATE csoportok SET nev = "${modositottnev}", tag1id = "${modositotttag1id}", tag2id = "${modositotttag2id}", tag3id = "${modositotttag3id}", leiras = "${modositottleiras}" WHERE id = ${id}`, function (err, result) {
     if (err)
     {
       con.end();
-      callback("Hiba a felhasználó módosítása közben: "+err);
+      callback("Hiba a csoport módosítása közben: "+err);
     }
     con.end();
-    callback(null, "Sikeres felhasználói adatmódosítás!")    
+    callback(null, "Sikeres csoport adatmódosítás!")    
 });
 }
 
-module.exports = felhasznalomodositas;
+module.exports = csoportmodositas;
