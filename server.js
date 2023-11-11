@@ -62,15 +62,13 @@ app.post('/adatKuldes', async (req, res) => {
 
         if  (kommunikaciosAdat.tipus == "lekerdezes")
         {
-            const felhasznalolekerdezes = require('./backend/backend-felhasznalo-lekerdezes');
-            await felhasznalolekerdezes(async (err, result) => {
-                if (err) {
-                    console.error(err);
-                    res.json({ siker: false, uzenet: err });
-                } else {
-                    res.json({ siker: true, uzenet: result });
-                }
-                });
+            try {
+                const result = await felhasznalolekerdezesAsync()
+                res.json({ siker: true, uzenet: result });
+            } catch (err) {
+                console.error(err);
+                res.json({ siker: false, uzenet: err });
+            }
         }
         if  (kommunikaciosAdat.tipus == "bejelentkezes")
         {
@@ -126,3 +124,19 @@ app.post('/adatKuldes', async (req, res) => {
 
     res.json({ siker: false, uzenet: 'Belső kommunikációs hiba a frontend - backend között!' });
 });
+
+
+
+//async muveletek felvetele
+const felhasznalolekerdezes = require('./backend/backend-felhasznalo-lekerdezes');
+const felhasznalolekerdezesAsync = () => {
+    return new Promise((resolve, reject) => {
+        felhasznalolekerdezes((err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
+};
