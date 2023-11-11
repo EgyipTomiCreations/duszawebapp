@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Gép: 127.0.0.1
--- Létrehozás ideje: 2023. Nov 11. 18:42
+-- Létrehozás ideje: 2023. Nov 11. 18:46
 -- Kiszolgáló verziója: 10.4.28-MariaDB
 -- PHP verzió: 8.2.4
 
@@ -42,6 +42,8 @@ CREATE TABLE `felhasznalok` (
 
 INSERT INTO `felhasznalok` (`id`, `nev`, `jelszo`, `szerepkor`, `evfolyam`, `osztalyjel`) VALUES
 (1, 'admin', '123', 'Webmester', 0, ''),
+(8, 'teszt', 'tesztjelszo', 'Webmester', 11, 'B'),
+(10, 'Solymosi Tamás', 'asd124', 'Webmester', 11, 'C');
 
 -- --------------------------------------------------------
 
