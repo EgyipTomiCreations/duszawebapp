@@ -31,8 +31,8 @@ newStudentAdderBtn.addEventListener('click', () => {
 
 function sendData() {
     const kommunikaciosAdat = {};
-    kommunikaciosAdat.kategoria = "felhasznalo";
-    kommunikaciosAdat.tipus = "modositas";
+    kommunikaciosAdat.kategoria = "weblap";
+    kommunikaciosAdat.tipus = "lekerdezes";
     kommunikaciosAdat.id = 10;
     kommunikaciosAdat.nev = "Solymosi Tamás";
     kommunikaciosAdat.jelszo = "asd124";
