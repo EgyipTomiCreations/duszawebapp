@@ -1,9 +1,7 @@
 document.getElementById('form1Id').addEventListener('submit', (e) => {
     e.preventDefault();
     sendData().then((felhasznalo) => {
-        console.log(felhasznalo);
-
-        if (felhasznalo && felhasznalo.Szerepkor === "Webmester") {
+        if (felhasznalo.uzenet.szerepkor == "Webmester") {
             location.href = '/webmester';
         }
     });
