@@ -11,7 +11,7 @@ var kommunikaciosAdat;
 app.use("/", express.static(__dirname, + '/'));
 
 app.get('/', (req, res) => {
-    fs.readFile(path.join(__dirname, 'src', 'public', 'webmester.html'), 'utf8', (err, data) => {
+    fs.readFile(path.join(__dirname, 'src', 'public', 'bejelentkezes.html'), 'utf8', (err, data) => {
         if (err) {
             console.error('Hiba a HTML fájl olvasása közben:', err);
             res.status(500).send('Internal Server Error');

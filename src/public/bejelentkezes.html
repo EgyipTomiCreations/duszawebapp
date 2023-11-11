@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Szókitaláló - Üdvözlő</title>
-    <link rel="stylesheet" href="./sass/about.css">
-    <link rel="icon" type="image/x-icon" href="/src/img/logo.svg">
+    <link rel="stylesheet" href="./src/public/sass/about.css">
+    <link rel="icon" type="image/x-icon" href="./src/img/logo.svg">
 </head>
 <body>
     <section class="h-100 gradient-form" style="background-color: #eee;">
@@ -16,23 +16,23 @@
                 <div class="row g-0">
                     <div class="card-body p-md-5 mx-md-4">     
                         <div class="text-center">
-                        <img src="../img/logo.svg"
+                        <img src="./src/img/logo.svg"
                             style="width: 185px; padding-bottom: 20px;" alt="logo" draggable="false">
                         <h4 class="mt-1 mb-5 pb-1">Üdvözlünk a szókirakón!</h4>
                         </div>
         
                         <form>      
                         <div class="form-outline mb-4">
-                            <input type="email" id="form2Example11" class="form-control"
-                            placeholder="Felhasználónév" />
+                            <input type="text" id="form2Example11" class="form-control"
+                            placeholder="Felhasználónév" id="usernameText" required/>
                         </div>
         
                         <div class="form-outline mb-4">
-                            <input type="password" id="form2Example22" class="form-control" placeholder="Jelszó"/>
+                            <input type="password" id="form2Example22" class="form-control" placeholder="Jelszó" id = "passwordText" required/>
                         </div>
         
                         <div class="text-center pt-1 mb-5 pb-1">
-                            <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">Bejelentkezés</button>
+                            <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit" id="loginBtn">Bejelentkezés</button>
                         </div>
                
                         </form>
