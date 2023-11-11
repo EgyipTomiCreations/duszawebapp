@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Szókirakó - Tanár</title>
+    <link rel="icon" type="image/x-icon" href="/src/img/logo.svg">
+    <link rel="stylesheet" href="/src/public/sass/about.css">
+</head>
+<body style="height: 100vh;">
+    <nav class="navbar navbar-expand-lg" style="background-color: #ffddb0;">
+        <div class="container-fluid">
+          <a class="navbar-brand" href="#">
+              <img src="/src/img/header-logo.svg" alt="" height="60" class="d-inline-block align-text-center">
+          </a>
+          <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav ms-auto">
+                <li class="nav-item dropdown">
+                  <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57">
+                    Tanár
+                  </button>
+                  <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#">Profil kezelése</a></li>
+                    <li><a class="dropdown-item" href="#">Kilépés</a></li>
+                  </ul>
+                </li>            
+              </ul>  
+            </div>
+        </div>
+      </nav>
+
+
+    <!--Side Menu Bar-->
+      <div class="container" style="margin: 10px;">
+        <div class="row">
+          <div class="col-md-4">
+            <div class="list-group" style="width: 300px; padding: 24px;">
+              <a href="#" class="list-group-item list-group-item-action active" aria-current="true" style="align-items: center;">
+                <img src="/src/img/icons/file-earmark-text-fill.svg" height="20px" alt="">
+                Feladatlapok
+              </a>
+              <a href="#" class="list-group-item list-group-item-action">A second link item</a>
+              <a href="#" class="list-group-item list-group-item-action">A third link item</a>
+              <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
+            </div>
+          </div>
+
+          <div class="col-md-4 border border-1 rounded" style="padding: 24px; margin-top: 24px; width: 800px;">
+            <div class="container" style="margin: 10px; margin-right: 5px;">
+                <div class="row">
+                    <div class="col-md-4">
+                        <div class="dropdown me-3">
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newSheetModal" style="color: white;">Új feladatlap</button>
+                        </div>
+                    </div>
+                    <div class="col-md-4" style="width: 300px;">
+                        <ul class="list-group" style="width: 400px;">
+                          <li class="list-group-item"><p class="fs-3">Feladatlapok</p></li>
+                          <li class="list-group-item" style="color: gray;">Itt még nincs semmi, adj hozzá a "Új feladatlap" gombal</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+          </div>
+          
+          <div class="modal fade" id="newSheetModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Új feladatlap létrehozása</h1>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+                </div>
+                <div class="modal-body">
+                    <p class="fs-5">Feladatlap neve</p>    
+                      
+                    <div class="form-outline mb-4">
+                        <input type="text" id="sheetNameText" class="form-control"
+                        placeholder="Név" />
+                    </div>   
+                    
+                    <div class="mb-3">
+                        <label for="formFile" class="form-label">Feladatlap forrása</label>
+                        <input class="form-control" type="file" id="inputfile">
+                      </div>
+                      
+                  </form>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+                  <button type="button" class="btn btn-primary" id="saveBtn">Mentés</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        
+
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="/src/public/js/tanar.js"></script>
+</body>
+</html>
