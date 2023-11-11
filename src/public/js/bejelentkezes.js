@@ -1,18 +1,14 @@
-bejelentkezesBtn = document.getElementById("loginBtn");
-felhaszanlonevText = document.getElementById("usernameText");
-jelszoText = document.getElementById("passwordText");
-
-bejelentkezesBtn.addEventLister('click', (e) => {
+document.getElementById('form1Id').addEventListener('submit', (e) => {
     e.preventDefault();
     sendData();
-})
+});
 
 function sendData() {
     const kommunikaciosAdat = {};
     kommunikaciosAdat.kategoria = "felhasznalo";
     kommunikaciosAdat.tipus = "bejelentkezes";
-    kommunikaciosAdat.nev = felhaszanlonevText.value;
-    kommunikaciosAdat.jelszo = jelszoText.value;
+    kommunikaciosAdat.nev = document.getElementById("usernameText").value;
+    kommunikaciosAdat.jelszo = document.getElementById("passwordText").value;
 
     const dataString = JSON.stringify({ data: kommunikaciosAdat });
     const contentLength = dataString.length;

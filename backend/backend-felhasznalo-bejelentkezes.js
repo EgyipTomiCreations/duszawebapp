@@ -4,6 +4,7 @@ var mysql = require('mysql');
 
 function felhasznalobejelentkezes(bejelentkezesinev, bejelentkezesijelszo, callback){
 
+  console.log(bejelentkezesinev);
   var con = mysql.createConnection({
     host: config.host,
     user: config.user,
@@ -32,9 +33,8 @@ con.connect(function (err) {
       con.end();
       callback("Hiba a felhasználó lekérdezése közben!"+err);
     }
-    if (result[0].nev == bejelentkezesinev)
-    {
-        con.query(`SELECT * FROM felhasznalok WHERE jelszo = "${bejelentkezesijelszo}" AND nev = "${bejelentkezesinev}";`, function (err, result) {
+    if (result && result[0] && result[0].nev == bejelentkezesinev) {
+            con.query(`SELECT * FROM felhasznalok WHERE jelszo = "${bejelentkezesijelszo}" AND nev = "${bejelentkezesinev}";`, function (err, result) {
             if (err) 
             {
               con.end();
@@ -61,14 +61,12 @@ con.connect(function (err) {
             }            
         });
     }
-    else{
+    else
+    {
       con.end();
-      callback("Nem létezik felhasználó ilyen névvel!");
+      return callback("Hiba! Nem létezik ilyen felhasználó!");
     }
-        
 });
-
-
 }
 
 module.exports = felhasznalobejelentkezes;

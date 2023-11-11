@@ -1,9 +1,8 @@
 var config = require('./backend-config');
 var mysql = require('mysql');
 
-function felhasznaloregisztracio(regisztraciosnev, regisztraciosjelszo, regisztraciosszerepkor, regisztraciosevfolyam, regisztraciososztalyjel, callback) {
+function csoportregisztracio(nev, tag1id, tag2id, tag3id, callback) {
 
-  console.log(regisztraciosszerepkor);
     var con = mysql.createConnection({
         host: config.host,
         user: config.user,
@@ -24,18 +23,18 @@ function felhasznaloregisztracio(regisztraciosnev, regisztraciosjelszo, regisztr
         }
     });
 
-    con.query(`SELECT nev FROM felhasznalok WHERE nev = "${regisztraciosnev}";`, function (err, result) {
+    con.query(`SELECT nev FROM csoportok WHERE nev = "${nev}";`, function (err, result) {
         if (err) {
             con.end();
-            return callback("Hiba a felhasználók lekérdezése közben!" + err);
+            return callback("Hiba a csoportok lekérdezése közben!" + err);
         }
 
-        if (result && result[0] && result[0].nev == regisztraciosnev) {
+        if (result && result[0] && result[0].nev == nev) {
             con.end();
-            return callback("Hiba! Már létezik ilyen felhasználó!");
+            return callback("Hiba! Már létezik ilyen nevű csoport!");
         } else {
           
-            con.query(`INSERT INTO felhasznalok (nev, jelszo, szerepkor, evfolyam, osztalyjel) VALUES ("${regisztraciosnev}", "${regisztraciosjelszo}", "${regisztraciosszerepkor}", "${regisztraciosevfolyam}", "${regisztraciososztalyjel}")`, function (err, result) {
+            con.query(`INSERT INTO csoportok (nev, tag1id, , evfolyam, osztalyjel) VALUES ("${regisztraciosnev}", "${regisztraciosjelszo}", "${regisztraciosszerepkor}", "${regisztraciosevfolyam}", "${regisztraciososztalyjel}")`, function (err, result) {
                 if (err) {
                     con.end();
                     return callback(`${regisztraciosnev}-t nem sikerült regisztrálni! Hiba: ` + err);
