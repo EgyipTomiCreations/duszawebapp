@@ -24,14 +24,38 @@ con.connect(function (err) {
     
   });
 
-  con.query(`UPDATE csoportok SET nev = "${modositottnev}", tag1id = "${modositotttag1id}", tag2id = "${modositotttag2id}", tag3id = "${modositotttag3id}", leiras = "${modositottleiras}" WHERE id = ${id}`, function (err, result) {
-    if (err)
-    {
-      con.end();
-      callback("Hiba a csoport módosítása közben: "+err);
+  con.query(`SELECT 
+              COALESCE(
+              (SELECT tag1id FROM csoportok WHERE tag1id IN (${tag1id}, ${tag2id}, ${tag3id}) AND id != ${id}),
+              (SELECT tag2id FROM csoportok WHERE tag2id IN (${tag1id}, ${tag2id}, ${tag3id}) AND id != ${id}),
+              (SELECT tag3id FROM csoportok WHERE tag3id IN (${tag1id}, ${tag2id}, ${tag3id}) AND id != ${id})
+            ) AS result;`, function (err, result) {
+    console.log(result)
+    if (err) {
+        con.end();
+        return callback(`Nem sikerült ${nev} csoport helyességét ellenőrizni! Hiba: ` + err);
     }
-    con.end();
-    callback(null, "Sikeres csoport adatmódosítás!")    
+    if (result[0].result == null)
+    {
+      con.query(`UPDATE csoportok SET nev = "${modositottnev}", tag1id = "${modositotttag1id}", tag2id = "${modositotttag2id}", tag3id = "${modositotttag3id}", leiras = "${modositottleiras}" WHERE id = ${id}`, function (err, result) {
+        if (err)
+        {
+          con.end();
+          callback("Hiba a csoport módosítása közben: "+err);
+        }
+        con.end();
+        callback(null, "Sikeres csoport adatmódosítás!")    
+    });
+    }
+    else
+    {
+        var hibalista = "";
+            result.forEach(element => {
+                hibalista += element.result + " ";                                     
+            });                            
+        con.end(); 
+        return callback(`${hibalista}felhasználó(k) már megtalálhatóak más csoportokban`);
+    }
 });
 }
 

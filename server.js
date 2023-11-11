@@ -43,6 +43,32 @@ app.get('/tanar', (req, res) => {
     });
 });
 
+app.get('/zsuri', (req, res) => {
+    fs.readFile(path.join(__dirname, 'src', 'public', 'zsuri.html'), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Hiba a HTML fájl olvasása közben:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.send(data);
+    });
+});
+
+app.listen(port, () => {
+    console.log(`A webszerver fut a http://localhost:${port} címen`);
+});
+
+/*app.get('/verseny', (req, res) => {
+    fs.readFile(path.join(__dirname, 'src', 'public', 'verseny.html'), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Hiba a HTML fájl olvasása közben:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.send(data);
+    });
+});*/
+
 app.listen(port, () => {
     console.log(`A webszerver fut a http://localhost:${port} címen`);
 });
@@ -137,6 +163,39 @@ app.post('/adatKuldes', async (req, res) => {
         {
             try {
                 const result = await csoportregisztracioAsync(kommunikaciosAdat);
+                res.json(result);
+            } catch (err) {
+                console.error(err);
+                res.json({ siker: false, uzenet: err });
+            }
+        }
+
+        if (kommunikaciosAdat.tipus == "modositas")
+        {
+            try {
+                const result = await csoportmodositasAsync(kommunikaciosAdat);
+                res.json(result);
+            } catch (err) {
+                console.error(err);
+                res.json({ siker: false, uzenet: err });
+            }
+        }
+
+        if (kommunikaciosAdat.tipus == "torles")
+        {
+            try {
+                const result = await csoporttorlesAsync(kommunikaciosAdat);
+                res.json(result);
+            } catch (err) {
+                console.error(err);
+                res.json({ siker: false, uzenet: err });
+            }
+        }
+
+        if (kommunikaciosAdat.tipus == "lekerdezes")
+        {
+            try {
+                const result = await csoportlekerdezesAsync();
                 res.json(result);
             } catch (err) {
                 console.error(err);
@@ -313,8 +372,8 @@ const felhasznalobejelentkezesAsync = async (kommunikaciosAdat) => {
 
 
 
-const csoportregisztracio = require('./backend/backend-felhasznalo-bejelentkezes');
-const csoportregisztracioAsync = async () => {
+const csoportregisztracio = require('./backend/backend-csoport-regisztracio');
+const csoportregisztracioAsync = async (kommunikaciosAdat) => {
     try {
         const result = await new Promise((resolve, reject) => {
             csoportregisztracio(
@@ -331,6 +390,78 @@ const csoportregisztracioAsync = async () => {
                     }
                 }
             );
+        });
+
+        return { siker: true, uzenet: result };
+    } catch (err) {
+        console.error(err);
+        return { siker: false, uzenet: err };
+    }
+}
+
+const csoportmodositas = require('./backend/backend-csoport-modositas');
+const csoportmodositasAsync = async (kommunikaciosAdat) => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            csoportmodositas(
+                kommunikaciosAdat.nev,
+                kommunikaciosAdat.tag1id,
+                kommunikaciosAdat.tag2id,
+                kommunikaciosAdat.tag3id,
+                kommunikaciosAdat.leiras,
+                (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+        });
+
+        return { siker: true, uzenet: result };
+    } catch (err) {
+        console.error(err);
+        return { siker: false, uzenet: err };
+    }
+}
+
+
+const csoporttorles = require('./backend/backend-csoport-torles');
+const csoporttorlesAsync = async (kommunikaciosAdat) => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            csoporttorles(
+                kommunikaciosAdat.nev,
+                (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+        });
+
+        return { siker: true, uzenet: result };
+    } catch (err) {
+        console.error(err);
+        return { siker: false, uzenet: err };
+    }
+}
+
+
+const csoportlekerdezes = require('./backend/backend-csoport-torles');
+const csoportlekerdezesAsync = async () => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            csoportlekerdezes((err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
         });
 
         return { siker: true, uzenet: result };
