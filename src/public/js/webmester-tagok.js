@@ -4,6 +4,7 @@ let studentCounter = 0
 
 
 newStudentAdderBtn.addEventListener('click', () => {
+    sendData();
     if(studentCounter < 3){
         studentCounter++
 
@@ -27,6 +28,31 @@ newStudentAdderBtn.addEventListener('click', () => {
     }
 
 })
+
+function sendData() {
+    const kommunikaciosAdat = {};
+    kommunikaciosAdat.kategoria = "felhasznalo";
+    kommunikaciosAdat.tipus = "lekerdezes";
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;
+
+    fetch('/adatKuldes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(), // Hozzáadott sor
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+    .then(uzenet => {
+        console.log(uzenet);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
 
 
 

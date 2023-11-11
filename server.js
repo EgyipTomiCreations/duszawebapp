@@ -1,4 +1,5 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
 const fs = require('fs');
 
@@ -22,13 +23,15 @@ app.listen(port, () => {
     console.log(`A webszerver fut a http://localhost:${port} címen`);
 });
 
-app.post('/sendData', (req, res) => {
+app.use(bodyParser.json());
+app.post('/adatKuldes', async (req, res) => {
     const kommunikaciosAdat = req.body.data;
+    console.log(req.body.data);
     console.log('Kapott adat a frontendtől:', kommunikaciosAdat);
 
-    if (kommunikaciosAdat.kategoria == weblap) {
+    if (kommunikaciosAdat.kategoria == "weblap") {
         
-        if  (kommunikaciosAdat.tipus == lekerdezes)
+        if  (kommunikaciosAdat.tipus == "lekerdezes")
         {
             const weblaplekerdezes = require('./backend/backend-weblap-adatlekerdezes');
             weblaplekerdezes((err, result) => {
@@ -40,7 +43,7 @@ app.post('/sendData', (req, res) => {
                 }
                 });
         }
-        if  (kommunikaciosAdat.tipus == adatmodositas)
+        if  (kommunikaciosAdat.tipus == "adatmodositas")
         {
             const weblapadatmodositas = require('./backend/backend-weblap-adatmodositas');
             weblapadatmodositas((err, result) => {
@@ -55,12 +58,12 @@ app.post('/sendData', (req, res) => {
 
     }
 
-    if (kommunikaciosAdat.kategoria == felhasznalo) {
+    if (kommunikaciosAdat.kategoria == "felhasznalo") {
 
-        if  (kommunikaciosAdat.tipus == lekerdezes)
+        if  (kommunikaciosAdat.tipus == "lekerdezes")
         {
             const felhasznalolekerdezes = require('./backend/backend-felhasznalo-lekerdezes');
-            felhasznalolekerdezes((err, result) => {
+            await felhasznalolekerdezes(async (err, result) => {
                 if (err) {
                     console.error(err);
                     res.json({ siker: false, uzenet: err });
@@ -69,7 +72,7 @@ app.post('/sendData', (req, res) => {
                 }
                 });
         }
-        if  (kommunikaciosAdat.tipus == bejelentkezes)
+        if  (kommunikaciosAdat.tipus == "bejelentkezes")
         {
             const felhasznalobejelentkezes = require('./backend/backend-felhasznalo-bejelentkezes');
             felhasznalobejelentkezes(kommunikaciosAdat.nev, kommunikaciosAdat.jelszo, (err, result) => {
@@ -81,7 +84,7 @@ app.post('/sendData', (req, res) => {
                 }
                 });
         }
-        if  (kommunikaciosAdat.tipus == regisztracio)
+        if  (kommunikaciosAdat.tipus == "regisztracio")
         {
             const felhasznaloregisztracio = require('./backend/backend-felhasznalo-regisztracio');
             felhasznaloregisztracio(kommunikaciosAdat.nev, kommunikaciosAdat.jelszo, kommunikaciosAdat.szerpkor, kommunikaciosAdat.evfolyam,  (err, result) => {
@@ -94,7 +97,7 @@ app.post('/sendData', (req, res) => {
             });
             
         }
-        if  (kommunikaciosAdat.tipus == modositas)
+        if  (kommunikaciosAdat.tipus == "modositas")
         {
             const felhasznalomodositas = require('./backend/backend-felhasznalo-modositas');
             felhasznalomodositas(kommunikaciosAdat.bejelentkezesinev, kommunikaciosAdat.bejelentkezesijelszo, (err, result) => {
@@ -106,7 +109,7 @@ app.post('/sendData', (req, res) => {
             }
             });
         }
-        if  (kommunikaciosAdat.tipus == torles)
+        if  (kommunikaciosAdat.tipus == "torles")
         {
             const felhasznalotorles = require('./backend/backend-felhasznalo-torles');
             felhasznalotorles(kommunikaciosAdat.nev, (err, result) => {

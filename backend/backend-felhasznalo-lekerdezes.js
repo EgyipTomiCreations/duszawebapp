@@ -1,7 +1,7 @@
 var config = require('./backend-config');
 var mysql = require('mysql');
 
-function felhasznalolekerdezes(){
+function felhasznalolekerdezes(callback){
 
   var con = mysql.createConnection({
     host: config.host,
@@ -31,20 +31,20 @@ con.connect(function (err) {
       con.end();
       callback("Hiba a felhasználók lekérése közben!: "+err);
     }
-        con.end();
-        var adatlista = [{}];
-        result.array.forEach(element => {
-          var adatobjektum = {};
-          adatobjektum.id = element.id;
-          adatobjektum.nev = element.nev;
-          adatobjektum.jelszo = element.jelszo;
-          adatobjektum.szerepkor = element.szerepkor;
-          adatobjektum.evfolyam = element.evfolyam;
-          adatobjektum.osztalyjel = element.osztalyjel;
-          adatlista.push(adatobjektum);
+        var adatlista = [];
+                result.forEach(element => {
+                    var adatobjektum = {
+                        id: element.id,
+                        nev: element.nev,
+                        jelszo: element.jelszo,
+                        szerepkor: element.szerepkor,
+                        evfolyam: element.evfolyam,
+                        osztalyjel: element.osztalyjel
+                    };
+                    adatlista.push(adatobjektum);
         });
+        con.end();
         callback(null,adatlista);
-        
     });
 }
 
