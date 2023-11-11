@@ -32,6 +32,17 @@ app.get('/webmester', (req, res) => {
     });
 });
 
+app.get('/tanar', (req, res) => {
+    fs.readFile(path.join(__dirname, 'src', 'public', 'tanar.html'), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Hiba a HTML fájl olvasása közben:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.send(data);
+    });
+});
+
 app.listen(port, () => {
     console.log(`A webszerver fut a http://localhost:${port} címen`);
 });

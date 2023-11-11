@@ -4,6 +4,9 @@ document.getElementById('form1Id').addEventListener('submit', (e) => {
         if (felhasznalo.uzenet.szerepkor == "Webmester") {
             location.href = '/webmester';
         }
+        if (felhasznalo.uzenet.szerepkor == "Tanar") {
+            location.href = '/tanar';
+        }
     });
 });
 
