@@ -1,7 +1,3 @@
-if(localStorage.getItem('Privilage') != "Webmester"){
-    location.href = '/'
-}
-
 document.getElementById('loguotBtn').addEventListener("click", (e)=>{
     localStorage.removeItem('Privilage')
     location.reload(); 
