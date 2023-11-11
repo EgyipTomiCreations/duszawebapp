@@ -1,7 +1,7 @@
 var config = require('./backend-config');
 var mysql = require('mysql');
 
-function csoportregisztracio(nev, tag1id, tag2id, tag3id, callback) {
+function csoportregisztracio(nev, tag1id, tag2id, tag3id, leiras, callback) {
 
     var con = mysql.createConnection({
         host: config.host,
@@ -34,10 +34,10 @@ function csoportregisztracio(nev, tag1id, tag2id, tag3id, callback) {
             return callback("Hiba! Már létezik ilyen nevű csoport!");
         } else {
           
-            con.query(`INSERT INTO csoportok (nev, tag1id, , evfolyam, osztalyjel) VALUES ("${regisztraciosnev}", "${regisztraciosjelszo}", "${regisztraciosszerepkor}", "${regisztraciosevfolyam}", "${regisztraciososztalyjel}")`, function (err, result) {
+            con.query(`INSERT INTO csoportok (nev, tag1id, , tag2id, tag3id, leiras ) VALUES ("${nev}", "${tag1id}", "${tag2id}", "${tag3id}", "${leiras}")`, function (err, result) {
                 if (err) {
                     con.end();
-                    return callback(`${regisztraciosnev}-t nem sikerült regisztrálni! Hiba: ` + err);
+                    return callback(`${nev} csoportot nem sikerült regisztrálni! Hiba: ` + err);
                 }
                 con.end();
                 return callback(null, "Sikeres regisztráció!");
@@ -46,4 +46,4 @@ function csoportregisztracio(nev, tag1id, tag2id, tag3id, callback) {
     });
 }
 
-module.exports = felhasznaloregisztracio;
+module.exports = csoportregisztracio;

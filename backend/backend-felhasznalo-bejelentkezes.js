@@ -40,8 +40,8 @@ con.connect(function (err) {
               con.end();
               callback("Hiba a felhasználó jelszavának ellenőrzése közben!");
             }        
-            if (result[0].jelszo == bejelentkezesijelszo)
-             {
+            if (result[0] && result[0].jelszo == bejelentkezesijelszo)
+            {
                 con.end();
                 felhasznalotulajdonsagok = {};
                 felhasznalotulajdonsagok.id = result[0].id;

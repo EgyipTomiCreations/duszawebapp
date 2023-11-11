@@ -109,6 +109,19 @@ app.post('/adatKuldes', async (req, res) => {
         }
         
     }
+    if (kommunikaciosAdat.kategoria == "csoport")
+    {
+        if (kommunikaciosAdat.tipus == "regisztracio")
+        {
+            try {
+                const result = await csoportregisztracioAsync(kommunikaciosAdat);
+                res.json(result);
+            } catch (err) {
+                console.error(err);
+                res.json({ siker: false, uzenet: err });
+            }
+        }
+    }
 
     //res.json({ siker: false, uzenet: 'Belső kommunikációs hiba a frontend - backend között!' });
 });
@@ -117,7 +130,7 @@ app.post('/adatKuldes', async (req, res) => {
 
 //async muveletek felvetele
 const weblaplekerdezes = require('./backend/backend-weblap-adatlekerdezes');
-const weblaplekerdezesAsync = async () => {
+const weblaplekerdezesAsync = async (kommunikaciosAdat) => {
     try {
         return new Promise((resolve, reject) => {
             weblaplekerdezes((err, result) => {
@@ -135,7 +148,7 @@ const weblaplekerdezesAsync = async () => {
 };
 
 const weblapadatmodositas = require('./backend/backend-weblap-adatmodositas');
-const weblapadatmodositasAsync = async () => {
+const weblapadatmodositasAsync = async (kommunikaciosAdat) => {
     try {
         const result = await new Promise((resolve, reject) => {
             weblapadatmodositas((err, result) => {
@@ -230,7 +243,7 @@ const felhasznalomodositasAsync = async (kommunikaciosAdat) => {
 
 
 const felhasznalotorles = require('./backend/backend-felhasznalo-torles');
-const felhasznalotorlesAsync = async () => {
+const felhasznalotorlesAsync = async (kommunikaciosAdat) => {
     try {
         const result = await new Promise((resolve, reject) => {
             felhasznalotorles(kommunikaciosAdat.nev, (err, result) => {
@@ -251,7 +264,7 @@ const felhasznalotorlesAsync = async () => {
 
 
 const felhasznalobejelentkezes = require('./backend/backend-felhasznalo-bejelentkezes');
-const felhasznalobejelentkezesAsync = async () => {
+const felhasznalobejelentkezesAsync = async (kommunikaciosAdat) => {
     try {
         const result = await new Promise((resolve, reject) => {
             felhasznalobejelentkezes(
@@ -273,3 +286,34 @@ const felhasznalobejelentkezesAsync = async () => {
         return { siker: false, uzenet: err };
     }
 };
+
+
+
+
+
+const csoportregisztracio = require('./backend/backend-felhasznalo-bejelentkezes');
+const csoportregisztracioAsync = async () => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            csoportregisztracio(
+                kommunikaciosAdat.nev,
+                kommunikaciosAdat.tag1id,
+                kommunikaciosAdat.tag2id,
+                kommunikaciosAdat.tag3id,
+                kommunikaciosAdat.leiras,
+                (err, result) => {
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
+                }
+            );
+        });
+
+        return { siker: true, uzenet: result };
+    } catch (err) {
+        console.error(err);
+        return { siker: false, uzenet: err };
+    }
+}
