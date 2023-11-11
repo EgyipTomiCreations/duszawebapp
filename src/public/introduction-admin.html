@@ -38,9 +38,38 @@
             localStorage.setItem('editedTitle', editedTitle);
             localStorage.setItem('editedContent', editedContent);
 
+            sendData(editedTitle, editedContent);
+
             alert('Változtatások elmentve!');
         }
-    
+        
+        function sendData(nev, leiras) {
+        const kommunikaciosAdat = {};
+        kommunikaciosAdat.kategoria = "weblap";
+        kommunikaciosAdat.tipus = "lekerdezes";
+        kommunikaciosAdat.nev = nev;
+        kommunikaciosAdat.leiras = leiras;
+
+        const dataString = JSON.stringify({ data: kommunikaciosAdat });
+        const contentLength = dataString.length;
+
+        fetch('/adatKuldes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+    .then(uzenet => {
+        console.log(uzenet);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
         // script.js
 
         // A gomb referencia
