@@ -1,0 +1,2 @@
+scp -r ./webapp/* root@79.139.59.34:/root/webapp
+s3FHJ1x57p9t9FkuYR
