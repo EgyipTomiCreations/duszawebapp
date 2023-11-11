@@ -3,7 +3,8 @@ document.getElementById('form1Id').addEventListener('submit', (e) => {
     sendData().then((felhasznalo) => {
         if (felhasznalo.uzenet.szerepkor == "Webmester") {
             location.href = '/webmester';
-            localStorage.setItem("Privilage", "Webmester")
+            localStorage.setItem("Privilage", "Webmester");
+            localStorage.setItem("Nev",felhasznalo.uzenet.nev);
         }
         if (felhasznalo.uzenet.szerepkor == "Tanar") {
             location.href = '/tanar';

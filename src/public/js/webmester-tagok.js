@@ -1,7 +1,9 @@
 document.getElementById('loguotBtn').addEventListener("click", (e)=>{
-    localStorage.removeItem('Privilage')
-    location.reload(); 
+    localStorage.clear();
+    location.href = '/';
 })
+
+document.getElementById("nameTag").innerHTML = localStorage.getItem("Nev") + " - webmester";
 
 const studentAdderForm = document.getElementById("studentAdderForm");
 const newStudentAdderBtn = document.getElementById("newStudentAdderBtn");
