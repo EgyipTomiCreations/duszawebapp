@@ -5,6 +5,9 @@ document.getElementById('form1Id').addEventListener('submit', (e) => {
             location.href = '/webmester';
             localStorage.setItem("Privilage", "Webmester")
         }
+        if (felhasznalo.uzenet.szerepkor == "Tanar") {
+            location.href = '/tanar';
+        }
     });
 });
 
