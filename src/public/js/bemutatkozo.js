@@ -37,9 +37,7 @@ fetch('adatok.json')
         .catch(error => console.error('Hiba történt:', error));
 
 const versenyGomb = document.getElementById('versenyGomb');
-
-// Gomb aktiválása, ha elérkezett a verseny ideje
-const versenyIdeje = new Date('2023-11-12T24:00:00'); // Az aktuális dátumra és időpontra módosítsd
+const versenyIdeje = new Date('2023-11-12T20:00:00');
 const most = new Date();
 
 console.log('Most:', most);
