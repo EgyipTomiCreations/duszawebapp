@@ -20,10 +20,16 @@ document.getElementById('form1Id').addEventListener('submit', (e) => {
             localStorage.setItem("Nev", felhasznalo.uzenet.nev);
             location.href = '/tanar';
         }
-        if (felhasznalo.uzenet.szerepkor == "Zsuri") {
-            localStorage.setItem("Privilage", "Zsuri");
+        if (felhasznalo.uzenet.szerepkor == "Zsűritag") {
+            localStorage.setItem("Privilage", "Zsűritag");
             localStorage.setItem("Nev", felhasznalo.uzenet.nev);
             location.href = '/zsuri';
+        }
+
+        if (felhasznalo.uzenet.szerepkor == "Versenyző") {
+            localStorage.setItem("Privilage", "Versenyző");
+            localStorage.setItem("Nev", felhasznalo.uzenet.nev);
+            location.href = '/verseny';
         }
     });
 });
