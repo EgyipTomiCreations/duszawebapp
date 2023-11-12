@@ -269,6 +269,29 @@ app.post('/adatKuldes', async (req, res) => {
         }
     }
 
+    if (kommunikaciosAdat.kategoria == "kitoltes")
+    {
+        if (kommunikaciosAdat.tipus == "inditas"){
+            try {
+                const result = await kitoltesinditas();
+                res.json(result);
+            } catch (err) {
+                console.error(err);
+                res.json({ siker: false, uzenet: err });
+            }
+        }
+
+        if (kommunikaciosAdat.tipus == "lezaras"){
+            try {
+                const result = await kitolteslezaras();
+                res.json(result);
+            } catch (err) {
+                console.error(err);
+                res.json({ siker: false, uzenet: err });
+            }
+        }
+    }
+
     //res.json({ siker: false, uzenet: 'Belső kommunikációs hiba a frontend - backend között!' });
 });
 
@@ -597,6 +620,53 @@ const feladatlekerdezesAsync = async () => {
     try {
         const result = await new Promise((resolve, reject) => {
             feladatlekerdezes(
+                (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+
+        return { siker: true, uzenet: result };
+    } catch (err) {
+        console.error(err);
+        return { siker: false, uzenet: err };
+    }
+}
+
+const kitolteslezaras = require('./backend/backend-kitoltes-lezaras');
+const kitolteslezarasAsync = async (kommunikaciosAdat) => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            kitolteslezaras(
+                kommunikaciosAdat.versenyzoid,
+                kommunikaciosAdat.zarasiido,
+                kommunikaciosAdat.valaszok,
+                (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+
+        return { siker: true, uzenet: result };
+    } catch (err) {
+        console.error(err);
+        return { siker: false, uzenet: err };
+    }
+}
+
+const kitoltesinditas = require('./backend/backend-kitoltes-inditas');
+const kitoltesinditasAsync = async (kommunikaciosAdat) => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            kitoltesinditas(
+                kommunikaciosAdat.versenyzoid,
+                kommunikaciosAdat.kezdesiido,
                 (err, result) => {
                 if (err) {
                     reject(err);
