@@ -1,10 +1,11 @@
 document.getElementById('form1Id').addEventListener('submit', (e) => {
     e.preventDefault();
     sendData().then((felhasznalo) => {
+        console.log(felhasznalo);
         if (felhasznalo.uzenet.szerepkor == "Webmester") {
-            location.href = '/webmester';
             localStorage.setItem("Privilage", "Webmester");
-            localStorage.setItem("Nev",felhasznalo.uzenet.nev);
+            localStorage.setItem("Nev", felhasznalo.uzenet.nev);
+            location.href = '/webmester';
         }
         if (felhasznalo.uzenet.szerepkor == "Tanar") {
             location.href = '/tanar';

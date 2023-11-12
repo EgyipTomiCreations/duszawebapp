@@ -1,40 +1,34 @@
-document.getElementById('logoutBtn').addEventListener("click", (e)=>{
-    localStorage.clear();
-    location.href = '/';
-})
-
-document.getElementById("nameTag").innerHTML = localStorage.getItem("Nev") + " - webmester";
-
 const studentAdderForm = document.getElementById("studentAdderForm");
 const newStudentAdderBtn = document.getElementById("newStudentAdderBtn");
 let studentCounter = 0
 
-
-newStudentAdderBtn.addEventListener('click', () => {
-    sendData();
-    if(studentCounter < 3){
-        studentCounter++
-
-        const studentLabelP = document.createElement('p')
-        studentLabelP.className = "fs-6"
-        studentLabelP.innerHTML = studentCounter + ". versenyző"
-        studentAdderForm.appendChild(studentLabelP)
-
-        const formOutlineMb4Div = document.createElement('div')
-        formOutlineMb4Div.className = "form-outline mb-4"
-        studentAdderForm.appendChild(formOutlineMb4Div)
+if (newStudentAdderBtn){
+    newStudentAdderBtn.addEventListener('click', () => {
+        sendData();
+        if(studentCounter < 3){
+            studentCounter++
     
-        const fullNameInput = document.createElement('input')
-        fullNameInput.className = "form-control"
-        fullNameInput.type = "text"
-        fullNameInput.id = "fullNameInputField"
-        fullNameInput.placeholder = "Teljes név"
-        formOutlineMb4Div.appendChild(fullNameInput)
-    }else{
-        newStudentAdderBtn.disabled = true
-    }
-
-})
+            const studentLabelP = document.createElement('p')
+            studentLabelP.className = "fs-6"
+            studentLabelP.innerHTML = studentCounter + ". versenyző"
+            studentAdderForm.appendChild(studentLabelP)
+    
+            const formOutlineMb4Div = document.createElement('div')
+            formOutlineMb4Div.className = "form-outline mb-4"
+            studentAdderForm.appendChild(formOutlineMb4Div)
+        
+            const fullNameInput = document.createElement('input')
+            fullNameInput.className = "form-control"
+            fullNameInput.type = "text"
+            fullNameInput.id = "fullNameInputField"
+            fullNameInput.placeholder = "Teljes név"
+            formOutlineMb4Div.appendChild(fullNameInput)
+        }else{
+            newStudentAdderBtn.disabled = true
+        }
+    
+    })
+}
 
 function sendData() {
     const kommunikaciosAdat = {};

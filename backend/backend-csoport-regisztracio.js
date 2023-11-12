@@ -33,18 +33,19 @@ function csoportregisztracio(nev, tag1id, tag2id, tag3id, leiras, callback) {
             con.end();
             return callback("Hiba! Már létezik ilyen nevű csoport!");
         } else {
-            con.query(`SELECT 
-                        COALESCE(
+            con.query(` SELECT nev
+                        FROM felhasznalok
+                        WHERE id = (
+                        SELECT COALESCE(
                             (SELECT tag1id FROM csoportok WHERE tag1id IN (${tag1id}, ${tag2id}, ${tag3id})),
                             (SELECT tag2id FROM csoportok WHERE tag2id IN (${tag1id}, ${tag2id}, ${tag3id})),
-                            (SELECT tag3id FROM csoportok WHERE tag3id IN (${tag1id}, ${tag2id}, ${tag3id}))
-                        ) AS result;`, function (err, result) {
+                            (SELECT tag3id FROM csoportok WHERE tag3id IN (${tag1id}, ${tag2id}, ${tag3id}))));`, function (err, result) {
                             console.log(result)
                             if (err) {
                                 con.end();
                                 return callback(`Nem sikerült ${nev} csoport helyességét ellenőrizni! Hiba: ` + err);
                             }
-                            if  (result[0].result == null)
+                            if  (result[0].nev == null)
                             {
                                 con.query(`INSERT INTO csoportok (nev, tag1id, , tag2id, tag3id, leiras ) VALUES ("${nev}", "${tag1id}", "${tag2id}", "${tag3id}", "${leiras}")`, function (err, result) {
                                     if (err) {
@@ -56,14 +57,8 @@ function csoportregisztracio(nev, tag1id, tag2id, tag3id, leiras, callback) {
                                 });
                             }
                             else
-                            {
-                                var hibalista = "";
-                                    result.forEach(element => {
-                                        hibalista += element.result + " ";                                     
-                                    });                            
-                                con.end();
-                                
-                                return callback(`${hibalista}felhasználó(k) már megtalálhatóak más csoportokban`);
+                            {   
+                                return callback(`Hiba! ${result[0].nev} felhasználó már megtalálható más csoportban!`);
                             }
                         });
         }
