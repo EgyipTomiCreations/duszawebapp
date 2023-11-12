@@ -44,7 +44,7 @@ app.get('/tanar', (req, res) => {
 });
 
 app.get('/zsuri', (req, res) => {
-    fs.readFile(path.join(__dirname, 'src', 'public', 'zsuri.html'), 'utf8', (err, data) => {
+    fs.readFile(path.join(__dirname, 'src', 'public', 'zsuri-versenyletrehozas.html'), 'utf8', (err, data) => {
         if (err) {
             console.error('Hiba a HTML fájl olvasása közben:', err);
             res.status(500).send('Internal Server Error');

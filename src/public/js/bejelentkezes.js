@@ -13,6 +13,16 @@ document.getElementById('form1Id').addEventListener('submit', (e) => {
     });
 });
 
+const toastTrigger = document.getElementById('loginBtn')
+const toastLiveExample = document.getElementById('wrongLoginToast')
+
+if (toastTrigger) {
+  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+  toastTrigger.addEventListener('click', () => {
+    toastBootstrap.show()
+  })
+}
+
 function sendData() {
     return new Promise((resolve, reject) => {
         const kommunikaciosAdat = {};
