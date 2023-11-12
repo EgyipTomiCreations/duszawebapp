@@ -584,7 +584,7 @@ const feladatfeltoltesAsync = async (kommunikaciosAdat) => {
     }
 }
 
-const feladatlekerdezes = require('./backend/backend-feladat-feltoltes');
+const feladatlekerdezes = require('./backend/backend-feladat-lekerdezes');
 const feladatlekerdezesAsync = async () => {
     try {
         const result = await new Promise((resolve, reject) => {

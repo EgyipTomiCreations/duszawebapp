@@ -1,4 +1,50 @@
 let mainStr = ""
+let feladatCounter = 0
+const feladatListObj = document.getElementById("feladatListObj")
+is5Created = false
+is6Created = false
+is7Created = false
+is8Created = false
+
+//5
+const fifthGradeFeladatokul = document.createElement('ul')
+fifthGradeFeladatokul.className = "list-group-item"
+fifthGradeFeladatokul.style = "color: gray"
+fifthGradeFeladatokul.style.width = '400px'
+feladatListObj.appendChild(fifthGradeFeladatokul)
+const fifthPlaceHolder = document.createElement('li')
+fifthPlaceHolder.innerHTML = '5. évfolyam'
+fifthGradeFeladatokul.appendChild(fifthPlaceHolder)
+//6
+const sixthGradeFeladatokul = document.createElement('ul')
+sixthGradeFeladatokul.className = "list-group-item"
+sixthGradeFeladatokul.style = "color: gray"
+sixthGradeFeladatokul.style.width = '400px'
+feladatListObj.appendChild(sixthGradeFeladatokul)
+const sixthPlaceHolder = document.createElement('li')
+sixthPlaceHolder.innerHTML = '6. évfolyam'
+sixthGradeFeladatokul.appendChild(sixthPlaceHolder)
+//7
+const seventhGradeFeladatokul = document.createElement('ul')
+seventhGradeFeladatokul.className = "list-group-item"
+seventhGradeFeladatokul.style = "color: gray"
+seventhGradeFeladatokul.style.width = '400px'
+feladatListObj.appendChild(seventhGradeFeladatokul)
+const seventhPlaceHolder = document.createElement('li')
+seventhPlaceHolder.innerHTML = '7. évfolyam'
+seventhGradeFeladatokul.appendChild(seventhPlaceHolder)
+//8
+const eightGradeFeladatokul = document.createElement('ul')
+eightGradeFeladatokul.className = "list-group-item"
+eightGradeFeladatokul.style = "color: gray"
+eightGradeFeladatokul.style.width = '400px'
+feladatListObj.appendChild(eightGradeFeladatokul)
+const eightPlaceHolder = document.createElement('li')
+eightPlaceHolder.innerHTML = '8. évfolyam'
+eightGradeFeladatokul.appendChild(eightPlaceHolder)
+
+
+getFeladatok()
 
 document.getElementById('logoutBtn').addEventListener("click", (e)=>{
     localStorage.clear();
@@ -6,6 +52,73 @@ document.getElementById('logoutBtn').addEventListener("click", (e)=>{
 })
 
 document.getElementById("nameTag").innerHTML = localStorage.getItem("Nev") + " - Tanár";
+
+
+function getFeladatok(){
+
+    const kommunikaciosAdat = {};
+    kommunikaciosAdat.kategoria = "feladat"
+    kommunikaciosAdat.tipus = "lekerdezes"
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;    
+    fetch('/adatKuldes', {
+
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+
+    .then(uzenet => {
+        uzenet.uzenet.forEach(feladat => {
+            console.log("Feladat:", feladat.feladat);
+            
+            switch (feladat.evfolyam){
+                case 5:
+                    const fifthGradeFeladatokP = document.createElement('li')
+                    fifthGradeFeladatokP.className = 'list-group-item'
+                    fifthGradeFeladatokP.innerHTML = feladat.feladat
+                    fifthGradeFeladatokul.append(fifthGradeFeladatokP)
+                    break
+
+                case 6:
+
+                    const sixthGradeFeladatokP = document.createElement('li')
+                    sixthGradeFeladatokP.className = 'list-group-item'
+                    sixthGradeFeladatokP.innerHTML = feladat.feladat
+                    sixthGradeFeladatokul.append(sixthGradeFeladatokP)
+                    break
+                    
+                case 7:
+
+                    const seventhGradeFeladatokP = document.createElement('li')
+                    seventhGradeFeladatokP.className = 'list-group-item'
+                    seventhGradeFeladatokP.innerHTML = feladat.feladat
+                    seventhGradeFeladatokul.append(seventhGradeFeladatokP)
+                    break
+                    
+                case 8:
+
+                    const eightGradeFeladatokP = document.createElement('li')
+                    eightGradeFeladatokP.className = 'list-group-item'
+                    eightGradeFeladatokP.innerHTML = feladat.feladat
+                    eightGradeFeladatokul.append(eightGradeFeladatokP)
+                    break
+                    
+            }
+        });
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+
+
 
 document.getElementById('saveBtn').addEventListener('click', (e)=>{
     var fileInput = document.getElementById('inputfile');
