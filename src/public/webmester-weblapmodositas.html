@@ -36,28 +36,33 @@
       <div class="container" style="margin: 10px;">
         <div class="row">
             <div class="col-md-4">
-                <div class="list-group" style="width: 300px; padding: 24px;">
-                    <a href="#" class="list-group-item list-group-item-action active" aria-current="true" style="align-items: center;">
-                        <img src="/src/img/icons/people.svg" height="20px" alt="">
-                        Tagok
-                    </a>
-                    <a href="#" class="list-group-item list-group-item-action">Bemutatkozó oldal</a>
-                    <a href="#" class="list-group-item list-group-item-action">A third link item</a>
-                    <a href="#" class="list-group-item list-group-item-action">A fourth link item</a>
-                </div>
+              <div class="list-group" style="width: 300px; padding: 24px;">
+                <a onclick="location.href = '/webmester'" class="list-group-item list-group-item-action" aria-current="true" style="align-items: center; cursor: pointer;">
+                  <img src="/src/img/icons/people.svg" height="20px" alt="">
+                  Tagok
+                </a>
+                <a onclick="location.href = '/weblapmodositas'" class="list-group-item list-group-item-action active" style="align-items: center; cursor: pointer">
+                  <img src="/src/img/icons/card-heading.svg" alt="" height="20px">
+                  Leírás módosítása
+                </a>
+                <a href="#" class="list-group-item list-group-item-action" style="align-items: center; cursor: pointer;">A third link item</a>
+                <a href="#" class="list-group-item list-group-item-action" style="align-items: center; cursor: pointer;">A fourth link item</a>
+              </div>
             </div>
             
-            <div class="col-md-8">
+            <div class="col-md-8 border border-1 rounded">
                 <div id="content" class="mt-4">
-                    <h2 id="editableTitle" contenteditable="true" class="mb-4" style="margin-left: 50%;">Szerkeszthető Cím</h2>
-                    <p id="editableParagraph" contenteditable="true">Ez egy szerkeszthető bekezdés. Kattintson rá, és módosítsa a szöveget!</p>
+                    <h2 id="editableTitle" contenteditable="true" class="mb-4">Szerkeszthető Cím</h2>
+                    <hr>
+                    <p id="editableParagraph" contenteditable="true">Ez egy szerkeszthető bekezdés. <br> Kattintson rá, és módosítsa a szöveget!</p>
                 </div>
+                <hr>
+                <p class="fs-5">Weblapikon feltöltése</p>
                 <div style="margin-top: 20px;">
-                    <input type="file" id="imageInput" accept="image/*">
+                    <input class="form-control" type="file" id="imageInput" accept="image/*">
                 </div>                            
                 <div style="margin-top: 20px;">
                     <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3", onclick="saveChanges()">Mentés</button>   
-                    
                 </div>            
                 <div class="operation-box" style="margin-top: 20px;">
                 </div>
