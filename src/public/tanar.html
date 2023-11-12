@@ -50,13 +50,13 @@
                 <div class="row">
                     <div class="col-md-4">
                         <div class="dropdown me-3">
-                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newSheetModal" style="color: white;">Új feladatlap</button>
+                            <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#newSheetModal" style="color: white;">Új feladat hozzáadása</button>
                         </div>
                     </div>
                     <div class="col-md-4" style="width: 300px;">
                         <ul class="list-group" style="width: 400px;">
-                          <li class="list-group-item"><p class="fs-3">Feladatlapok</p></li>
-                          <li class="list-group-item" style="color: gray;">Itt még nincs semmi, adj hozzá a "Új feladatlap" gombal</li>
+                          <li class="list-group-item"><p class="fs-3">Feladatok</p></li>
+                          <li class="list-group-item" style="color: gray;">Itt még nincs semmi, adj hozzá a "Új feladat hozzáadása" gombal</li>
                         </ul>
                     </div>
                 </div>
@@ -67,23 +67,25 @@
             <div class="modal-dialog">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Új feladatlap létrehozása</h1>
+                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Új feladat hozzáadása</h1>
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                 </div>
                 <div class="modal-body">
-                    <p class="fs-5">Feladatlap neve</p>    
-                      
-                    <div class="form-outline mb-4">
-                        <input type="text" id="sheetNameText" class="form-control"
-                        placeholder="Név" />
-                    </div>   
-                    
+
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Feladatlap forrása</label>
                         <input class="form-control" type="file" id="inputfile">
                       </div>
                       
                   </form>
+                </div>
+                <div class="toast align-items-center text-bg-primary border-0" id="wrongImportFormatNotify" role="alert" aria-live="assertive" aria-atomic="true" >
+                  <div class="d-flex">
+                    <div class="toast-body" id="notifyMessageDiv">
+                      <p id="notifyMessage"></p>
+                    </div>
+                    <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+                  </div>
                 </div>
                 <div class="modal-footer">
                   <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
@@ -92,6 +94,7 @@
               </div>
             </div>
           </div>
+
         
 
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
