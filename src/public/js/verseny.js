@@ -1,6 +1,9 @@
+const feladatfeltoltes = require("../../../backend/backend-feladat-feltoltes")
+
 feladatCount = 0
 feladatNow = 1
 feladatarray = []
+megoldasValaszArray = [{}]
 
 loadJury()
 
@@ -72,12 +75,18 @@ function loadJury(){
                 id3.innerHTML = feladatarray[feladatNow-1].split(' ')[2]
                 kevert = osszekeverString(feladatarray[feladatNow-1].split(' ')[3])
                 id4.innerHTML = kevert
+                megoldasValaszArray.push({
+                    "megoldas" : feladatarray[feladatNow-1].split(' ')[3],
+                    "valasz" : document.getElementById('valaszText')
+                });
+                console.log(megoldasValaszArray);
                 if(feladatNow == feladatarray.length){
                     nextFeladat.disabled = 'true'
                     finishBtn.removeAttribute('disabled');
                 }
             }
         })
+        
 
 
 

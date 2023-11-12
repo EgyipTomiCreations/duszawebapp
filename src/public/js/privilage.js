@@ -3,4 +3,4 @@ document.getElementById('logoutBtn').addEventListener("click", (e)=>{
     location.href = '/';
 })
 
-document.getElementById("nameTag").innerHTML = localStorage.getItem("Nev") + "";
+document.getElementById("nameTag").innerHTML = localStorage.getItem("Nev") + " - " + localStorage.getItem("Privilage");
