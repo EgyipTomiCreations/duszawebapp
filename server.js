@@ -260,7 +260,7 @@ app.post('/adatKuldes', async (req, res) => {
         if (kommunikaciosAdat.tipus == "lekerdezes")
         {
             try {
-                const result = await feladatlekerdezesAsync();
+                const result = await feladatlekerdezesAsync(kommunikaciosAdat);
                 res.json(result);
             } catch (err) {
                 console.error(err);
@@ -273,7 +273,7 @@ app.post('/adatKuldes', async (req, res) => {
     {
         if (kommunikaciosAdat.tipus == "inditas"){
             try {
-                const result = await kitoltesinditas();
+                const result = await kitoltesinditasAsync();
                 res.json(result);
             } catch (err) {
                 console.error(err);
@@ -283,7 +283,7 @@ app.post('/adatKuldes', async (req, res) => {
 
         if (kommunikaciosAdat.tipus == "lezaras"){
             try {
-                const result = await kitolteslezaras();
+                const result = await kitolteslezarasAsync();
                 res.json(result);
             } catch (err) {
                 console.error(err);

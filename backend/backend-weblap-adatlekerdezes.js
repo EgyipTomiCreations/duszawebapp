@@ -39,15 +39,18 @@ function weblapadatlekerdezes(callback) {
     var adatobjektum = {};
     adatobjektum.nev = result[0].nev;
     adatobjektum.leiras = result[0].leiras;
-    kepbuffer = Buffer.from(result[0].ikonbase64, 'base64');
+    if (kepbuffer != "")
+    {
+      kepbuffer = Buffer.from(result[0].ikonbase64, 'base64');
     fs.writeFileSync(gyokerkonyvtar + "/src/img/logo.svg", kepbuffer);
     if (err || kepbuffer == 0)
     {
+      con.end();
+      console.log(adatobjektum);
       callback("Hiba! Nem sikerült a weblap képét előállítani! "+ err);
     }
-    con.end();
-    console.log(adatobjektum);
-    fs.writeFile(gyokerkonyvtar + "/adatok.json", JSON.stringify(adatobjektum), function(err) {
+    }
+        fs.writeFile(gyokerkonyvtar + "/adatok.json", JSON.stringify(adatobjektum), function(err) {
       if(err) {
           return console.log(err);
       }
