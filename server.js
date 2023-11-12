@@ -243,7 +243,18 @@ app.post('/adatKuldes', async (req, res) => {
         if (kommunikaciosAdat.tipus == "feltoltes")
         {
             try {
-                const result = await feladatfeltoltesAsync();
+                const result = await feladatfeltoltesAsync(kommunikaciosAdat);  
+                res.json(result);
+            } catch (err) {
+                console.error(err);
+                res.json({ siker: false, uzenet: err });
+            }
+        }
+
+        if (kommunikaciosAdat.tipus == "lekerdezes")
+        {
+            try {
+                const result = await feladatlekerdezesAsync();
                 res.json(result);
             } catch (err) {
                 console.error(err);
@@ -549,14 +560,35 @@ const csoportlekerdezesAsync = async () => {
 }
 
 
-const feladatfeltoltes = require('./backend//backend-feladat-feltoltes');
-const feladatfeltoltesAsync = async () => {
+const feladatfeltoltes = require('./backend/backend-feladat-feltoltes');
+const feladatfeltoltesAsync = async (kommunikaciosAdat) => {
     try {
         const result = await new Promise((resolve, reject) => {
             feladatfeltoltes(
                 kommunikaciosAdat.feladat,
                 kommunikaciosAdat.tanarid,
                 kommunikaciosAdat.evfolyam,
+                (err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+
+        return { siker: true, uzenet: result };
+    } catch (err) {
+        console.error(err);
+        return { siker: false, uzenet: err };
+    }
+}
+
+const feladatlekerdezes = require('./backend/backend-feladat-feltoltes');
+const feladatlekerdezesAsync = async () => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            feladatlekerdezes(
                 (err, result) => {
                 if (err) {
                     reject(err);
