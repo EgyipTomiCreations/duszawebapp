@@ -270,7 +270,7 @@ app.post('/adatKuldes', async (req, res) => {
 
 //async muveletek felvetele
 const weblaplekerdezes = require('./backend/backend-weblap-adatlekerdezes');
-const weblaplekerdezesAsync = async (kommunikaciosAdat) => {
+const weblaplekerdezesAsync = async () => {
     try {
         return new Promise((resolve, reject) => {
             weblaplekerdezes((err, result) => {
@@ -470,6 +470,7 @@ const csoportregisztracioAsync = async (kommunikaciosAdat) => {
                 kommunikaciosAdat.tag2id,
                 kommunikaciosAdat.tag3id,
                 kommunikaciosAdat.leiras,
+                kommunikaciosAdat.evfolyam,
                 (err, result) => {
                     if (err) {
                         reject(err);
@@ -497,6 +498,7 @@ const csoportmodositasAsync = async (kommunikaciosAdat) => {
                 kommunikaciosAdat.tag2id,
                 kommunikaciosAdat.tag3id,
                 kommunikaciosAdat.leiras,
+                kommunikaciosAdat.evfolyam,
                 (err, result) => {
                     if (err) {
                         reject(err);

@@ -20,21 +20,30 @@ async function saveChanges() {
     const imageArray = await konvertKepToArray();
     console.log('Kép buffer:', imageArray);
     kepbuffer = new TextDecoder().decode(imageArray);
-    sendData(storedTitle, storedContent, kepbuffer);
+    console.log(editedTitle);
+    sendData(editedTitle, editedContent, kepbuffer, "modositas"); 
     } catch (error) {
     console.error('Hiba történt:', error.message);
     }
+
+    try {
+        await sendData("", "", "", "lekerdezes");
+    }
+    catch (error) {  
+    console.error('Hiba történt:', error.message);
+    }
+
     alert('Változtatások elmentve!');
 }
 
 
 
-function sendData(nev, leiras, kepbuffer) {
+function sendData(nev, leiras, kepbuffer, tipus) {
 const kommunikaciosAdat = {};
 kommunikaciosAdat.kategoria = "weblap";
-kommunikaciosAdat.tipus = "modositas";
-kommunikaciosAdat.nev = nev;
-kommunikaciosAdat.leiras = leiras;
+kommunikaciosAdat.tipus = tipus;
+kommunikaciosAdat.nev = localStorage.getItem('editedTitle');
+kommunikaciosAdat.leiras = localStorage.getItem('editedContent');
 kommunikaciosAdat.kepbuffer = kepbuffer;
 
 const dataString = JSON.stringify({ data: kommunikaciosAdat });
@@ -51,6 +60,10 @@ body: dataString,
 .then(response => response.json())
 .then(uzenet => {
 console.log(uzenet);
+if (kommunikaciosAdat.tipus == "lekerdezes")
+{
+    console.log(uzenet);
+}
 })
 .catch(error => {
 console.error(error);
