@@ -327,7 +327,7 @@ function registerTeam(){
         document.getElementById('studentPasswordInput3').innerHTML = '',
         document.getElementById('teamNoteField').innerHTML = ''
 
-        location.reload()
+        //location.reload()
     })
     .catch(error => {
         console.error(error);
