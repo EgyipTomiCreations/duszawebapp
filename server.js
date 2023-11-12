@@ -126,6 +126,12 @@ app.post('/adatKuldes', async (req, res) => {
                 }
                 else
                 {
+                    try {
+                        kommunikaciosAdat.kepbuffer = "";
+                        const result = await weblapadatmodositasAsync(kommunikaciosAdat);
+                    } catch (err) {
+                        console.error(err);
+                    }
                     res.json({ siker: false, uzenet: kepresult.uzenet});
                 }
             } catch (err) {
