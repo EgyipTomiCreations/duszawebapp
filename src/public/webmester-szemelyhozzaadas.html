@@ -3,7 +3,7 @@
 <script>
   if(localStorage.getItem('Privilage') != "Webmester"){
     location.href = '/'
-}
+  }
 </script>
 <head>
     <meta charset="UTF-8">
@@ -152,16 +152,21 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                  <form>      
+                  <form id="registerJuryForm">      
                     <div class="form-outline mb-4">
-                        <input type="email" id="form2Example11" class="form-control"
+                        <input type="text" id="setJuryNameField" class="form-control"
                         placeholder="Teljes név" />
-                    </div>       
+                    </div>   
+
+                    <div class="form-outline mb-4">
+                      <input type="text" id="setJuryPasswordField" class="form-control" placeholder="Jelszó beállítása" />
+                    </div>                   
+           
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="juryCancelBtn">Bezárás</button>
+                      <button type="submit" class="btn btn-primary">Mentés</button>
+                    </div>
                   </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
-                  <button type="button" class="btn btn-primary">Mentés</button>
                 </div>
               </div>
             </div>
