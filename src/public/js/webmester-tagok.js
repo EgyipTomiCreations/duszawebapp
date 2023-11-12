@@ -157,6 +157,7 @@ function registerTeam(){
         kommunikaciosAdat.tag2id = document.getElementById('fullNameInputField2').value,
         kommunikaciosAdat.tag3id = document.getElementById('fullNameInputField3').value,
         kommunikaciosAdat.leiras = document.getElementById('teamNoteField').value
+        //kommunikaciosAdat.evfolyam = document
 
     const dataString = JSON.stringify({ data: kommunikaciosAdat });
     const contentLength = dataString.length;
