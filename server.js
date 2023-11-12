@@ -238,6 +238,20 @@ app.post('/adatKuldes', async (req, res) => {
         }
     }
 
+    if (kommunikaciosAdat.kategoria == "feladat")
+    {
+        if (kommunikaciosAdat.tipus == "feltoltes")
+        {
+            try {
+                const result = await feladatfeltoltesAsync();
+                res.json(result);
+            } catch (err) {
+                console.error(err);
+                res.json({ siker: false, uzenet: err });
+            }
+        }
+    }
+
     //res.json({ siker: false, uzenet: 'Belső kommunikációs hiba a frontend - backend között!' });
 });
 
@@ -519,6 +533,31 @@ const csoportlekerdezesAsync = async () => {
     try {
         const result = await new Promise((resolve, reject) => {
             csoportlekerdezes((err, result) => {
+                if (err) {
+                    reject(err);
+                } else {
+                    resolve(result);
+                }
+            });
+        });
+
+        return { siker: true, uzenet: result };
+    } catch (err) {
+        console.error(err);
+        return { siker: false, uzenet: err };
+    }
+}
+
+
+const feladatfeltoltes = require('./backend/backend-csoport-torles');
+const feladatfeltoltesAsync = async () => {
+    try {
+        const result = await new Promise((resolve, reject) => {
+            feladatfeltoltes(
+                kommunikaciosAdat.feladat,
+                kommunikaciosAdat.tanarid,
+                kommunikaciosAdat.evfolyam,
+                (err, result) => {
                 if (err) {
                     reject(err);
                 } else {
