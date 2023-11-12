@@ -30,6 +30,9 @@ fetch('adatok.json')
             var targetElement = document.getElementById('adatok-helye');
             targetElement.appendChild(titleElement);
             targetElement.appendChild(paragraphElement);
+
+            // Megjelenítjük a képet
+            displayImage(jsonData.kepbuffer);
         })
         .catch(error => console.error('Hiba történt:', error));
 
@@ -61,3 +64,18 @@ versenyGomb.addEventListener('click', () => {
     // Átirányítás a Verseny oldalra
     window.location.href = '/verseny'; // Módosítsd az elérési utat az aktuális oldal elérési útjára
 });
+
+
+function displayImage(kepbuffer) {
+    const imageArray = new TextEncoder().encode(kepbuffer);
+    const blob = new Blob([imageArray], { type: 'image/jpeg' });
+    const imageUrl = URL.createObjectURL(blob);
+
+    const imageElement = document.createElement('img');
+    imageElement.src = imageUrl;
+    imageElement.alt = 'Kép leírása';
+
+    // Az 'imageContainer' a kép megjelenítésére szolgáló konténer elem
+    var imageContainer = document.getElementById('imageContainer');
+    imageContainer.appendChild(imageElement);
+}
