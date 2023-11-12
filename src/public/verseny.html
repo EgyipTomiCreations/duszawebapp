@@ -1,10 +1,24 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <script>
+    if(localStorage.getItem('Privilage') != "Versenyző"){
+          if (localStorage.getItem('Privilage') == "Webmester") {
+              location.href = '/webmester';
+          }
+          if (localStorage.getItem('Privilage') == "Tanár") {
+              location.href = '/tanar';
+          }
+          if (ocalStorage.getItem('Privilage') == "Zsűritag") {
+              location.href = '/zsuri';
+          }
+        }
+  </script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Webmester - Verseny</title>
 </head>
+
 <style>
     #versenyGomb {
         position: absolute;
