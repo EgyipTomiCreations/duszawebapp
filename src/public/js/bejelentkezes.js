@@ -19,6 +19,7 @@ document.getElementById('form1Id').addEventListener('submit', (e) => {
             localStorage.setItem("Privilage", "Tanár");
             localStorage.setItem("Nev", felhasznalo.uzenet.nev);
             location.href = '/tanar';
+            localStorage.setItem("TanarID", felhasznalo.uzenet.id)
         }
         if (felhasznalo.uzenet.szerepkor == "Zsűritag") {
             localStorage.setItem("Privilage", "Zsűritag");
