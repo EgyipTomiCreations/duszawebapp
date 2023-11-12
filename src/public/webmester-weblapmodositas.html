@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
   <script>
+    // Jogok lekezelése
     if(localStorage.getItem('Privilage') != "Webmester"){
       if (localStorage.getItem('Privilage') == "Zsűri") {
               location.href = '/zsuri';
@@ -21,48 +22,50 @@
     <link rel="stylesheet" href="/src/public/sass/about.css">
 </head>
 <body style="height: 100vh;">
-    <nav class="navbar navbar-expand-lg" style="background-color: #ffddb0;">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">
-              <img src="/src/img/header-logo.svg" alt="" height="60" class="d-inline-block align-text-center">
-          </a>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link" href="/alkotok" style="color: #333; font-weight: bold; text-decoration: none;">Alkotók</a>
-                </li>
-            </ul>         
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
-                  <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57" id="nameTag">
-                    Webmester
-                  </button>
-                    <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
-                        <li><a class="dropdown-item" href="#" id="logoutBtn">Kilépés</a></li>
-                    </ul>
-                </li>
-            </ul>  
-        </div>
-        </div>
-      </nav>
-      <div class="container" style="margin: 10px;">
-        <div class="row">
-            <div class="col-md-4">
-              <div class="list-group" style="width: 300px; padding: 24px;">
-                <a onclick="location.href = '/webmester'" class="list-group-item list-group-item-action" aria-current="true" style="align-items: center; cursor: pointer;">
-                  <img src="/src/img/icons/people.svg" height="20px" alt="">
-                  Tagok
-                </a>
-                <a onclick="location.href = '/weblapmodositas'" class="list-group-item list-group-item-action active" style="align-items: center; cursor: pointer">
-                  <img src="/src/img/icons/card-heading-white.svg" alt="" height="20px">
-                  Leírás módosítása
-                </a>
-              </div>
-            </div>           
+  <!--Navbar-->
+  <nav class="navbar navbar-expand-lg" style="background-color: #ffddb0;">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="/">
+            <img src="/src/img/header-logo.svg" alt="" height="60" class="d-inline-block align-text-center">
+        </a>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav">
+              <li class="nav-item">
+                  <a class="nav-link" href="/alkotok" style="color: #333; font-weight: bold; text-decoration: none;">Alkotók</a>
+              </li>
+          </ul>         
+          <ul class="navbar-nav ms-auto">
+              <li class="nav-item dropdown">
+                <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57" id="nameTag">
+                  Webmester
+                </button>
+                  <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                      <li><a class="dropdown-item" href="#" id="logoutBtn">Kilépés</a></li>
+                  </ul>
+              </li>
+          </ul>  
+      </div>
+    </div>
+  </nav>
+    <div class="container" style="margin: 10px;">
+      <div class="row">
+          <!--Munkaterületek-->
+          <div class="col-md-4">
+            <div class="list-group" style="width: 300px; padding: 24px;">
+              <a onclick="location.href = '/webmester'" class="list-group-item list-group-item-action" aria-current="true" style="align-items: center; cursor: pointer;">
+                <img src="/src/img/icons/people.svg" height="20px" alt="">
+                Tagok
+              </a>
+              <a onclick="location.href = '/weblapmodositas'" class="list-group-item list-group-item-action active" style="align-items: center; cursor: pointer">
+                <img src="/src/img/icons/card-heading-white.svg" alt="" height="20px">
+                Leírás módosítása
+              </a>
+            </div>
+          </div>           
             <div class="col-md-8 border border-1 rounded" style="margin-top: 24px;">
                 <div id="content" class="mt-4">
+                    <!--Itt szerkeszthetjük webmesterként a címet és a szöveget-->
                     <h2 id="editableTitle" contenteditable="true" class="mb-4">Szerkeszthető Cím</h2>
-
                     <hr>
                     <p id="editableParagraph" contenteditable="true">Ez egy szerkeszthető bekezdés. <br> Kattintson rá, és módosítsa a szöveget!</p>
                 </div>
@@ -81,26 +84,27 @@
           </div> 
         </div>
       </div>
-      <script>
-        function checkFileSize() {
-            const fileInput = document.getElementById('imageInput');
-            const maxSizeMB = 50; // Maximális engedélyezett méret MB-ban
-    
-            if (fileInput.files.length > 0) {
-                const fileSizeMB = fileInput.files[0].size / (1024 * 1024); // Fájlméret MB-ban
+  <script>
+    // Fájlméret korlátozása
+    function checkFileSize() {
+        const fileInput = document.getElementById('imageInput');
+        const maxSizeMB = 50; // Maximális engedélyezett méret MB-ban
 
-                if (fileSizeMB > maxSizeMB) {
-                    alert('A fájl mérete nem lehet nagyobb, mint 50 MB.');
-                    fileInput.value = ''; // Törölje a kiválasztott fájlt
-                }
+        if (fileInput.files.length > 0) {
+            const fileSizeMB = fileInput.files[0].size / (1024 * 1024); // Fájlméret MB-ban
+
+            if (fileSizeMB > maxSizeMB) {
+                alert('A fájl mérete nem lehet nagyobb, mint 50 MB.');
+                fileInput.value = ''; // Törölje a kiválasztott fájlt
             }
         }
-    
-        document.getElementById('imageInput').addEventListener('change', checkFileSize);
-    </script>
-    
-      <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="/src/public/js/webmester-main.js"></script>
-      <script src="/src/public/js/webmester-weblapmodositas.js"></script>     
+    }
+
+    document.getElementById('imageInput').addEventListener('change', checkFileSize);
+  </script>
+  <!--Scriptek importálása-->
+  <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/src/public/js/webmester-main.js"></script>
+  <script src="/src/public/js/webmester-weblapmodositas.js"></script>     
 </body>
 </html>

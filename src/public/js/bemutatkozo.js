@@ -30,13 +30,16 @@ fetch('adatok.json')
             var targetElement = document.getElementById('adatok-helye');
             targetElement.appendChild(titleElement);
             targetElement.appendChild(paragraphElement);
+
+            // Megjelenítjük a képet
+            displayImage(jsonData.kepbuffer);
         })
         .catch(error => console.error('Hiba történt:', error));
 
 const versenyGomb = document.getElementById('versenyGomb');
 
 // Gomb aktiválása, ha elérkezett a verseny ideje
-const versenyIdeje = new Date('2022-11-12T18:09:00'); // Az aktuális dátumra és időpontra módosítsd
+const versenyIdeje = new Date('2023-11-12T24:00:00'); // Az aktuális dátumra és időpontra módosítsd
 const most = new Date();
 
 console.log('Most:', most);
@@ -61,3 +64,18 @@ versenyGomb.addEventListener('click', () => {
     // Átirányítás a Verseny oldalra
     window.location.href = '/verseny'; // Módosítsd az elérési utat az aktuális oldal elérési útjára
 });
+
+
+function displayImage(kepbuffer) {
+    const imageArray = new TextEncoder().encode(kepbuffer);
+    const blob = new Blob([imageArray], { type: 'image/jpeg' });
+    const imageUrl = URL.createObjectURL(blob);
+
+    const imageElement = document.createElement('img');
+    imageElement.src = imageUrl;
+    imageElement.alt = '';
+
+    // Az 'imageContainer' a kép megjelenítésére szolgáló konténer elem
+    var imageContainer = document.getElementById('imageContainer');
+    imageContainer.appendChild(imageElement);
+}
