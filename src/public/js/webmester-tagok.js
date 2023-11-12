@@ -326,7 +326,7 @@ function registerTeam(){
         document.getElementById('studentPasswordInput2').innerHTML = '',
         document.getElementById('studentPasswordInput3').innerHTML = '',
         document.getElementById('teamNoteField').innerHTML = ''
-
+        //ez itt egy comment
         //location.reload()
     })
     .catch(error => {
