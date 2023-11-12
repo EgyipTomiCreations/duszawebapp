@@ -45,9 +45,9 @@ function csoportregisztracio(nev, tag1id, tag2id, tag3id, leiras, callback) {
                                 con.end();
                                 return callback(`Nem sikerült ${nev} csoport helyességét ellenőrizni! Hiba: ` + err);
                             }
-                            if  (result[0].nev == null)
+                            if  (result && result[0] && result[0].nev == null)
                             {
-                                con.query(`INSERT INTO csoportok (nev, tag1id, , tag2id, tag3id, leiras, evfolyam ) VALUES ("${nev}", "${tag1id}", "${tag2id}", "${tag3id}", "${leiras}", "${evfolyam}")`, function (err, result) {
+                                con.query(`INSERT INTO csoportok (nev, tag1id, , tag2id, tag3id, leiras, evfolyam ) VALUES ("${nev}", "${tag1id}", "${tag2id}", "${tag3id}", "${leiras}", ${evfolyam})`, function (err, result) {
                                     if (err) {
                                         con.end();
                                         return callback(`${nev} csoportot nem sikerült regisztrálni! Hiba: ` + err);
