@@ -1,6 +1,7 @@
 const studentAdderForm = document.getElementById("studentAdderForm");
 const newStudentAdderBtn = document.getElementById("newStudentAdderBtn");
 const teacherListObj = document.getElementById("teacherListUl")
+const studentListObj = document.getElementById("studentListUl")
 const juryListObj = document.getElementById('juryListUl')
 let studentCounter = 0
 let teacherCounter = 0
@@ -71,7 +72,62 @@ function loadJury(){
     });
 }
 
+loadStudent()
 
+function loadStudent(){
+    const studentArray = []
+
+    const kommunikaciosAdat = {};
+    kommunikaciosAdat.kategoria = "felhasznalo";
+    kommunikaciosAdat.tipus = "lekerdezes";
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;
+    fetch('/adatKuldes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+
+    .then(uzenet => {
+        console.log('Ez a versenyzo uzenet', uzenet);
+        uzenet.forEach(element => {
+            if(element.szerepkor == "Versenyző"){
+                localStorage.setItem(element.nev, element.id)
+                studentCounter++
+                if(studentCounter > 0){
+                    const studentListPlaceholder = document.getElementById('studentListPlaceholder')
+                    studentListPlaceholder.style.display = 'none'
+                }
+                const nameHolderDiv = document.createElement('div')
+                nameHolderDiv.style.border = 'none'
+                nameHolderDiv.style.width = '100%'
+                nameHolderDiv.className="input-group mb-3"
+                nameHolderDiv.style.marginBottom = '0px'
+                const newStudentListElem = document.createElement('li')
+                newStudentListElem.className="form-control"
+                newStudentListElem.style = "color: gray;"
+                newStudentListElem.innerHTML = `${element.nev}      ${element.evfolyam}/${element.osztalyjel}`
+                studentListObj.appendChild(nameHolderDiv)
+                const editButton = document.createElement('button')
+                editButton.className="input-group-text"
+                const editBtnImage = document.createElement('img')
+                editBtnImage.src = '/src/img/icons/pencil.svg'
+                editButton.appendChild(editBtnImage)
+                nameHolderDiv.appendChild(newStudentListElem)
+                nameHolderDiv.appendChild(editButton)
+
+            }
+        });
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
 
 
 function loadTeacher(){
@@ -301,8 +357,8 @@ function registerTeam(){
         kommunikaciosAdat.tag2id = localStorage.getItem(document.getElementById('fullNameInputField2').value),
         kommunikaciosAdat.tag3id = localStorage.getItem(document.getElementById('fullNameInputField3').value),
         kommunikaciosAdat.leiras = document.getElementById('teamNoteField').value
-        //kommunikaciosAdat.evfolyam = document.getElementById('yearSelect').value
-        console.log("Ez az evfolyama a 3.nak: ", typeof parseInt(document.getElementById('yearSelect').value))
+        kommunikaciosAdat.evfolyam = document.getElementById('yearSelect').value
+        //console.log("Ez az evfolyama a 3.nak: ", typeof parseInt(document.getElementById('yearSelect').value))
         //kommunikaciosAdat.evfolyam = document
 
     const dataString = JSON.stringify({ data: kommunikaciosAdat });

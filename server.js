@@ -21,6 +21,17 @@ app.get('/', (req, res) => {
     });
 });
 
+app.get('/verseny', (req, res) => {
+    fs.readFile(path.join(__dirname, 'src', 'public', 'verseny.html'), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Hiba a HTML fájl olvasása közben:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.send(data);
+    });
+});
+
 app.get('/webmester', (req, res) => {
     fs.readFile(path.join(__dirname, 'src', 'public', 'webmester-szemelyhozzaadas.html'), 'utf8', (err, data) => {
         if (err) {
