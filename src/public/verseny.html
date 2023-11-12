@@ -18,6 +18,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Webmester - Verseny</title>
     <link rel="stylesheet" href="/src/public/sass/about.css">
+    <link rel="icon" type="image/x-icon" href="./src/img/logo.svg">
 </head>
 
 <style>
@@ -26,6 +27,10 @@
         right: 30%;
         margin: 0; /* opcionális: nullázd ki az alapértelmezett margin-t */
     }
+    .card{
+        margin: 10px;
+    }
+
 </style>
 <body style="height: 100vh;">
     <nav class="navbar navbar-expand-lg" style="background-color: #ffddb0;">
@@ -55,19 +60,54 @@
 
       <div class="container py-5 h-100">
         <div class="row d-flex justify-content-center align-items-center h-50">
-          <div class="col-xl-5">
+          <div class="col-xl-5" style="width: 100%;">
             <div class="card rounded-3 text-black">
               <div class="row g-0">
-                  <div class="card-body p-md-5 mx-md-4">     
-                      <div class="text-center">
-                        
+                <div class="card-body p-md-5 mx-md-4">
+                  <div class="text-center">
+                    <h1 class="display-4" id="feladatCounterh1">Feladat</h1>
+                    <hr>
+                    <p class="fs-2">Találd ki a negyedik szót!</p>
+      
+                    <div class="container text-center" id="mainHolder">
+                      <div class="row row-cols-2">
+                        <div class="col">
+                          <div class="card">
+                            <div class="card-body" id="1"></div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="card">
+                            <div class="card-body" id="2"></div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="card">
+                            <div class="card-body" id="3"></div>
+                          </div>
+                        </div>
+                        <div class="col">
+                          <div class="card">
+                            <div class="card-body" id="4"></div>
+                          </div>
+                        </div>
                       </div>
+                      <hr>
+                      <div style="display: flex; justify-content: center; align-items: center; flex-direction: column; ">
+                          <input type="text" class="form-control" placeholder="Válasz" aria-label="Username" aria-describedby="basic-addon1" style="margin-top: 20px; width: 30%; box-shadow: 20px 19px 39px -14px rgba(0,0,0,0.75);">
+                          <button class="btn btn-primary" style="margin-top: 20px; width: 30%; box-shadow: 20px 19px 39px -14px rgba(0,0,0,0.75); " id="nextFeladat">Tovább</button>
+                          <button class="btn btn-primary" style="margin-top: 20px; width: 30%; box-shadow: 20px 19px 39px -14px rgba(0,0,0,0.75); display: none;" id="finishBtn">Beküldés</button>
+                      </div>
+                    </div>
+      
                   </div>
-                </div>      
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
+      
 
 
       <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
