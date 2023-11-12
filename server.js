@@ -22,7 +22,7 @@ app.get('/', (req, res) => {
 });
 
 app.get('/webmester', (req, res) => {
-    fs.readFile(path.join(__dirname, 'src', 'public', 'webmester.html'), 'utf8', (err, data) => {
+    fs.readFile(path.join(__dirname, 'src', 'public', 'webmester-szemelyhozzaadas.html'), 'utf8', (err, data) => {
         if (err) {
             console.error('Hiba a HTML fájl olvasása közben:', err);
             res.status(500).send('Internal Server Error');
@@ -33,7 +33,7 @@ app.get('/webmester', (req, res) => {
 });
 
 app.get('/tanar', (req, res) => {
-    fs.readFile(path.join(__dirname, 'src', 'public', 'tanar.html'), 'utf8', (err, data) => {
+    fs.readFile(path.join(__dirname, 'src', 'public', 'tanar-feltoltes.html'), 'utf8', (err, data) => {
         if (err) {
             console.error('Hiba a HTML fájl olvasása közben:', err);
             res.status(500).send('Internal Server Error');
@@ -65,11 +65,18 @@ app.get('/weblapmodositas', (req, res) => {
     });
 });
 
-app.listen(port, () => {
-    console.log(`A webszerver fut a http://localhost:${port} címen`);
+app.get('/alkotok', (req, res) => {
+    fs.readFile(path.join(__dirname, 'src', 'public', 'alkotok.html'), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Hiba a HTML fájl olvasása közben:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.send(data);
+    });
 });
 
-/*app.get('/verseny', (req, res) => {
+app.get('/verseny', (req, res) => {
     fs.readFile(path.join(__dirname, 'src', 'public', 'verseny.html'), 'utf8', (err, data) => {
         if (err) {
             console.error('Hiba a HTML fájl olvasása közben:', err);
@@ -78,7 +85,11 @@ app.listen(port, () => {
         }
         res.send(data);
     });
-});*/
+});
+
+app.listen(port, () => {
+    console.log(`A webszerver fut a http://localhost:${port} címen`);
+});
 
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
