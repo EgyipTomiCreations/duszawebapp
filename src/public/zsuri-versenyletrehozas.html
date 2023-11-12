@@ -49,7 +49,7 @@
               <ul class="navbar-nav ms-auto">
                   <li class="nav-item dropdown">
                     <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57">
-                      Webmester
+                      Zsűri
                     </button>
                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
                       <li><a class="dropdown-item" href="#">Profil kezelése</a></li>
@@ -79,10 +79,10 @@
             
                     <label for="evfolyam">Évfolyam:</label>
                     <select id="evfolyam" name="evfolyam" style="width: 250px" required>
-                        <option value="9">5. évfolyam</option>
-                        <option value="10">6. évfolyam</option>
-                        <option value="11">7. évfolyam</option>
-                        <option value="12">8. évfolyam</option>
+                        <option value="5">5. évfolyam</option>
+                        <option value="6">6. évfolyam</option>
+                        <option value="7">7. évfolyam</option>
+                        <option value="8">8. évfolyam</option>
                     </select>
             
                     <label for="kezdetiIdo">Kezdeti időpont:</label>
@@ -92,7 +92,9 @@
                     <input type="datetime-local" id="vegiIdo" name="vegiIdo" required>
             
                     <label for="feladatok">Megoldandó feladatok:</label>
-                    <!-- Itt lehetne egy checkbox csoport vagy legördülő lista a feladatokhoz -->
+                    <select id="feladatok" name="feladatok" style="width: 250px" required>
+                        
+                    </select>
             
                     <label for="csapatok">Csapatok hozzáadása:</label>
                     <select id="csapatok" name="csapatok" style="height: 100px; width: 250px" multiple required>
@@ -119,11 +121,15 @@
                 // Az űrlap adatainak gyűjtése
                 const nev = document.getElementById('nev').value;
                 const leiras = document.getElementById('leiras').value;
+                const evfolyam = document.getElementById('evfolyam').value;
+                const kezdetiIdo = document.getElementById('kezdetiIdo').value;
+                const vegiIdo = document.getElementById('vegiIdo').value;
+                const csapatok = document.getElementById('csapatok').value;
 
                 // További adatok gyűjtése a formból
 
                 // Elküldés a szerverre (itt a szerver URL-jét kell beállítani)
-                sendDataToServer(nev, leiras);
+                sendDataToServer(nev, leiras, evfolyam, kezdetiIdo, vegiIdo, csapatok);
 
                 // További mezők törlése vagy egyéb műveletek végrehajtása
 
