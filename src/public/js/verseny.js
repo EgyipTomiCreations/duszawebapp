@@ -14,6 +14,7 @@ const id3 = document.getElementById('3')
 const id4 = document.getElementById('4')
 const nextFeladat = document.getElementById('nextFeladat')
 const finishBtn = document.getElementById('finishBtn')
+finishBtn.disabled = 'true'
 mehet = false
 
 
@@ -73,7 +74,7 @@ function loadJury(){
                 id4.innerHTML = kevert
                 if(feladatNow == feladatarray.length){
                     nextFeladat.disabled = 'true'
-                    finishBtn.display = 'block'
+                    finishBtn.removeAttribute('disabled');
                 }
             }
         })
