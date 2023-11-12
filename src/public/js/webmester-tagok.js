@@ -1,12 +1,60 @@
-
-
 const studentAdderForm = document.getElementById("studentAdderForm");
 const newStudentAdderBtn = document.getElementById("newStudentAdderBtn");
 const teacherListObj = document.getElementById("teacherListUl")
+const juryListObj = document.getElementById('juryListUl')
 let studentCounter = 0
 let teacherCounter = 0
+let juryCounter = 0
 
 loadTeacher()
+loadJury()
+
+
+function loadJury(){
+    console.log("Fut a jury tagok megjelenítése")
+
+    const juryArray = []
+
+    const kommunikaciosAdat = {};
+    kommunikaciosAdat.kategoria = "felhasznalo";
+    kommunikaciosAdat.tipus = "lekerdezes";
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;
+    fetch('/adatKuldes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+
+    .then(uzenet => {
+        console.log(uzenet);
+        uzenet.forEach(element => {
+            if(element.szerepkor == "Zsűritag"){
+                juryCounter++
+                if(juryCounter > 0){
+                    const juryListPlaceholder = document.getElementById('juryListPlaceholder')
+                    juryListPlaceholder.style.display = 'none'
+                }
+                const newJuryListElem = document.createElement('li')
+                newJuryListElem.className = 'list-group-item'
+                newJuryListElem.style = "color: gray;"
+                newJuryListElem.innerHTML = element.nev
+                juryListObj.appendChild(newJuryListElem)
+
+            }
+        });
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+
 
 
 function loadTeacher(){
@@ -37,7 +85,6 @@ function loadTeacher(){
                     const teacherListPlaceholder = document.getElementById('teacherListPlaceholder')
                     teacherListPlaceholder.style.display = 'none'
                 }
-                console.log(element.nev)
                 const newTeacherListElem = document.createElement('li')
                 newTeacherListElem.className = 'list-group-item'
                 newTeacherListElem.style = "color: gray;"
@@ -51,6 +98,10 @@ function loadTeacher(){
         console.error(error);
     });
 }
+
+
+
+
 
 document.getElementById('registerTeacherForm').addEventListener('submit', (e) => {
     e.preventDefault()
@@ -137,31 +188,6 @@ function registerTeacher() {
     });
 }
 
-loadJury()
-
-function loadJury(){
-    const kommunikaciosAdat = {};
-    kommunikaciosAdat.kategoria = "felhasznalo";
-    kommunikaciosAdat.tipus = "lekerdezes";
-
-    const dataString = JSON.stringify({ data: kommunikaciosAdat });
-    const contentLength = dataString.length;
-    fetch('/adatKuldes', {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-            'Content-Length': contentLength.toString(),
-        },
-        body: dataString,
-    })
-    .then(response => response.json())
-    .then(uzenet => {
-        console.log(uzenet);
-    })
-    .catch(error => {
-        console.error(error);
-    });
-}
 
 document.getElementById('registerJuryForm').addEventListener('submit', (e) => {
     e.preventDefault()
@@ -185,7 +211,7 @@ function registerJury() {
     kommunikaciosAdat.tipus = "regisztracio";
     kommunikaciosAdat.nev = document.getElementById('setJuryNameField').value;
     kommunikaciosAdat.jelszo = document.getElementById('setJuryPasswordField').value;
-    kommunikaciosAdat.szerepkor = "Zsuri";
+    kommunikaciosAdat.szerepkor = "Zsűritag";
 
     const dataString = JSON.stringify({ data: kommunikaciosAdat });
     const contentLength = dataString.length;
@@ -200,6 +226,9 @@ function registerJury() {
     .then(response => response.json())
     .then(uzenet => {
         console.log(uzenet);
+        document.getElementById('setJuryNameField').value = ''
+        document.getElementById('setJuryPasswordField').value = ''
+        location.reload()
     })
     .catch(error => {
         console.error(error);
