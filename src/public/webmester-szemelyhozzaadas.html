@@ -69,7 +69,7 @@
                             Hozzáadás
                         </button>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#newStudentModal" href="#">Osztály</a></li>
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#newStudentModal" href="#">Csoport</a></li>
                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#newTeacherModal" href="#">Tanár</a></li>
                             <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#newJuryModal" href="#">Zsűri</a></li>
                         </ul>
@@ -77,15 +77,15 @@
                 </div>
                 <div class="col-md-4" style="width: 300px;">
                     <ul class="list-group" id="teacherListUl" style="width: 400px;">
-                      <li class="list-group-item"><p class="fs-3">Tanárok</p></li>
+                      <li class="list-group-item" style="margin-bottom: 10px;"><p class="fs-3">Tanárok</p></li>
                       <li class="list-group-item" style="color: gray;" id="teacherListPlaceholder">Itt még nincs senki, adj hozzá a "hozzáadás" gombal</li>
                     </ul>
                     <ul class="list-group"  style="width: 400px; margin-top: 30px;">
-                      <li class="list-group-item"><p class="fs-3">Diákok</p></li>
+                      <li class="list-group-item" style="margin-bottom: 10px;"><p class="fs-3">Diákok</p></li>
                       <li class="list-group-item" style="color: gray;" >Itt még nincs senki, adj hozzá a "hozzáadás" gombal</li>
                     </ul>
                     <ul class="list-group" id="juryListUl" style="width: 400px; margin-top: 30px;">
-                      <li class="list-group-item"><p class="fs-3">Zsűritagok</p></li>
+                      <li class="list-group-item" style="margin-bottom: 10px;"><p class="fs-3">Zsűritagok</p></li>
                       <li class="list-group-item" style="color: gray;" id="juryListPlaceholder">Itt még nincs senki, adj hozzá a "hozzáadás" gombal</li>
                     </ul>
                 </div>
@@ -97,16 +97,31 @@
         <div class="modal-dialog">
           <div class="modal-content">
             <div class="modal-header">
-              <h1 class="modal-title fs-5" id="staticBackdropLabel">Új osztály hozzáadása</h1>
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Új csoport hozzáadása</h1>
               <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
             </div>
             <div class="modal-body">
               <form id="studentAdderForm">
-                <p class="fs-5">Osztály</p>    
+                <p class="fs-5">Csoportnév</p> 
                 <div class="form-outline mb-4">
-                    <input type="email" id="form2Example11" class="form-control"
-                    placeholder="Osztály neve" maxlength="2"/>
-                </div>   
+                  <input type="text" id="teamNameField" class="form-control"
+                  placeholder="Név" />
+                </div>
+                <div class="dropdown">
+                  <div class="form-floating">
+                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                      <option selected>Évfolyam kiválasztása</option>
+                      <option value="5">5. évfolyam</option>
+                      <option value="6">6. évfolyam</option>
+                      <option value="7">7. évfolyam</option>
+                      <option value="8">8. évfolyam</option>
+                    </select>
+                    <label for="floatingSelect">Works with selects</label>
+                  </div>
+                <p class="fs-5">Leírás</p> 
+                <div class="form-floating">
+                  <textarea class="form-control" placeholder="Leírás" id="teamNoteField" style="height: 100px; padding-top: 5px; margin-bottom: 10px;"></textarea>
+                </div>
                 <button type="button" class="btn btn-secondary" id="newStudentAdderBtn" style="width: 100%; margin-bottom: 24px;">Új tanuló</button>
               </form>
             </div>

@@ -40,11 +40,28 @@ function loadJury(){
                     const juryListPlaceholder = document.getElementById('juryListPlaceholder')
                     juryListPlaceholder.style.display = 'none'
                 }
+                const nameHolderDiv = document.createElement('div')
+                nameHolderDiv.style.border = 'none'
+                nameHolderDiv.style.width = '100%'
+                nameHolderDiv.className="input-group mb-3"
+                nameHolderDiv.style.marginBottom = '0px'
                 const newJuryListElem = document.createElement('li')
-                newJuryListElem.className = 'list-group-item'
+                newJuryListElem.className="form-control"
                 newJuryListElem.style = "color: gray;"
                 newJuryListElem.innerHTML = element.nev
-                juryListObj.appendChild(newJuryListElem)
+                juryListObj.appendChild(nameHolderDiv)
+                const editButton = document.createElement('button')
+                editButton.className="input-group-text"
+                editButton.id = 'editButtonId'
+                const editBtnImage = document.createElement('img')
+                editBtnImage.src = '/src/img/icons/pencil.svg'
+                editBtnImage.addEventListener('click', (e) => {
+                    console.log(newJuryListElem.innerHTML)
+                    $('#myModal').modal('show');
+                })
+                editButton.appendChild(editBtnImage)
+                nameHolderDiv.appendChild(newJuryListElem)
+                nameHolderDiv.appendChild(editButton)
 
             }
         });
@@ -80,16 +97,29 @@ function loadTeacher(){
         console.log(uzenet);
         uzenet.forEach(element => {
             if(element.szerepkor == "Tanár"){
+                localStorage.setItem(element.nev, element.id)
                 teacherCounter++
                 if(teacherCounter > 0){
                     const teacherListPlaceholder = document.getElementById('teacherListPlaceholder')
                     teacherListPlaceholder.style.display = 'none'
                 }
+                const nameHolderDiv = document.createElement('div')
+                nameHolderDiv.style.border = 'none'
+                nameHolderDiv.style.width = '100%'
+                nameHolderDiv.className="input-group mb-3"
+                nameHolderDiv.style.marginBottom = '0px'
                 const newTeacherListElem = document.createElement('li')
-                newTeacherListElem.className = 'list-group-item'
+                newTeacherListElem.className="form-control"
                 newTeacherListElem.style = "color: gray;"
                 newTeacherListElem.innerHTML = element.nev
-                teacherListObj.appendChild(newTeacherListElem)
+                teacherListObj.appendChild(nameHolderDiv)
+                const editButton = document.createElement('button')
+                editButton.className="input-group-text"
+                const editBtnImage = document.createElement('img')
+                editBtnImage.src = '/src/img/icons/pencil.svg'
+                editButton.appendChild(editBtnImage)
+                nameHolderDiv.appendChild(newTeacherListElem)
+                nameHolderDiv.appendChild(editButton)
 
             }
         });
@@ -127,6 +157,7 @@ function registerTeam(){
         kommunikaciosAdat.tag2id = document.getElementById('fullNameInputField2').value,
         kommunikaciosAdat.tag3id = document.getElementById('fullNameInputField3').value,
         kommunikaciosAdat.leiras = document.getElementById('teamNoteField').value
+        //kommunikaciosAdat.evfolyam = document
 
     const dataString = JSON.stringify({ data: kommunikaciosAdat });
     const contentLength = dataString.length;
@@ -165,6 +196,43 @@ function registerTeacher() {
     kommunikaciosAdat.nev = document.getElementById('setTeacherNameField').value;
     kommunikaciosAdat.jelszo = document.getElementById('setTeacherPasswordField').value;
     kommunikaciosAdat.szerepkor = "Tanar";
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;
+    fetch('/adatKuldes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+    .then(uzenet => {
+        console.log(uzenet);
+        document.getElementById('setTeacherNameField').value = ''
+        document.getElementById('setTeacherPasswordField').value = ''
+        location.reload()
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+function modifyTeacher(){
+    const kommunikaciosAdat = {};
+    kommunikaciosAdat.kategoria = "felhasznalo";
+    kommunikaciosAdat.tipus = "modositas";
+    kommunikaciosAdat.nev = document.getElementById('setTeacherNameField').value;
+    kommunikaciosAdat.jelszo = document.getElementById('setTeacherPasswordField').value;
+    kommunikaciosAdat.szerepkor = "Tanar";
+
+    //kommunikaciosAdat.id,
+    //kommunikaciosAdat.nev,
+    //kommunikaciosAdat.jelszo,
+    //kommunikaciosAdat.szerepkor,
+    //kommunikaciosAdat.evfolyam,
+    //kommunikaciosAdat.osztalyjel,
 
     const dataString = JSON.stringify({ data: kommunikaciosAdat });
     const contentLength = dataString.length;
