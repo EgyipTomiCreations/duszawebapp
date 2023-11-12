@@ -1,6 +1,79 @@
+
+
 const studentAdderForm = document.getElementById("studentAdderForm");
 const newStudentAdderBtn = document.getElementById("newStudentAdderBtn");
 let studentCounter = 0
+
+loadTeacher()
+
+function loadTeacher(){
+    const kommunikaciosAdat = {};
+    kommunikaciosAdat.kategoria = "felhasznalo";
+    kommunikaciosAdat.tipus = "lekerdezes";
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;
+    fetch('/adatKuldes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+    .then(uzenet => {
+        console.log(uzenet);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+document.getElementById('registerTeacherForm').addEventListener('submit', (e) => {
+    e.preventDefault()
+    console.log(document.getElementById('setTeacherNameField').value)
+})
+
+document.getElementById('teacherCancelBtn').addEventListener('click', (e) => {
+    e.preventDefault()
+    document.getElementById('setTeacherNameField').value = ''
+    document.getElementById('setPasswordField').value = ''
+})
+
+document.getElementById('registerTeacherForm').addEventListener('submit', (e) => {
+    console.log("Én csinálok is valamit, nem ugy mint trepak!")
+    registerTeacher()
+})
+
+
+function registerTeacher(){
+    const kommunikaciosAdat = {};
+    kommunikaciosAdat.kategoria = "felhasznalo";
+    kommunikaciosAdat.tipus = "regisztracio";
+    kommunikaciosAdat.nev = document.getElementById('setTeacherNameField').value
+    kommunikaciosAdat.jelszo = document.getElementById('setTeacherPasswordField').value
+    kommunikaciosAdat.szerepkor = "Tanar";
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;
+    fetch('/adatKuldes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+    .then(uzenet => {
+        console.log(uzenet);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
 
 if (newStudentAdderBtn){
     newStudentAdderBtn.addEventListener('click', () => {

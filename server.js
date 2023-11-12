@@ -142,6 +142,7 @@ app.post('/adatKuldes', async (req, res) => {
         {
             try {
                 const result = await felhasznalolekerdezesAsync()
+                console.log("Ez a result", result)
                 res.json(result);
             } catch (err) {
                 console.error(err);
@@ -320,6 +321,7 @@ const felhasznalolekerdezesAsync = () => {
                 reject(err);
             } else {
                 resolve(result);
+                console.log(result)
             }
         });
     });
