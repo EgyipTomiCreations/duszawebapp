@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Webmester - Verseny</title>
+    <link rel="stylesheet" href="/src/public/sass/about.css">
 </head>
 <style>
     #versenyGomb {
@@ -45,36 +46,8 @@
               <div class="row g-0">
                   <div class="card-body p-md-5 mx-md-4">     
                       <div class="text-center">
-                      <img src="/src/img/logo.svg"
-                          style="width: 185px; padding-bottom: 20px;" alt="logo" draggable="false">
-                      <h4 class="mt-1 mb-5 pb-1">Üdvözlünk a szókirakón!</h4>
+                        
                       </div>
-      
-                      <form id="form1Id">      
-                        <div class="form-outline mb-4">
-                            <input type="text" class="form-control"
-                            placeholder="Felhasználónév" id="usernameText" required/>
-                        </div>
-      
-                        <div class="form-outline mb-4">
-                            <input type="password" class="form-control" placeholder="Jelszó" id = "passwordText" required/>
-                        </div>
-      
-                        <div class="text-center pt-1 mb-5 pb-1">
-                            <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="submit" id="loginBtn">Bejelentkezés</button>
-                        </div>
-             
-                      </form>
-
-                      <div class="toast align-items-center text-bg-primary border-0" id="wrongLoginToast" role="alert" aria-live="assertive" aria-atomic="true" style="width: 100%">
-                        <div class="d-flex">
-                          <div class="toast-body">
-                            Hibás felhasználónév vagy jelszó
-                          </div>
-                          <button type="button" class="btn-close btn-close-white me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-                        </div>
-                      </div>
-      
                   </div>
                 </div>      
             </div>
@@ -83,6 +56,8 @@
       </div>
 
 
-    
+      <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+      <script src="/src/public/js/webmester-main.js"></script>
+      <script src="/src/public/js/verseny.js"></script>
 </body>
 </html>
