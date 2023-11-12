@@ -46,7 +46,14 @@ function weblapadatlekerdezes(callback) {
       callback("Hiba! Nem sikerült a weblap képét előállítani! "+ err);
     }
     con.end();
-    return callback(null, adatobjektum);
+    console.log(adatobjektum);
+    fs.writeFile(gyokerkonyvtar + "/adatok.json", JSON.stringify(adatobjektum), function(err) {
+      if(err) {
+          return console.log(err);
+      }
+      console.log("Weblap adatok mentve!");
+  });
+    return callback(null, adatobjektum); 
   });
 }
 
