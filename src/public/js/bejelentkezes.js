@@ -2,6 +2,14 @@ document.getElementById('form1Id').addEventListener('submit', (e) => {
     e.preventDefault();
     sendData().then((felhasznalo) => {
         console.log(felhasznalo);
+        if(felhasznalo.siker == false){
+            console.log('false')
+            const toastTrigger = document.getElementById('loginBtn')
+            const toastLiveExample = document.getElementById('wrongLoginToast')
+
+            const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
+            toastBootstrap.show()
+        }
         if (felhasznalo.uzenet.szerepkor == "Webmester") {
             localStorage.setItem("Privilage", "Webmester");
             localStorage.setItem("Nev", felhasznalo.uzenet.nev);
@@ -13,15 +21,7 @@ document.getElementById('form1Id').addEventListener('submit', (e) => {
     });
 });
 
-const toastTrigger = document.getElementById('loginBtn')
-const toastLiveExample = document.getElementById('wrongLoginToast')
 
-if (toastTrigger) {
-  const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
-  toastTrigger.addEventListener('click', () => {
-    toastBootstrap.show()
-  })
-}
 
 function sendData() {
     return new Promise((resolve, reject) => {
