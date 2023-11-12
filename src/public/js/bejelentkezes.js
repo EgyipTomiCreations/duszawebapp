@@ -15,7 +15,7 @@ document.getElementById('form1Id').addEventListener('submit', (e) => {
             localStorage.setItem("Nev", felhasznalo.uzenet.nev);
             location.href = '/webmester';
         }
-        if (felhasznalo.uzenet.szerepkor == "Tanar") {
+        if (felhasznalo.uzenet.szerepkor == "Tanár") {
             location.href = '/tanar';
         }
     });

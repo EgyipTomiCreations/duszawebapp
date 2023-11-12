@@ -5,7 +5,7 @@ document.getElementById('logoutBtn').addEventListener("click", (e)=>{
     location.href = '/';
 })
 
-document.getElementById("nameTag").innerHTML = localStorage.getItem("Nev") + " - Tanár";
+document.getElementById("nameTag").innerHTML = localStorage.getItem("Nev") + " - Tanar";
 
 document.getElementById('saveBtn').addEventListener('click', (e)=>{
     var fileInput = document.getElementById('inputfile');
