@@ -1,4 +1,4 @@
-const feladatfeltoltes = require("../../../backend/backend-feladat-feltoltes")
+
 
 feladatCount = 0
 feladatNow = 1
