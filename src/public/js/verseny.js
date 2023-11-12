@@ -23,6 +23,9 @@ function loadJury(){
 
     .then(uzenet => {
         console.log(uzenet);
+        uzenet.uzenet.forEach(element => {
+            console.log("Element", element)
+        });
         
     })
     .catch(error => {
