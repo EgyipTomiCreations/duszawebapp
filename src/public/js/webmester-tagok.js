@@ -301,7 +301,7 @@ function registerTeam(){
         kommunikaciosAdat.tag2id = localStorage.getItem(document.getElementById('fullNameInputField2').value),
         kommunikaciosAdat.tag3id = localStorage.getItem(document.getElementById('fullNameInputField3').value),
         kommunikaciosAdat.leiras = document.getElementById('teamNoteField').value
-        kommunikaciosAdat.evfolyam = document.getElementById('yearSelect').value
+        //kommunikaciosAdat.evfolyam = document.getElementById('yearSelect').value
         console.log("Ez az evfolyama a 3.nak: ", typeof parseInt(document.getElementById('yearSelect').value))
         //kommunikaciosAdat.evfolyam = document
 
@@ -327,7 +327,7 @@ function registerTeam(){
         document.getElementById('studentPasswordInput3').innerHTML = '',
         document.getElementById('teamNoteField').innerHTML = ''
 
-        location.reload()
+        //location.reload()
     })
     .catch(error => {
         console.error(error);
