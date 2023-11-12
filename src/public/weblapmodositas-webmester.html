@@ -61,7 +61,6 @@
         </div>
     </div>
         <script>
-            // Ellenőrzi, hogy van-e mentett tartalom a böngésző tárolójában
             const storedTitle = localStorage.getItem('editedTitle');
             const storedContent = localStorage.getItem('editedContent');
     
@@ -73,37 +72,30 @@
                 document.getElementById('editableParagraph').innerHTML = storedContent;
             }
     
-            // Menti a változtatásokat a böngésző tárolójába
             function saveChanges() {
                 const editedTitle = document.getElementById('editableTitle').innerHTML;
                 const editedContent = document.getElementById('editableParagraph').innerHTML;
     
                 localStorage.setItem('editedTitle', editedTitle);
                 localStorage.setItem('editedContent', editedContent);
-    
-                sendData(editedTitle, editedContent);
-    
+                
+                const kepbuffer = konvertKepBuffer();
+                if (kepbuffer)
+                {
+                    //sendData(editedTitle, editedContent, kepbuffer);
+                }
                 alert('Változtatások elmentve!');
             }
-            //
-            function uploadImage() {
-                const imageInput = document.getElementById('imageInput');
-                const selectedImage = imageInput.files[0];
-
-                if (selectedImage) {
-                    // Elvileg itt kell feltölteni szerverre
-                    console.log('Kiválasztott kép:', selectedImage);
-                } else {
-                    console.log('Nincs kiválasztott kép.');
-                }
-            }
             
-            function sendData(nev, leiras) {
+
+            
+            function sendData(nev, leiras, kepbuffer) {
             const kommunikaciosAdat = {};
             kommunikaciosAdat.kategoria = "weblap";
-            kommunikaciosAdat.tipus = "lekerdezes";
+            kommunikaciosAdat.tipus = "modositas";
             kommunikaciosAdat.nev = nev;
             kommunikaciosAdat.leiras = leiras;
+            kommunikaciosAdat.kepbuffer = kepbuffer;
     
             const dataString = JSON.stringify({ data: kommunikaciosAdat });
             const contentLength = dataString.length;
@@ -123,6 +115,27 @@
         .catch(error => {
             console.error(error);
         });
+    }
+
+
+
+    function konvertKepBuffer() {
+      const input = document.getElementById('imageInput');
+      const file = input.files[0];
+
+      if (file) {
+        const reader = new FileReader();
+        reader.onload = async (event) => {
+          const imageBuffer = new Uint8Array(event.target.result);
+          console.log(imageBuffer);
+        };
+
+        reader.readAsArrayBuffer(file);
+
+        return imageBuffer;
+      } else {
+        alert('Válassz ki egy képet!');
+      }
     }
         </script>  
         </div>

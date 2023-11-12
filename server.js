@@ -54,6 +54,17 @@ app.get('/zsuri', (req, res) => {
     });
 });
 
+app.get('/weblapmodositas', (req, res) => {
+    fs.readFile(path.join(__dirname, 'src', 'public', 'weblapmodositas-webmester.html'), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Hiba a HTML fájl olvasása közben:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.send(data);
+    });
+});
+
 app.listen(port, () => {
     console.log(`A webszerver fut a http://localhost:${port} címen`);
 });
@@ -68,10 +79,6 @@ app.listen(port, () => {
         res.send(data);
     });
 });*/
-
-app.listen(port, () => {
-    console.log(`A webszerver fut a http://localhost:${port} címen`);
-});
 
 app.use(bodyParser.json());
 app.post('/adatKuldes', async (req, res) => {
@@ -94,7 +101,7 @@ app.post('/adatKuldes', async (req, res) => {
         {           
             try {
                 const result = await weblapadatmodositasAsync();
-                res.json(result);
+                res.json({ siker: true, uzenet: result });
             } catch (err) {
                 console.error(err);
                 res.json({ siker: false, uzenet: err });
@@ -119,7 +126,7 @@ app.post('/adatKuldes', async (req, res) => {
         {           
             try {
                 const result = await felhasznalobejelentkezesAsync(kommunikaciosAdat);
-                res.json(result);
+                res.json({ siker: true, uzenet: result });
             } catch (err) {
                 console.error(err);
                 res.json({ siker: false, uzenet: err });
@@ -129,7 +136,7 @@ app.post('/adatKuldes', async (req, res) => {
         {
             try {
                 const result = await felhasznaloregisztracioAsync(kommunikaciosAdat);
-                res.json(result);
+                res.json({ siker: true, uzenet: result });
             } catch (err) {
                 console.error(err);
                 res.json({ siker: false, uzenet: err });
@@ -139,7 +146,7 @@ app.post('/adatKuldes', async (req, res) => {
         {            
             try {
                 const result = await felhasznalomodositasAsync(kommunikaciosAdat);
-                res.json(result);
+                res.json({ siker: true, uzenet: result });
             } catch (err) {
                 console.error(err);
                 res.json({ siker: false, uzenet: err });
@@ -149,7 +156,7 @@ app.post('/adatKuldes', async (req, res) => {
         {
             try {
                 const result = await felhasznalotorlesAsync(kommunikaciosAdat);
-                res.json(result);
+                res.json({ siker: true, uzenet: result });
             } catch (err) {
                 console.error(err);
                 res.json({ siker: false, uzenet: err });
@@ -163,7 +170,7 @@ app.post('/adatKuldes', async (req, res) => {
         {
             try {
                 const result = await csoportregisztracioAsync(kommunikaciosAdat);
-                res.json(result);
+                res.json({ siker: true, uzenet: result });
             } catch (err) {
                 console.error(err);
                 res.json({ siker: false, uzenet: err });
@@ -174,7 +181,7 @@ app.post('/adatKuldes', async (req, res) => {
         {
             try {
                 const result = await csoportmodositasAsync(kommunikaciosAdat);
-                res.json(result);
+                res.json({ siker: true, uzenet: result });
             } catch (err) {
                 console.error(err);
                 res.json({ siker: false, uzenet: err });
@@ -185,7 +192,7 @@ app.post('/adatKuldes', async (req, res) => {
         {
             try {
                 const result = await csoporttorlesAsync(kommunikaciosAdat);
-                res.json(result);
+                res.json({ siker: true, uzenet: result });
             } catch (err) {
                 console.error(err);
                 res.json({ siker: false, uzenet: err });
@@ -196,7 +203,7 @@ app.post('/adatKuldes', async (req, res) => {
         {
             try {
                 const result = await csoportlekerdezesAsync();
-                res.json(result);
+                res.json({ siker: true, uzenet: result });
             } catch (err) {
                 console.error(err);
                 res.json({ siker: false, uzenet: err });
@@ -229,10 +236,15 @@ const weblaplekerdezesAsync = async (kommunikaciosAdat) => {
 };
 
 const weblapadatmodositas = require('./backend/backend-weblap-adatmodositas');
+const kepfeldolgozas = require('./backend/backend-kep-feldolgozas');
 const weblapadatmodositasAsync = async (kommunikaciosAdat) => {
     try {
         const result = await new Promise((resolve, reject) => {
-            weblapadatmodositas((err, result) => {
+            weblapadatmodositas(
+                kommunikaciosAdat.nev,
+                kommunikaciosAdat.leiras,
+                kepfeldolgozas(kommunikaciosAdat.kepbuffer),
+                (err, result) => {
                 if (err) {
                     reject(err);
                 } else {
