@@ -549,7 +549,7 @@ const csoportlekerdezesAsync = async () => {
 }
 
 
-const feladatfeltoltes = require('./backend/backend-csoport-torles');
+const feladatfeltoltes = require('./backend//backend-feladat-feltoltes');
 const feladatfeltoltesAsync = async () => {
     try {
         const result = await new Promise((resolve, reject) => {

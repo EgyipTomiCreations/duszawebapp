@@ -39,6 +39,42 @@ document.getElementById('saveBtn').addEventListener('click', (e)=>{
                         if(maganhangzoSzamolas(sor.split(' ')[3]) > 2){
 
                             console.log("ÁTMENT!!!")
+                            //console.log(`${sor.split(' ')[0]} ${sor.split(' ')[1]} ${sor.split(' ')[2]} ${sor.split(' ')[3]}`)
+
+                            uploadFeladat()
+
+                            function uploadFeladat(){
+                                console.log("Fut a feladatfeltöltés")
+                                console.log(`Ez lenne a feltöltés: ${sor.split(' ')[0]} ${sor.split(' ')[1]} ${sor.split(' ')[2]} ${sor.split(' ')[3]}`)
+                                const kommunikaciosAdat = {};
+                                kommunikaciosAdat.kategoria = "feladat"
+                                kommunikaciosAdat.tipus = "feltoltes"
+                                kommunikaciosAdat.feladat = `${sor.split(' ')[0]} ${sor.split(' ')[1]} ${sor.split(' ')[2]} ${sor.split(' ')[3]}`
+                                kommunikaciosAdat.tanarid = localStorage.getItem('TanarID'),
+                                kommunikaciosAdat.evfolyam = sor.split(' ')[4]
+                            
+                                const dataString = JSON.stringify({ data: kommunikaciosAdat });
+                                const contentLength = dataString.length;    
+                                fetch('/adatKuldes', {
+
+                                    method: 'POST',
+                                    headers: {
+                                        'Content-Type': 'application/json',
+                                        'Content-Length': contentLength.toString(),
+                                    },
+                                    body: dataString,
+                                })
+                                .then(response => response.json())
+                                .then(uzenet => {
+                                    console.log(uzenet);
+                                    document.getElementById('inputfile').innerHTML = ''
+                                    location.reload()
+                            
+                                })
+                                .catch(error => {
+                                    console.error(error);
+                                });
+                            }
 
                             //itt van az hogy a sorral minden rendbe, csak be kell rakni az adatbázisba
 
