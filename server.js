@@ -87,6 +87,17 @@ app.get('/verseny', (req, res) => {
     });
 });
 
+app.get('/bemutatkozo', (req, res) => {
+    fs.readFile(path.join(__dirname, 'src', 'public', 'bemutatkozo.html'), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Hiba a HTML fájl olvasása közben:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.send(data);
+    });
+});
+
 app.listen(port, () => {
     console.log(`A webszerver fut a http://localhost:${port} címen`);
 });

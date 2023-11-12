@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Oldal Címe</title>
+</head>
+<body>
+
+<script>
+    // Fetch API segítségével betöltjük a JSON fájlt
+    fetch('adatok.json')
+        .then(response => response.json())
+        .then(jsonData => {
+            // HTML elemek létrehozása
+            var titleElement = document.createElement("h1");
+            titleElement.textContent = jsonData.nev;
+
+            var paragraphElement = document.createElement("p");
+            paragraphElement.innerHTML = jsonData.leiras;
+
+            // HTML elemek hozzáadása a body-hez
+            document.body.appendChild(titleElement);
+            document.body.appendChild(paragraphElement);
+        })
+        .catch(error => console.error('Hiba történt:', error));
+</script>
+
+</body>
+</html>
