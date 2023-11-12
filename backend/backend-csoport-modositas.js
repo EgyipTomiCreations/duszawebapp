@@ -36,7 +36,7 @@ con.connect(function (err) {
     }
     if (result[0].nev == null)
     {
-      con.query(`UPDATE csoportok SET nev = "${modositottnev}", tag1id = "${modositotttag1id}", tag2id = "${modositotttag2id}", tag3id = "${modositotttag3id}", leiras = "${modositottleiras}" WHERE id = ${id}`, function (err, result) {
+      con.query(`UPDATE csoportok SET nev = "${modositottnev}", tag1id = "${modositotttag1id}", tag2id = "${modositotttag2id}", tag3id = "${modositotttag3id}", leiras = "${modositottleiras}", evfolyam = "${evfolyam}" WHERE id = ${id}`, function (err, result) {
         if (err)
         {
           con.end();

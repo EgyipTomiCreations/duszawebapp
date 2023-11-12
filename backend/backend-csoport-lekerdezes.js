@@ -37,7 +37,8 @@ con.connect(function (err) {
                         csoportnev: element.csoportnev,
                         tag1nev: element.tag1nev,
                         tag2nev: element.tag2nev,
-                        tag3nev: element.tag3nev
+                        tag3nev: element.tag3nev,
+                        evfolyam: element.evfolyam
                     };
                     adatlista.push(adatobjektum);
         });
