@@ -1,7 +1,7 @@
 var config = require('./backend-config');
 var mysql = require('mysql');
 
-function feladatlekerdezes(callback){
+function feladatlekerdezes(id, callback){
 
   var con = mysql.createConnection({
     host: config.host,
@@ -24,6 +24,18 @@ con.connect(function (err) {
     }
     
   });
+  if (id != null)
+  {
+    con.query(`SELECT felhasznalok.nev, feladatok.feladat, feladatok.evfolyam FROM feladatok, felhasznalok WHERE feladatok.tanarid = felhasznalok.id; AND feladatok.id = ${id}`, function (err, result) {
+      if (err)
+      {
+        con.end();
+        callback("Hiba a feladatok lekérése közben!: "+err);
+      }
+          con.end();
+          callback(null,result);
+      });
+  }
 
   con.query("SELECT felhasznalok.nev, feladatok.feladat, feladatok.evfolyam FROM feladatok, felhasznalok WHERE feladatok.tanarid = felhasznalok.id;", function (err, result) {
     if (err)
@@ -34,7 +46,6 @@ con.connect(function (err) {
         var adatlista = [];
                 result.forEach(element => {
                     var adatobjektum = {
-                        id: element.id,
                         feladat: element.feladat,
                         tanarnev: element.nev,
                         evfolyam: element.evfolyam

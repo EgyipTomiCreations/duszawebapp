@@ -1,7 +1,7 @@
 var config = require('./backend-config');
 var mysql = require('mysql');
 
-function kitolteslezaras(versenyzoid, ido, callback){
+function kitolteslezaras(versenyzoid, ido, valaszok, callback){
   var con = mysql.createConnection({
     host: config.host,
     user: config.user,
@@ -24,7 +24,14 @@ con.connect(function (err) {
     
   });
 
-  con.query(`UPDATE kitoltesek SET zarasiido = "${ido}" WHERE versenyzoid = ${versenyzoid}`, function (err, result) {
+  var pontszam = 0;
+  valaszok.array.forEach(element => {
+    if (valaszok.helyes == valaszok.adott) {
+        pontszam++;
+    }
+  });
+
+  con.query(`UPDATE kitoltesek SET zarasiido = "${ido}" valaszok = "${valaszok} teljesitesiido = (${ido} - kezdesiido) pontszam = ${pontszam}" WHERE versenyzoid = ${versenyzoid}`, function (err, result) {
     if (err)
     {
       con.end();
