@@ -7,16 +7,9 @@
     <title>Bemutatkozó Oldal</title>
     <link rel="icon" type="image/x-icon" href="/src/img/logo.svg">
     <link rel="stylesheet" href="/src/public/sass/about.css">
-    <style>
-        #versenyGomb {
-            position: absolute;
-            right: 30%;
-            margin: 0; /* opcionális: nullázd ki az alapértelmezett margin-t */
-        }
-    </style>
 </head>
-<body>
-    <nav class="navbar navbar-expand-lg" style="background-color: #fcd29d;">
+<body style="height: 100vh">
+    <nav class="navbar navbar-expand-lg" style="background-color: #ffddb0;">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">
               <img src="/src/img/header-logo.svg" alt="" height="60" class="d-inline-block align-text-center">
@@ -29,7 +22,9 @@
             </ul>         
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
-                  <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57" id="nameTag"></button>
+                  <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57" id="nameTag">
+                    Tanár
+                  </button>
                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
                         <li><a class="dropdown-item" href="#" id="logoutBtn">Kilépés</a></li>
                     </ul>
@@ -37,9 +32,10 @@
             </ul>  
         </div>
         </div>
-    </nav>
+      </nav>
     <div id="adatok-helye"></div>
     <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3", id="versenyGomb" disabled>Verseny indítása</button>
     <script src="/src/public/js/bemutatkozo.js"></script>
+    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
