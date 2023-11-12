@@ -150,6 +150,7 @@ document.getElementById('registerTeacherForm').addEventListener('submit', (e) =>
 })
 
 document.getElementById('registerFullTeamBtn').addEventListener('click', (e) => {
+    e.preventDefault()
     console.log("megkezdődik a regisztráció")
     registerTeamMember1()
 
@@ -300,8 +301,8 @@ function registerTeam(){
         kommunikaciosAdat.tag2id = localStorage.getItem(document.getElementById('fullNameInputField2').value),
         kommunikaciosAdat.tag3id = localStorage.getItem(document.getElementById('fullNameInputField3').value),
         kommunikaciosAdat.leiras = document.getElementById('teamNoteField').value
-        console.log("Ez az evfolyama a 3.nak: ", document.getElementById('yearSelect').value)
         kommunikaciosAdat.evfolyam = document.getElementById('yearSelect').value
+        console.log("Ez az evfolyama a 3.nak: ", typeof parseInt(document.getElementById('yearSelect').value))
         //kommunikaciosAdat.evfolyam = document
 
     const dataString = JSON.stringify({ data: kommunikaciosAdat });
