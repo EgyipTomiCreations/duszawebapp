@@ -638,10 +638,11 @@ const feladatfeltoltesAsync = async (kommunikaciosAdat) => {
 }
 
 const feladatlekerdezes = require('./backend/backend-feladat-lekerdezes');
-const feladatlekerdezesAsync = async () => {
+const feladatlekerdezesAsync = async (kommunikaciosAdat) => {
     try {
         const result = await new Promise((resolve, reject) => {
             feladatlekerdezes(
+                kommunikaciosAdat.id,
                 (err, result) => {
                 if (err) {
                     reject(err);
