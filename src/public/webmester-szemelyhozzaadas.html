@@ -107,17 +107,22 @@
                   <input type="text" id="teamNameField" class="form-control"
                   placeholder="Név" />
                 </div>
-                <div class="dropdown">
-                  <div class="form-floating">
-                    <select class="form-select" id="floatingSelect" aria-label="Floating label select example">
+                <div class="dropdown" style="display: flex; justify-content: space-around">
+                  <div class="form-floating" style="margin-bottom: 10px;">
+                    <select class="form-select" id="yearSelect" aria-label="Floating label select example" required>
                       <option selected>Évfolyam kiválasztása</option>
                       <option value="5">5. évfolyam</option>
                       <option value="6">6. évfolyam</option>
                       <option value="7">7. évfolyam</option>
                       <option value="8">8. évfolyam</option>
                     </select>
-                    <label for="floatingSelect">Works with selects</label>
+                    <label for="floatingSelect">Évfolyam</label>
                   </div>
+                  <div class="form-outline mb-4">
+                    <input type="text" id="classInputField" class="form-control"
+                    placeholder="Osztály" maxlength="1"required/>
+                  </div>
+                </div>
                 <p class="fs-5">Leírás</p> 
                 <div class="form-floating">
                   <textarea class="form-control" placeholder="Leírás" id="teamNoteField" style="height: 100px; padding-top: 5px; margin-bottom: 10px;"></textarea>
@@ -127,7 +132,7 @@
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
-              <button type="button" class="btn btn-primary">Mentés</button>
+              <button type="button" class="btn btn-primary" id="registerFullTeamBtn">Mentés</button>
             </div>
           </div>
         </div>

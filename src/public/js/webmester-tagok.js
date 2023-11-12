@@ -146,17 +146,162 @@ document.getElementById('teacherCancelBtn').addEventListener('click', (e) => {
 
 document.getElementById('registerTeacherForm').addEventListener('submit', (e) => {
     registerTeacher()
+
 })
+
+document.getElementById('registerFullTeamBtn').addEventListener('click', (e) => {
+    console.log("megkezdődik a regisztráció")
+    registerTeamMember1()
+
+
+
+
+
+})
+
+function registerTeamMember1(){
+    const kommunikaciosAdat = {}
+        kommunikaciosAdat.kategoria = "felhasznalo"
+        kommunikaciosAdat.tipus = "regisztracio"
+        kommunikaciosAdat.nev = document.getElementById('fullNameInputField1').value,
+        kommunikaciosAdat.jelszo = document.getElementById('studentPasswordInput1').value,
+        kommunikaciosAdat.szerepkor = 'Versenyző',
+        kommunikaciosAdat.evfolyam = document.getElementById('yearSelect').value,
+        kommunikaciosAdat.osztalyjel = document.getElementById('classInputField').value
+
+        //kommunikaciosAdat.evfolyam = document
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;
+    fetch('/adatKuldes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+    .then(uzenet =>{
+        console.log(uzenet)
+        registerTeamMember2()
+    })
+
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+function registerTeamMember2(){
+    const kommunikaciosAdat = {}
+        kommunikaciosAdat.kategoria = "felhasznalo"
+        kommunikaciosAdat.tipus = "regisztracio"
+        kommunikaciosAdat.nev = document.getElementById('fullNameInputField2').value,
+        kommunikaciosAdat.jelszo = document.getElementById('studentPasswordInput2').value,
+        kommunikaciosAdat.szerepkor = 'Versenyző',
+        kommunikaciosAdat.evfolyam = document.getElementById('yearSelect').value,
+        kommunikaciosAdat.osztalyjel = document.getElementById('classInputField').value
+
+        //kommunikaciosAdat.evfolyam = document
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;
+    fetch('/adatKuldes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+    .then(uzenet =>{
+        console.log(uzenet)
+        registerTeamMember3()
+    })
+
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+function registerTeamMember3(){
+    const kommunikaciosAdat = {}
+        kommunikaciosAdat.kategoria = "felhasznalo"
+        kommunikaciosAdat.tipus = "regisztracio"
+        kommunikaciosAdat.nev = document.getElementById('fullNameInputField3').value,
+        kommunikaciosAdat.jelszo = document.getElementById('studentPasswordInput3').value,
+        kommunikaciosAdat.szerepkor = 'Versenyző',
+        kommunikaciosAdat.evfolyam = document.getElementById('yearSelect').value,
+
+        kommunikaciosAdat.osztalyjel = document.getElementById('classInputField').value
+
+        //kommunikaciosAdat.evfolyam = document
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;
+    fetch('/adatKuldes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+    .then(uzenet =>{
+        console.log(uzenet)
+        getDatasetFromPlayers()
+    })
+
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+
+
+function getDatasetFromPlayers() {
+    const kommunikaciosAdat = {};
+    kommunikaciosAdat.kategoria = "felhasznalo";
+    kommunikaciosAdat.tipus = "lekerdezes";
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;
+
+    fetch('/adatKuldes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+    .then(uzenet => {
+        console.log("Ez uzenet: ", uzenet)
+        uzenet.forEach(element =>{
+            localStorage.setItem(element.nev, element.id)
+        })
+        registerTeam()
+
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
 
 function registerTeam(){
     const kommunikaciosAdat = {}
         kommunikaciosAdat.kategoria = "csoport"
         kommunikaciosAdat.tipus = "regisztracio"
         kommunikaciosAdat.nev = document.getElementById('teamNameField').value,
-        kommunikaciosAdat.tag1id = document.getElementById('fullNameInputField1').value,
-        kommunikaciosAdat.tag2id = document.getElementById('fullNameInputField2').value,
-        kommunikaciosAdat.tag3id = document.getElementById('fullNameInputField3').value,
+        kommunikaciosAdat.tag1id = localStorage.getItem(document.getElementById('fullNameInputField1').value),
+        kommunikaciosAdat.tag2id = localStorage.getItem(document.getElementById('fullNameInputField2').value),
+        kommunikaciosAdat.tag3id = localStorage.getItem(document.getElementById('fullNameInputField3').value),
         kommunikaciosAdat.leiras = document.getElementById('teamNoteField').value
+        console.log("Ez az evfolyama a 3.nak: ", document.getElementById('yearSelect').value)
+        kommunikaciosAdat.evfolyam = document.getElementById('yearSelect').value
         //kommunikaciosAdat.evfolyam = document
 
     const dataString = JSON.stringify({ data: kommunikaciosAdat });
