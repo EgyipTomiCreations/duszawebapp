@@ -30,7 +30,7 @@ document.getElementById('form1Id').addEventListener('submit', (e) => {
         if (felhasznalo.uzenet.szerepkor == "Versenyző") {
             localStorage.setItem("Privilage", "Versenyző");
             localStorage.setItem("Nev", felhasznalo.uzenet.nev);
-            location.href = '/verseny';
+            location.href = '/bemutatkozo';
         }
     });
 });
