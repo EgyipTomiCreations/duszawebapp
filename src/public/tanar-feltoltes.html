@@ -8,7 +8,15 @@
     <link rel="stylesheet" href="/src/public/sass/about.css">
     <script>
       if(localStorage.getItem('Privilage') != "Tanár"){
-        location.href = '/'
+        if (localStorage.getItem('Privilage') == "Webmester") {
+            location.href = '/webmester';
+        }
+        if (localStorage.getItem('Privilage') == "Zsűritag") {
+            location.href = '/zsuri';
+        }
+        if (ocalStorage.getItem('Privilage') == "Versenyző") {
+            location.href = '/verseny';
+        }
       }
     </script>
 </head>

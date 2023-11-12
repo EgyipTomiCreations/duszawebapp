@@ -2,7 +2,15 @@
 <html lang="en">
 <script>
   if(localStorage.getItem('Privilage') != "Webmester"){
-    location.href = '/'
+    if (localStorage.getItem('Privilage') == "Zsűri") {
+            location.href = '/zsuri';
+        }
+        if (localStorage.getItem('Privilage') == "Tanár") {
+            location.href = '/tanar';
+        }
+        if (ocalStorage.getItem('Privilage') == "Versenyző") {
+            location.href = '/verseny';
+        }
   }
 </script>
 <head>
