@@ -80,10 +80,11 @@ app.listen(port, () => {
     });
 });*/
 
-app.use(bodyParser.json());
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(express.json());
 app.post('/adatKuldes', async (req, res) => {
     kommunikaciosAdat = req.body.data;
-    console.log('Kapott adat a frontendtől:', kommunikaciosAdat);
 
     if (kommunikaciosAdat.kategoria == "weblap") {
         
@@ -97,15 +98,29 @@ app.post('/adatKuldes', async (req, res) => {
                 res.json(err);
             }
         }
-        if  (kommunikaciosAdat.tipus == "adatmodositas")
-        {           
+        if  (kommunikaciosAdat.tipus == "modositas")
+        {      
             try {
-                const result = await weblapadatmodositasAsync();
-                res.json({ siker: true, uzenet: result });
+                const kepresult = await kepfeldolgozasAsync(kommunikaciosAdat.kepbuffer);
+                if (kepresult.siker == true)
+                {
+                    try {
+                        kommunikaciosAdat.kepbuffer = kepresult.uzenet;
+                        const result = await weblapadatmodositasAsync(kommunikaciosAdat);
+                        res.json({ siker: result.siker, uzenet: result.uzenet});
+                    } catch (err) {
+                        console.error(err);
+                        res.json({ siker: false, uzenet: err});
+                    }
+                }
+                else
+                {
+                    res.json({ siker: false, uzenet: kepresult.uzenet});
+                }
             } catch (err) {
                 console.error(err);
-                res.json({ siker: false, uzenet: err });
-            }
+                res.json({ siker: false, uzenet: err});
+            }   
         }
 
     }
@@ -231,36 +246,59 @@ const weblaplekerdezesAsync = async (kommunikaciosAdat) => {
         });
     } catch (err) {
         console.error(err);
-        throw { siker: false, uzenet: err };
+        return { siker: false, uzenet: err };
     }
 };
 
 const weblapadatmodositas = require('./backend/backend-weblap-adatmodositas');
-const kepfeldolgozas = require('./backend/backend-kep-feldolgozas');
-const weblapadatmodositasAsync = async (kommunikaciosAdat) => {
+const weblapadatmodositasAsync = async (kommunikaciosAdat) => {    
     try {
         const result = await new Promise((resolve, reject) => {
             weblapadatmodositas(
                 kommunikaciosAdat.nev,
                 kommunikaciosAdat.leiras,
-                kepfeldolgozas(kommunikaciosAdat.kepbuffer),
+                kommunikaciosAdat.kepbuffer,
                 (err, result) => {
-                if (err) {
-                    reject(err);
-                } else {
-                    resolve(result);
+                    if (err) {
+                        reject(err);
+                    } else {
+                        resolve(result);
+                    }
                 }
-            });
+            );
         });
 
         return { siker: true, uzenet: result };
     } catch (err) {
         console.error(err);
         return { siker: false, uzenet: err };
-    }
+    }           
 };
 
+const kepfeldolgozas = require('./backend/backend-kep-feldolgozas');
+const kepfeldolgozasAsync = async (kepbuffer) => {
+try {
+    const result = await new Promise((resolve, reject) => {
+        kepfeldolgozas(
+            kepbuffer,
+            200,
+            200,
+            
+            (err, result) => {
+            if (err) {
+                reject(err);
+            } else {
+                resolve(result);
+            }
+        });
+    });
 
+    return { siker: true, uzenet: result };
+} catch (err) {
+    console.error(err);
+    return { siker: false, uzenet: err };
+}
+};
 
 
 const felhasznalolekerdezes = require('./backend/backend-felhasznalo-lekerdezes');

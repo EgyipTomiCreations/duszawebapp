@@ -3,9 +3,7 @@ var mysql = require('mysql');
 const fs = require("fs");
 const { callbackify } = require('util');
 
-function weblapadatmodositas(modositottnev, modositottleiras, modositottikonutvonal, callback){
-
-kepbuffer = Buffer.from(fs.readFileSync(modositottikonutvonal), "base64").toString();
+function weblapadatmodositas(modositottnev, modositottleiras, modositottbuffer, callback){
 
 var con = mysql.createConnection({
   host: config.host,
@@ -29,7 +27,7 @@ con.query(`USE ${config.adatbazisnev}`, function (err) {
   
 });
 
-con.query(`UPDATE weblapadatok SET nev = ${modositottnev}, leiras = ${modositottleiras}, ikonbase64 = ${kepbuffer} WHERE id = 0;`, function (err, result, fields) {
+con.query(`UPDATE weblapadatok SET nev = "${modositottnev}", leiras = "${modositottleiras}", ikonbase64 = "${modositottbuffer}" WHERE id = 0;`, function (err, result, fields) {
   if (err) 
   {
     con.end();

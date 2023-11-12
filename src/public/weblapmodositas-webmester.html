@@ -49,7 +49,6 @@
                 </div>
                 <div style="margin-top: 20px;">
                     <input type="file" id="imageInput" accept="image/*">
-                    <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" onclick="uploadImage()">Fotó feltöltése</button>
                 </div>                            
                 <div style="margin-top: 20px;">
                     <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3", onclick="saveChanges()">Mentés</button>   
@@ -72,17 +71,20 @@
                 document.getElementById('editableParagraph').innerHTML = storedContent;
             }
     
-            function saveChanges() {
+            async function saveChanges() {
                 const editedTitle = document.getElementById('editableTitle').innerHTML;
                 const editedContent = document.getElementById('editableParagraph').innerHTML;
     
                 localStorage.setItem('editedTitle', editedTitle);
                 localStorage.setItem('editedContent', editedContent);
-                
-                const kepbuffer = konvertKepBuffer();
-                if (kepbuffer)
-                {
-                    //sendData(editedTitle, editedContent, kepbuffer);
+            
+                try {
+                const imageArray = await konvertKepToArray();
+                console.log('Kép buffer:', imageArray);
+                kepbuffer = new TextDecoder().decode(imageArray);
+                sendData(storedTitle, storedContent, kepbuffer);
+                } catch (error) {
+                console.error('Hiba történt:', error.message);
                 }
                 alert('Változtatások elmentve!');
             }
@@ -118,29 +120,33 @@
     }
 
 
+    function konvertKepToArray() {
+    return new Promise((resolve, reject) => {
+    const input = document.getElementById('imageInput');
+    const file = input.files[0];
 
-    function konvertKepBuffer() {
-      const input = document.getElementById('imageInput');
-      const file = input.files[0];
+    if (file) {
+      const reader = new FileReader();
+      
+      reader.onload = (event) => {
+        const imageBuffer = new Uint8Array(event.target.result);
+        resolve(imageBuffer);
+      };
 
-      if (file) {
-        const reader = new FileReader();
-        reader.onload = async (event) => {
-          const imageBuffer = new Uint8Array(event.target.result);
-          console.log(imageBuffer);
-        };
+      reader.onerror = (error) => {
+        reject(error);
+      };
 
-        reader.readAsArrayBuffer(file);
-
-        return imageBuffer;
-      } else {
-        alert('Válassz ki egy képet!');
-      }
+      reader.readAsArrayBuffer(file);
+    } else {
+      reject(new Error('Válassz ki egy képet!'));
     }
+  });
+    }
+
         </script>  
         </div>
       </div>
       <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="/src/public/js/webmester-tagok.js"></script>
 </body>
 </html>

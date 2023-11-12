@@ -1,4 +1,4 @@
-document.getElementById('loguotBtn').addEventListener("click", (e)=>{
+document.getElementById('logoutBtn').addEventListener("click", (e)=>{
     localStorage.clear();
     location.href = '/';
 })
