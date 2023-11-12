@@ -87,6 +87,17 @@ app.get('/verseny', (req, res) => {
     });
 });
 
+app.get('/bemutatkozo', (req, res) => {
+    fs.readFile(path.join(__dirname, 'src', 'public', 'bemutatkozo.html'), 'utf8', (err, data) => {
+        if (err) {
+            console.error('Hiba a HTML fájl olvasása közben:', err);
+            res.status(500).send('Internal Server Error');
+            return;
+        }
+        res.send(data);
+    });
+});
+
 app.listen(port, () => {
     console.log(`A webszerver fut a http://localhost:${port} címen`);
 });
@@ -260,7 +271,7 @@ app.post('/adatKuldes', async (req, res) => {
         if (kommunikaciosAdat.tipus == "lekerdezes")
         {
             try {
-                const result = await feladatlekerdezesAsync();
+                const result = await feladatlekerdezesAsync(kommunikaciosAdat);
                 res.json(result);
             } catch (err) {
                 console.error(err);
@@ -273,7 +284,7 @@ app.post('/adatKuldes', async (req, res) => {
     {
         if (kommunikaciosAdat.tipus == "inditas"){
             try {
-                const result = await kitoltesinditas();
+                const result = await kitoltesinditasAsync();
                 res.json(result);
             } catch (err) {
                 console.error(err);
@@ -283,7 +294,7 @@ app.post('/adatKuldes', async (req, res) => {
 
         if (kommunikaciosAdat.tipus == "lezaras"){
             try {
-                const result = await kitolteslezaras();
+                const result = await kitolteslezarasAsync();
                 res.json(result);
             } catch (err) {
                 console.error(err);
