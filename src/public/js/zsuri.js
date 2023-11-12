@@ -1,9 +1,10 @@
+// kijelentkezés
 document.getElementById('logoutBtn').addEventListener("click", (e)=>{
     localStorage.clear();
     location.href = '/';
 })
-
-document.getElementById("nameTag").innerHTML = localStorage.getItem("Nev") + " - Tanar";
+// megjelölés
+document.getElementById("nameTag").innerHTML = localStorage.getItem("Nev") + " - Zsűri";
 
 document.addEventListener('DOMContentLoaded', function () {
     const versenyForm = document.getElementById('versenyForm');
@@ -28,6 +29,4 @@ document.addEventListener('DOMContentLoaded', function () {
 
         alert('Verseny sikeresen létrehozva!');
     });
-
-    
 });

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <script>
+  // Jogok elintézése
   if(localStorage.getItem('Privilage') != "Webmester"){
     if (localStorage.getItem('Privilage') == "Zsűri") {
             location.href = '/zsuri';
@@ -21,6 +22,7 @@
     <link rel="stylesheet" href="/src/public/sass/about.css">
 </head>
 <body style="height: 100vh;">
+  <!--Navbar-->
   <nav class="navbar navbar-expand-lg" style="background-color: #ffddb0;">
     <div class="container-fluid">
       <a class="navbar-brand" href="/">
@@ -34,9 +36,7 @@
         </ul>         
         <ul class="navbar-nav ms-auto">
           <li class="nav-item dropdown">
-            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57" id="nameTag">
-              Webmester
-            </button>
+            <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57" id="nameTag"></button>
               <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
                   <li><a class="dropdown-item" href="#" id="logoutBtn">Kilépés</a></li>
               </ul>
@@ -45,6 +45,7 @@
       </div>
     </div>
   </nav>
+  <!--Munkaterületek-->
   <div class="container" style="margin: 10px;">
     <div class="row">
       <div class="col-md-4">
@@ -199,6 +200,7 @@
       </div>
     </div>
   </div>
+  <!--Scriptek importálása-->
   <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
   <script src="/src/public/js/webmester-tagok.js"></script>
   <script src="/src/public/js/webmester-main.js"></script>

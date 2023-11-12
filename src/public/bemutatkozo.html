@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/src/public/sass/about.css">
 </head>
 <body style="height: 100vh">
+    <!--Navbar-->
     <nav class="navbar navbar-expand-lg" style="background-color: #ffddb0;">
         <div class="container-fluid">
           <a class="navbar-brand" href="/">
@@ -22,9 +23,7 @@
             </ul>         
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
-                  <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57" id="nameTag">
-                    Tanár
-                  </button>
+                  <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57" id="nameTag"></button>
                     <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
                         <li><a class="dropdown-item" href="#" id="logoutBtn">Kilépés</a></li>
                     </ul>
@@ -33,9 +32,10 @@
         </div>
         </div>
       </nav>
+    <!--Verseny leírása-->
     <div id="adatok-helye"></div>
-    <div id="imageContainer"></div>
-
+    <div style="margin-left: 30%;" id="imageContainer"></div>
+    <!--Scriptek importálása-->
     <button class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3", id="versenyGomb" style="margin-left: 70%;" disabled>Verseny indítása</button>
     <script src="/src/public/js/bemutatkozo.js"></script>
     <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

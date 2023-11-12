@@ -39,7 +39,7 @@ fetch('adatok.json')
 const versenyGomb = document.getElementById('versenyGomb');
 
 // Gomb aktiválása, ha elérkezett a verseny ideje
-const versenyIdeje = new Date('2022-11-12T18:09:00'); // Az aktuális dátumra és időpontra módosítsd
+const versenyIdeje = new Date('2023-11-12T24:00:00'); // Az aktuális dátumra és időpontra módosítsd
 const most = new Date();
 
 console.log('Most:', most);
@@ -73,7 +73,7 @@ function displayImage(kepbuffer) {
 
     const imageElement = document.createElement('img');
     imageElement.src = imageUrl;
-    imageElement.alt = 'Kép leírása';
+    imageElement.alt = '';
 
     // Az 'imageContainer' a kép megjelenítésére szolgáló konténer elem
     var imageContainer = document.getElementById('imageContainer');
