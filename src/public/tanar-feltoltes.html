@@ -6,29 +6,37 @@
     <title>Szókirakó - Tanár</title>
     <link rel="icon" type="image/x-icon" href="/src/img/logo.svg">
     <link rel="stylesheet" href="/src/public/sass/about.css">
+    <script>
+      if(localStorage.getItem('Privilage') != "Tanár"){
+        location.href = '/'
+      }
+    </script>
 </head>
 <body style="height: 100vh;">
-    <nav class="navbar navbar-expand-lg" style="background-color: #ffddb0;">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-              <img src="/src/img/header-logo.svg" alt="" height="60" class="d-inline-block align-text-center">
-          </a>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
-                  <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57" id="nameTag">
-                    Tanár
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+  <nav class="navbar navbar-expand-lg" style="background-color: #ffddb0;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+          <img src="/src/img/header-logo.svg" alt="" height="60" class="d-inline-block align-text-center">
+      </a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/alkotok" style="color: #333; font-weight: bold; text-decoration: none;">Alkotók</a>
+            </li>
+        </ul>         
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57" id="nameTag">
+                Tanár
+              </button>
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
                     <li><a class="dropdown-item" href="#" id="logoutBtn">Kilépés</a></li>
-                  </ul>
-                </li>            
-              </ul>  
-            </div>
-        </div>
-      </nav>
-
-
+                </ul>
+            </li>
+        </ul>  
+    </div>
+    </div>
+  </nav>
     <!--Side Menu Bar-->
       <div class="container" style="margin: 10px;">
         <div class="row">
@@ -41,7 +49,6 @@
               <a href="#" class="list-group-item list-group-item-action">Feladattár</a>
             </div>
           </div>
-
           <div class="col-md-4 border border-1 rounded" style="padding: 24px; margin-top: 24px; width: 800px;">
             <div class="container" style="margin: 10px; margin-right: 5px;">
                 <div class="row">
@@ -59,7 +66,6 @@
                 </div>
             </div>
           </div>
-          
           <div class="modal fade" id="newSheetModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
             <div class="modal-dialog">
               <div class="modal-content">
@@ -68,12 +74,10 @@
                   <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
                 </div>
                 <div class="modal-body">
-
                     <div class="mb-3">
                         <label for="formFile" class="form-label">Feladatlap forrása</label>
                         <input class="form-control" type="file" id="inputfile">
                       </div>
-                      
                   </form>
                 </div>
                 <div class="toast align-items-center text-bg-primary border-0" id="wrongImportFormatNotify" role="alert" aria-live="assertive" aria-atomic="true" >
@@ -91,10 +95,7 @@
               </div>
             </div>
           </div>
-
-        
-
-    <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="/src/public/js/tanar.js"></script>
+  <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/src/public/js/tanar.js"></script>
 </body>
 </html>

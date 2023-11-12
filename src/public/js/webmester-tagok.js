@@ -107,12 +107,12 @@ function registerTeam(){
 }
 
 
-function registerTeacher(){
+function registerTeacher() {
     const kommunikaciosAdat = {};
     kommunikaciosAdat.kategoria = "felhasznalo";
     kommunikaciosAdat.tipus = "regisztracio";
-    kommunikaciosAdat.nev = document.getElementById('setTeacherNameField').value
-    kommunikaciosAdat.jelszo = document.getElementById('setTeacherPasswordField').value
+    kommunikaciosAdat.nev = document.getElementById('setTeacherNameField').value;
+    kommunikaciosAdat.jelszo = document.getElementById('setTeacherPasswordField').value;
     kommunikaciosAdat.szerepkor = "Tanar";
 
     const dataString = JSON.stringify({ data: kommunikaciosAdat });
@@ -131,6 +131,75 @@ function registerTeacher(){
         document.getElementById('setTeacherNameField').value = ''
         document.getElementById('setTeacherPasswordField').value = ''
         location.reload()
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+loadJury()
+
+function loadJury(){
+    const kommunikaciosAdat = {};
+    kommunikaciosAdat.kategoria = "felhasznalo";
+    kommunikaciosAdat.tipus = "lekerdezes";
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;
+    fetch('/adatKuldes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+    .then(uzenet => {
+        console.log(uzenet);
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
+
+document.getElementById('registerJuryForm').addEventListener('submit', (e) => {
+    e.preventDefault()
+    console.log(document.getElementById('setJuryNameField').value)
+})
+
+document.getElementById('juryCancelBtn').addEventListener('click', (e) => {
+    e.preventDefault()
+    document.getElementById('setJuryNameField').value = ''
+    document.getElementById('setJuryPasswordField').value = ''
+})
+
+document.getElementById('registerJuryForm').addEventListener('submit', (e) => {
+    console.log("Én csinálok is valamit, nem ugy mint trepak!")
+    registerJury()
+})
+
+function registerJury() {
+    const kommunikaciosAdat = {};
+    kommunikaciosAdat.kategoria = "felhasznalo";
+    kommunikaciosAdat.tipus = "regisztracio";
+    kommunikaciosAdat.nev = document.getElementById('setJuryNameField').value;
+    kommunikaciosAdat.jelszo = document.getElementById('setJuryPasswordField').value;
+    kommunikaciosAdat.szerepkor = "Zsuri";
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;
+    fetch('/adatKuldes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+    .then(uzenet => {
+        console.log(uzenet);
     })
     .catch(error => {
         console.error(error);

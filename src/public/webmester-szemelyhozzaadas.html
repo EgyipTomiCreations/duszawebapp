@@ -3,7 +3,7 @@
 <script>
   if(localStorage.getItem('Privilage') != "Webmester"){
     location.href = '/'
-}
+  }
 </script>
 <head>
     <meta charset="UTF-8">
@@ -13,183 +13,168 @@
     <link rel="stylesheet" href="/src/public/sass/about.css">
 </head>
 <body style="height: 100vh;">
-
-    <nav class="navbar navbar-expand-lg" style="background-color: #ffddb0;">
-        <div class="container-fluid">
-          <a class="navbar-brand" href="#">
-              <img src="/src/img/header-logo.svg" alt="" height="60" class="d-inline-block align-text-center">
+  <nav class="navbar navbar-expand-lg" style="background-color: #ffddb0;">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">
+          <img src="/src/img/header-logo.svg" alt="" height="60" class="d-inline-block align-text-center">
+      </a>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+            <li class="nav-item">
+                <a class="nav-link" href="/alkotok" style="color: #333; font-weight: bold; text-decoration: none;">Alkotók</a>
+            </li>
+        </ul>         
+        <ul class="navbar-nav ms-auto">
+            <li class="nav-item dropdown">
+              <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57" id="nameTag">
+                Webmester
+              </button>
+                <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+                    <li><a class="dropdown-item" href="#" id="logoutBtn">Kilépés</a></li>
+                </ul>
+            </li>
+        </ul>  
+    </div>
+  </div>
+</nav>
+  <div class="container" style="margin: 10px;">
+    <div class="row">
+      <div class="col-md-4">
+        <div class="list-group" style="width: 300px; padding: 24px;">
+          <a href="#" class="list-group-item list-group-item-action active" aria-current="true" style="align-items: center; cursor: pointer;">
+            <img src="/src/img/icons/people-white.svg" height="20px" alt="">
+            Tagok
           </a>
-          <div class="collapse navbar-collapse" id="navbarNav">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item dropdown">
-                  <button class="btn dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: #f2af57" id="nameTag">
-                    Webmester
-                  </button>
-                  <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
-                    <li><button class="dropdown-item" href="#" id="logoutBtn">Kilépés</button></li>
-                  </ul>
-                </li>            
-              </ul>  
-            </div>
-        </div>
-      </nav>
-
-
-      <div class="container" style="margin: 10px;">
-        <div class="row">
-          <div class="col-md-4">
-            <div class="list-group" style="width: 300px; padding: 24px;">
-              <a href="#" class="list-group-item list-group-item-action active" aria-current="true" style="align-items: center; cursor: pointer;">
-                <img src="/src/img/icons/people-white.svg" height="20px" alt="">
-                Tagok
-              </a>
-              <a onclick="location.href = '/weblapmodositas'" class="list-group-item list-group-item-action" style="align-items: center; cursor: pointer;">
-                <img src="/src/img/icons/card-heading.svg" alt="" height="20px">
-                Leírás módosítása
-              </a>
-              <a href="#" class="list-group-item list-group-item-action" style="align-items: center; cursor: pointer;">A third link item</a>
-              <a href="#" class="list-group-item list-group-item-action" style="align-items: center; cursor: pointer;">A fourth link item</a>
-            </div>
-          </div>
-          <!--Main Container-->
-          <div class="col-md-4 border border-1 rounded" style="padding: 24px; margin-top: 24px; width: 800px;">
-            <div class="container" style="margin: 10px; margin-right: 5px;">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="dropdown me-3">
-                            <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
-                                Hozzáadás
-                            </button>
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#newStudentModal" href="#">Csoport</a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#newTeacherModal" href="#">Tanár</a></li>
-                                <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#newJuryModal" href="#">Zsűri</a></li>
-                            </ul>
-                        </div>
-                    </div>
-                    <div class="col-md-4" style="width: 300px;">
-                        <ul class="list-group" id="teacherListUl" style="width: 400px;">
-                          <li class="list-group-item"><p class="fs-3">Tanárok</p></li>
-                          <li class="list-group-item" id="teacherListPlaceholder" style="color: gray;">Itt még nincs senki, adj hozzá a "hozzáadás" gombal</li>
-                        </ul>
-                        <ul class="list-group" style="width: 400px; margin-top: 30px;">
-                          <li class="list-group-item"><p class="fs-3">Diákok</p></li>
-                          <li class="list-group-item" style="color: gray;">Itt még nincs senki, adj hozzá a "hozzáadás" gombal</li>
-                        </ul>
-                        <ul class="list-group" style="width: 400px; margin-top: 30px;">
-                          <li class="list-group-item"><p class="fs-3">Zsűritagok</p></li>
-                          <li class="list-group-item" style="color: gray;">Itt még nincs senki, adj hozzá a "hozzáadás" gombal</li>
-                        </ul>
-                    </div>
-                </div>
-            </div>
-          </div>         
-
-          <!--Student Modal -->
-          <div class="modal fade" id="newStudentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Új csoport hozzáadása</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
-                </div>
-                <div class="modal-body">
-                  <form id="studentAdderForm">
-                    <p class="fs-5">Csoport</p>    
-                      
-                    <div class="form-outline mb-4">
-                        <input type="text" id="teamNameField" class="form-control"
-                        placeholder="Csoport neve" required/>
-                    </div>  
-
-                    <p class="fs-5">Leírás</p> 
-
-                    <div class="form-floating">
-                      <textarea class="form-control" id="teamNoteField" style="height: 100px; margin-bottom: 10px; padding-top: 5px;" required></textarea>
-                    </div>
-
-                    <button type="button" class="btn btn-secondary" id="newStudentAdderBtn" style="width: 100%; margin-bottom: 24px;">Új tanuló</button>
-           
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
-                  <button type="button" class="btn btn-primary">Mentés</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!--Teacher Modal-->
-          <div class="modal fade" id="newTeacherModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Új tanár hozzáadása</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form id="registerTeacherForm">      
-                    <div class="form-outline mb-4">
-                        <input type="text" id="setTeacherNameField" class="form-control"
-                        placeholder="Teljes név" required/>
-                    </div>   
-
-                    <div class="form-outline mb-4">
-                      <input type="text" id="setTeacherPasswordField" class="form-control" placeholder="Jelszó beállítása" required/>
-                    </div>                   
-           
-                    <div class="modal-footer">
-                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="teacherCancelBtn">Bezárás</button>
-                      <button type="submit" class="btn btn-primary" id="teacherSaveBtn">Mentés</button>
-                    </div>
-                  </form>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <!--Jury Modal-->
-          <div class="modal fade" id="newJuryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-            <div class="modal-dialog">
-              <div class="modal-content">
-                <div class="modal-header">
-                  <h1 class="modal-title fs-5" id="staticBackdropLabel">Új zsűri hozzáadása</h1>
-                  <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body">
-                  <form>      
-                    <div class="form-outline mb-4">
-                        <input type="email" id="form2Example11" class="form-control"
-                        placeholder="Teljes név" />
-                    </div>       
-                  </form>
-                </div>
-                <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
-                  <button type="button" class="btn btn-primary">Mentés</button>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
-            <div class="d-flex">
-              <div class="toast-body">
-                Hello, world! This is a toast message.
-              </div>
-              <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
-            </div>
-          </div>
-          
-          
+          <a onclick="location.href = '/weblapmodositas'" class="list-group-item list-group-item-action" style="align-items: center; cursor: pointer;">
+            <img src="/src/img/icons/card-heading.svg" alt="" height="20px">
+            Leírás módosítása
+          </a>
+          <a href="#" class="list-group-item list-group-item-action" style="align-items: center; cursor: pointer;">A third link item</a>
+          <a href="#" class="list-group-item list-group-item-action" style="align-items: center; cursor: pointer;">A fourth link item</a>
         </div>
       </div>
-      
-    
-
-      <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="/src/public/js/webmester-tagok.js"></script>
-      <script src="/src/public/js/webmester-main.js"></script>
+      <!--Main Container-->
+      <div class="col-md-4 border border-1 rounded" style="padding: 24px; margin-top: 24px; width: 800px;">
+        <div class="container" style="margin: 10px; margin-right: 5px;">
+            <div class="row">
+                <div class="col-md-4">
+                    <div class="dropdown me-3">
+                        <button class="btn btn-primary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" style="color: white;">
+                            Hozzáadás
+                        </button>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#newStudentModal" href="#">Osztály</a></li>
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#newTeacherModal" href="#">Tanár</a></li>
+                            <li><a class="dropdown-item" data-bs-toggle="modal" data-bs-target="#newJuryModal" href="#">Zsűri</a></li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-4" style="width: 300px;">
+                    <ul class="list-group" style="width: 400px;">
+                      <li class="list-group-item"><p class="fs-3">Tanárok</p></li>
+                      <li class="list-group-item" style="color: gray;">Itt még nincs senki, adj hozzá a "hozzáadás" gombal</li>
+                    </ul>
+                    <ul class="list-group" style="width: 400px; margin-top: 30px;">
+                      <li class="list-group-item"><p class="fs-3">Diákok</p></li>
+                      <li class="list-group-item" style="color: gray;">Itt még nincs senki, adj hozzá a "hozzáadás" gombal</li>
+                    </ul>
+                    <ul class="list-group" style="width: 400px; margin-top: 30px;">
+                      <li class="list-group-item"><p class="fs-3">Zsűritagok</p></li>
+                      <li class="list-group-item" style="color: gray;">Itt még nincs senki, adj hozzá a "hozzáadás" gombal</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </div>         
+      <!--Student Modal -->
+      <div class="modal fade" id="newStudentModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Új osztály hozzáadása</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" ></button>
+            </div>
+            <div class="modal-body">
+              <form id="studentAdderForm">
+                <p class="fs-5">Osztály</p>    
+                <div class="form-outline mb-4">
+                    <input type="email" id="form2Example11" class="form-control"
+                    placeholder="Osztály neve" maxlength="2"/>
+                </div>   
+                <button type="button" class="btn btn-secondary" id="newStudentAdderBtn" style="width: 100%; margin-bottom: 24px;">Új tanuló</button>
+              </form>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Bezárás</button>
+              <button type="button" class="btn btn-primary">Mentés</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Teacher Modal-->
+      <div class="modal fade" id="newTeacherModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Új tanár hozzáadása</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="registerTeacherForm">      
+                <div class="form-outline mb-4">
+                    <input type="text" id="setTeacherNameField" class="form-control"
+                    placeholder="Teljes név" />
+                </div>
+                <div class="form-outline mb-4">
+                  <input type="text" id="setTeacherPasswordField" class="form-control" placeholder="Jelszó beállítása" />
+                </div>                           
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="teacherCancelBtn">Bezárás</button>
+                  <button type="submit" class="btn btn-primary">Mentés</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--Jury Modal-->
+      <div class="modal fade" id="newJuryModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="staticBackdropLabel">Új zsűri hozzáadása</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+              <form id="registerJuryForm">      
+                <div class="form-outline mb-4">
+                    <input type="text" id="setJuryNameField" class="form-control"
+                    placeholder="Teljes név" />
+                </div>
+                <div class="form-outline mb-4">
+                  <input type="text" id="setJuryPasswordField" class="form-control" placeholder="Jelszó beállítása" />
+                </div>                   
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" id="juryCancelBtn">Bezárás</button>
+                  <button type="submit" class="btn btn-primary">Mentés</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="toast align-items-center" role="alert" aria-live="assertive" aria-atomic="true">
+        <div class="d-flex">
+          <div class="toast-body">
+            Hello, world! This is a toast message.
+          </div>
+          <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script src="../../node_modules/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  <script src="/src/public/js/webmester-tagok.js"></script>
+  <script src="/src/public/js/webmester-main.js"></script>
 </body>
 </html>

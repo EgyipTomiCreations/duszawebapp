@@ -16,7 +16,14 @@ document.getElementById('form1Id').addEventListener('submit', (e) => {
             location.href = '/webmester';
         }
         if (felhasznalo.uzenet.szerepkor == "Tanár") {
+            localStorage.setItem("Privilage", "Tanár");
+            localStorage.setItem("Nev", felhasznalo.uzenet.nev);
             location.href = '/tanar';
+        }
+        if (felhasznalo.uzenet.szerepkor == "Zsuri") {
+            localStorage.setItem("Privilage", "Zsuri");
+            localStorage.setItem("Nev", felhasznalo.uzenet.nev);
+            location.href = '/zsuri';
         }
     });
 });
