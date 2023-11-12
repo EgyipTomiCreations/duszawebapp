@@ -1,5 +1,3 @@
-
-
 feladatCount = 0
 feladatNow = 1
 feladatarray = []
@@ -74,10 +72,11 @@ function loadJury(){
                 id2.innerHTML = feladatarray[feladatNow-1].split(' ')[1]
                 id3.innerHTML = feladatarray[feladatNow-1].split(' ')[2]
                 kevert = osszekeverString(feladatarray[feladatNow-1].split(' ')[3])
+                valasz = document.getElementById('valaszText')
                 id4.innerHTML = kevert
                 megoldasValaszArray.push({
                     "megoldas" : feladatarray[feladatNow-1].split(' ')[3],
-                    "valasz" : document.getElementById('valaszText')
+                    "valasz" : valasz.value
                 });
                 console.log(megoldasValaszArray);
                 if(feladatNow == feladatarray.length){
