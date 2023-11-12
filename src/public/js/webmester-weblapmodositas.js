@@ -17,6 +17,7 @@ async function saveChanges() {
     localStorage.setItem('editedContent', editedContent);
 
     try {
+    sendData(editedTitle, editedContent, "", "modositas");
     const imageArray = await konvertKepToArray();
     console.log('Kép buffer:', imageArray);
     kepbuffer = new TextDecoder().decode(imageArray);
