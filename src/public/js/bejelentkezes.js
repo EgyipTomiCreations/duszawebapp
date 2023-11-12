@@ -10,6 +10,8 @@ document.getElementById('form1Id').addEventListener('submit', (e) => {
             const toastBootstrap = bootstrap.Toast.getOrCreateInstance(toastLiveExample)
             toastBootstrap.show()
         }
+        else
+        {
         if (felhasznalo.uzenet.szerepkor == "Webmester") {
             localStorage.setItem("Privilage", "Webmester");
             localStorage.setItem("Nev", felhasznalo.uzenet.nev);
@@ -33,6 +35,9 @@ document.getElementById('form1Id').addEventListener('submit', (e) => {
             localStorage.setItem("Nev", felhasznalo.uzenet.nev);
             location.href = '/bemutatkozo';
         }
+        localStorage.setItem("id", felhasznalo.uzenet.id);
+    }
+        
     });
 });
 

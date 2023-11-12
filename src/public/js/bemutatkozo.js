@@ -60,7 +60,9 @@ function megjelenitCsapatok() {
 // Gomb kattintás eseménykezelője
 versenyGomb.addEventListener('click', () => {
     // Átirányítás a Verseny oldalra
-    window.location.href = '/verseny'; // Módosítsd az elérési utat az aktuális oldal elérési útjára
+    sendData();
+    window.location.href = '/verseny';
+
 });
 
 
@@ -76,4 +78,33 @@ function displayImage(kepbuffer) {
     // Az 'imageContainer' a kép megjelenítésére szolgáló konténer elem
     var imageContainer = document.getElementById('imageContainer');
     imageContainer.appendChild(imageElement);
+}
+
+function sendData() {
+    return new Promise((resolve, reject) => {
+        const kommunikaciosAdat = {};
+        kommunikaciosAdat.kategoria = "kitoltes";
+        kommunikaciosAdat.tipus = "inditas";
+        kommunikaciosAdat.versenyzoid = localStorage.getItem("id");
+        kommunikaciosAdat.kezdesiido = new Date();
+
+        const dataString = JSON.stringify({ data: kommunikaciosAdat });
+        const contentLength = dataString.length;
+
+        fetch('/adatKuldes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': contentLength.toString(),
+            },
+            body: dataString,
+        })
+        .then(response => response.json())
+        .then(uzenet => {
+            resolve(uzenet);
+        })
+        .catch(error => {
+            reject(error);
+        });
+    });
 }

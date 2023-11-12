@@ -1,7 +1,7 @@
 feladatCount = 0
 feladatNow = 1
 feladatarray = []
-megoldasValaszArray = [{}]
+megoldasValaszArray = []
 
 loadJury()
 
@@ -75,9 +75,10 @@ function loadJury(){
                 valasz = document.getElementById('valaszText')
                 id4.innerHTML = kevert
                 megoldasValaszArray.push({
-                    "megoldas" : feladatarray[feladatNow-1].split(' ')[3],
+                    "megoldas" : feladatarray[feladatNow-2].split(' ')[3],
                     "valasz" : valasz.value
                 });
+                valasz.value = "";
                 console.log(megoldasValaszArray);
                 if(feladatNow == feladatarray.length){
                     nextFeladat.disabled = 'true'
@@ -86,7 +87,14 @@ function loadJury(){
             }
         })
         
-
+        finishBtn.addEventListener('click', (e) => {
+            megoldasValaszArray.push({
+                "helyes" : feladatarray[feladatNow-1].split(' ')[3],
+                "adott" : valasz.value
+            });
+            console.log(megoldasValaszArray);
+            sendData();
+        })
 
 
 
@@ -94,6 +102,36 @@ function loadJury(){
     })
     .catch(error => {
         console.error(error);
+    });
+}
+
+function sendData() {
+    return new Promise((resolve, reject) => {
+        const kommunikaciosAdat = {};
+        kommunikaciosAdat.kategoria = "kitoltes";
+        kommunikaciosAdat.tipus = "lezaras";
+        kommunikaciosAdat.versenyzoid = localStorage.getItem("id");
+        kommunikaciosAdat.zarasido = new Date();
+        kommunikaciosAdat.valaszok = megoldasValaszArray;
+
+        const dataString = JSON.stringify({ data: kommunikaciosAdat });
+        const contentLength = dataString.length;
+
+        fetch('/adatKuldes', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Content-Length': contentLength.toString(),
+            },
+            body: dataString,
+        })
+        .then(response => response.json())
+        .then(uzenet => {
+            resolve(uzenet);
+        })
+        .catch(error => {
+            reject(error);
+        });
     });
 }
 

@@ -295,7 +295,7 @@ app.post('/adatKuldes', async (req, res) => {
     {
         if (kommunikaciosAdat.tipus == "inditas"){
             try {
-                const result = await kitoltesinditasAsync();
+                const result = await kitoltesinditasAsync(kommunikaciosAdat);
                 res.json(result);
             } catch (err) {
                 console.error(err);
@@ -305,7 +305,7 @@ app.post('/adatKuldes', async (req, res) => {
 
         if (kommunikaciosAdat.tipus == "lezaras"){
             try {
-                const result = await kitolteslezarasAsync();
+                const result = await kitolteslezarasAsync(kommunikaciosAdat);
                 res.json(result);
             } catch (err) {
                 console.error(err);
