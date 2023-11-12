@@ -2,11 +2,16 @@
 
 const studentAdderForm = document.getElementById("studentAdderForm");
 const newStudentAdderBtn = document.getElementById("newStudentAdderBtn");
+const teacherListObj = document.getElementById("teacherListUl")
 let studentCounter = 0
+let teacherCounter = 0
 
 loadTeacher()
 
+
 function loadTeacher(){
+    const teacherArray = []
+
     const kommunikaciosAdat = {};
     kommunikaciosAdat.kategoria = "felhasznalo";
     kommunikaciosAdat.tipus = "lekerdezes";
@@ -22,8 +27,25 @@ function loadTeacher(){
         body: dataString,
     })
     .then(response => response.json())
+
     .then(uzenet => {
         console.log(uzenet);
+        uzenet.forEach(element => {
+            if(element.szerepkor == "Tanár"){
+                teacherCounter++
+                if(teacherCounter > 0){
+                    const teacherListPlaceholder = document.getElementById('teacherListPlaceholder')
+                    teacherListPlaceholder.style.display = 'none'
+                }
+                console.log(element.nev)
+                const newTeacherListElem = document.createElement('li')
+                newTeacherListElem.className = 'list-group-item'
+                newTeacherListElem.style = "color: gray;"
+                newTeacherListElem.innerHTML = element.nev
+                teacherListObj.appendChild(newTeacherListElem)
+
+            }
+        });
     })
     .catch(error => {
         console.error(error);
@@ -42,9 +64,47 @@ document.getElementById('teacherCancelBtn').addEventListener('click', (e) => {
 })
 
 document.getElementById('registerTeacherForm').addEventListener('submit', (e) => {
-    console.log("Én csinálok is valamit, nem ugy mint trepak!")
     registerTeacher()
 })
+
+function registerTeam(){
+    const kommunikaciosAdat = {}
+        kommunikaciosAdat.kategoria = "csoport"
+        kommunikaciosAdat.tipus = "regisztracio"
+        kommunikaciosAdat.nev = document.getElementById('teamNameField').value,
+        kommunikaciosAdat.tag1id = document.getElementById('fullNameInputField1').value,
+        kommunikaciosAdat.tag2id = document.getElementById('fullNameInputField2').value,
+        kommunikaciosAdat.tag3id = document.getElementById('fullNameInputField3').value,
+        kommunikaciosAdat.leiras = document.getElementById('teamNoteField').value
+
+    const dataString = JSON.stringify({ data: kommunikaciosAdat });
+    const contentLength = dataString.length;
+    fetch('/adatKuldes', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            'Content-Length': contentLength.toString(),
+        },
+        body: dataString,
+    })
+    .then(response => response.json())
+    .then(uzenet => {
+        console.log(uzenet);
+        document.getElementById('teamNameField').innerHTML = ''
+        document.getElementById('fullNameInputField1').innerHTML = '',
+        document.getElementById('fullNameInputField2').innerHTML = '',
+        document.getElementById('fullNameInputField3').innerHTML = '',
+        document.getElementById('studentPasswordInput1').innerHTML = '',
+        document.getElementById('studentPasswordInput2').innerHTML = '',
+        document.getElementById('studentPasswordInput3').innerHTML = '',
+        document.getElementById('teamNoteField').innerHTML = ''
+
+        location.reload()
+    })
+    .catch(error => {
+        console.error(error);
+    });
+}
 
 
 function registerTeacher() {
@@ -68,6 +128,9 @@ function registerTeacher() {
     .then(response => response.json())
     .then(uzenet => {
         console.log(uzenet);
+        document.getElementById('setTeacherNameField').value = ''
+        document.getElementById('setTeacherPasswordField').value = ''
+        location.reload()
     })
     .catch(error => {
         console.error(error);
@@ -147,6 +210,7 @@ function registerJury() {
 if (newStudentAdderBtn){
     newStudentAdderBtn.addEventListener('click', () => {
         sendData();
+
         if(studentCounter < 3){
             studentCounter++
     
@@ -162,11 +226,22 @@ if (newStudentAdderBtn){
             const fullNameInput = document.createElement('input')
             fullNameInput.className = "form-control"
             fullNameInput.type = "text"
-            fullNameInput.id = "fullNameInputField"
+            fullNameInput.id = "fullNameInputField" + studentCounter
+            fullNameInput.required = 'true'
             fullNameInput.placeholder = "Teljes név"
             formOutlineMb4Div.appendChild(fullNameInput)
-        }else{
-            newStudentAdderBtn.disabled = true
+
+            const studentPasswordInput = document.createElement('input')
+            studentPasswordInput.className = "form-control"
+            studentPasswordInput.type = "text"
+            studentPasswordInput.style.marginTop = "10px"
+            studentPasswordInput.id = "studentPasswordInput" + studentCounter
+            studentPasswordInput.required = 'true'
+            studentPasswordInput.placeholder = "Jelszó beállítása"
+            formOutlineMb4Div.appendChild(studentPasswordInput)
+            if(studentCounter == 3){
+                newStudentAdderBtn.disabled = true
+            }
         }
     
     })
