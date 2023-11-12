@@ -4,6 +4,7 @@ const teacherListObj = document.getElementById("teacherListUl")
 const studentListObj = document.getElementById("studentListUl")
 const juryListObj = document.getElementById('juryListUl')
 let studentCounter = 0
+let studentCount = 0
 let teacherCounter = 0
 let juryCounter = 0
 
@@ -373,17 +374,17 @@ function registerTeam(){
     })
     .then(response => response.json())
     .then(uzenet => {
-        console.log(uzenet);
-        document.getElementById('teamNameField').innerHTML = ''
-        document.getElementById('fullNameInputField1').innerHTML = '',
-        document.getElementById('fullNameInputField2').innerHTML = '',
-        document.getElementById('fullNameInputField3').innerHTML = '',
-        document.getElementById('studentPasswordInput1').innerHTML = '',
-        document.getElementById('studentPasswordInput2').innerHTML = '',
-        document.getElementById('studentPasswordInput3').innerHTML = '',
-        document.getElementById('teamNoteField').innerHTML = ''
+        console.log("Ezután törölni kéne a fieldeket: ", uzenet);
+        document.getElementById('teamNameField').value = ''
+        document.getElementById('fullNameInputField1').value = '',
+        document.getElementById('fullNameInputField2').value = '',
+        document.getElementById('fullNameInputField3').value = '',
+        document.getElementById('studentPasswordInput1').value = '',
+        document.getElementById('studentPasswordInput2').value = '',
+        document.getElementById('studentPasswordInput3').value = '',
+        document.getElementById('teamNoteField').value = ''
         //ez itt egy comment
-        //location.reload()
+        location.reload()
     })
     .catch(error => {
         console.error(error);
@@ -509,13 +510,14 @@ function registerJury() {
 if (newStudentAdderBtn){
     newStudentAdderBtn.addEventListener('click', () => {
         sendData();
+        console.log(studentCount)
 
-        if(studentCounter < 3){
-            studentCounter++
+        if(studentCount < 3){
+            studentCount++
     
             const studentLabelP = document.createElement('p')
             studentLabelP.className = "fs-6"
-            studentLabelP.innerHTML = studentCounter + ". versenyző"
+            studentLabelP.innerHTML = studentCount + ". versenyző"
             studentAdderForm.appendChild(studentLabelP)
     
             const formOutlineMb4Div = document.createElement('div')
@@ -525,7 +527,7 @@ if (newStudentAdderBtn){
             const fullNameInput = document.createElement('input')
             fullNameInput.className = "form-control"
             fullNameInput.type = "text"
-            fullNameInput.id = "fullNameInputField" + studentCounter
+            fullNameInput.id = "fullNameInputField" + studentCount
             fullNameInput.required = 'true'
             fullNameInput.placeholder = "Teljes név"
             formOutlineMb4Div.appendChild(fullNameInput)
@@ -534,11 +536,11 @@ if (newStudentAdderBtn){
             studentPasswordInput.className = "form-control"
             studentPasswordInput.type = "text"
             studentPasswordInput.style.marginTop = "10px"
-            studentPasswordInput.id = "studentPasswordInput" + studentCounter
+            studentPasswordInput.id = "studentPasswordInput" + studentCount
             studentPasswordInput.required = 'true'
             studentPasswordInput.placeholder = "Jelszó beállítása"
             formOutlineMb4Div.appendChild(studentPasswordInput)
-            if(studentCounter == 3){
+            if(studentCount == 3){
                 newStudentAdderBtn.disabled = true
             }
         }

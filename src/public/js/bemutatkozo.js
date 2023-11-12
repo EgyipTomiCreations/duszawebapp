@@ -39,7 +39,7 @@ fetch('adatok.json')
 const versenyGomb = document.getElementById('versenyGomb');
 
 // Gomb aktiválása, ha elérkezett a verseny ideje
-const versenyIdeje = new Date('2023-11-12T24:00:00'); // Az aktuális dátumra és időpontra módosítsd
+const versenyIdeje = new Date('2023-11-12T23:04:00'); // Az aktuális dátumra és időpontra módosítsd
 const most = new Date();
 
 console.log('Most:', most);
